@@ -4,8 +4,9 @@ using UnityEngine.InputSystem;
 public class DeathCollision : MonoBehaviour
 {
     public PogoStickMovement pogoStickMovement;
-    public float shootSpeed = 50f;
-    public float rotationForce = 200f;
+    public float shootSpeed = 30f;
+    public float rotationForce = 20f;
+    public bool invertDirection = false;
 
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D parentRb;
@@ -29,14 +30,6 @@ public class DeathCollision : MonoBehaviour
             if (playerInput != null)
             {
                 chargeAction = playerInput.actions.FindAction("Charge");
-                if (chargeAction == null)
-                {
-                    Debug.LogError("Charge action not found in PlayerInput's actions.");
-                }
-            }
-            else
-            {
-                Debug.LogError("PlayerInput component not found on PogoStickMovement's GameObject.");
             }
         }
     }
@@ -87,22 +80,41 @@ public class DeathCollision : MonoBehaviour
 
     private void RunDeathFunction()
     {
-        spriteRenderer.color = Color.black;
+        spriteRenderer.color = Color.white;
 
         if (parentRb == null) return;
+
+        Collider2D[] currentColliders = transform.parent.GetComponentsInChildren<Collider2D>();
 
         parentRb.bodyType = RigidbodyType2D.Dynamic;
         parentRb.constraints = RigidbodyConstraints2D.None;
 
-        foreach (Collider2D col in allColliders)
+        foreach (Collider2D col in currentColliders)
         {
             col.enabled = false;
         }
 
-        float rotation = pogoStickMovement.player_rotation.eulerAngles.z;
-        Vector2 shootDirection = Quaternion.Euler(0, 0, rotation) * Vector2.right;
+        Vector2 shootDirection = GetShootDirection();
 
         parentRb.AddForce(shootDirection.normalized * shootSpeed, ForceMode2D.Impulse);
-        parentRb.AddTorque(rotationForce, ForceMode2D.Impulse);
+        parentRb.AddTorque(rotationForce * (invertDirection ? -1 : 1), ForceMode2D.Impulse);
+    }
+
+    private Vector2 GetShootDirection()
+    {
+        if (pogoStickMovement.player_rotation != null)
+        {
+            Vector3 baseDirection = Vector3.down;
+            Vector3 rotatedDirection = pogoStickMovement.player_rotation * baseDirection;
+
+            Vector2 direction = new Vector2(rotatedDirection.x, rotatedDirection.y);
+
+            float angle = pogoStickMovement.player_rotation.eulerAngles.z;
+            direction.y += Mathf.Sin(angle * Mathf.Deg2Rad) * 0.5f;
+
+            return invertDirection ? -direction : direction;
+        }
+
+        return invertDirection ? Vector2.left : Vector2.right;
     }
 }
