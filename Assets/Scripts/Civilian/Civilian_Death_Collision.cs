@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 public class DeathCollision : MonoBehaviour
 {
     public PogoStickMovement pogoStickMovement;
-    public float shootSpeed = 30f;
-    public float rotationForce = 20f;
+    public float shootSpeed = 30f; // Speed civilian is shot off screen
+    public float rotationForce = 20f; // Speed civilian rotates off screen
     public bool invertDirection = false;
 
     private SpriteRenderer spriteRenderer;
@@ -15,6 +15,7 @@ public class DeathCollision : MonoBehaviour
     private bool isCollidingWithPogo = false;
     private PlayerInput playerInput;
     private InputAction chargeAction;
+    private Rigidbody2D playerBody;
 
     void Start()
     {
@@ -23,6 +24,16 @@ public class DeathCollision : MonoBehaviour
         allColliders = transform.parent.GetComponentsInChildren<Collider2D>();
 
         InitializePhysics();
+
+        Transform playerTransform = transform.root.Find("Player");
+        if (playerTransform != null)
+        {
+            Transform bodyTransform = playerTransform.Find("Body");
+            if (bodyTransform != null)
+            {
+                playerBody = bodyTransform.GetComponent<Rigidbody2D>();
+            }
+        }
 
         if (pogoStickMovement != null)
         {
@@ -33,6 +44,7 @@ public class DeathCollision : MonoBehaviour
             }
         }
     }
+
 
     void InitializePhysics()
     {
@@ -95,9 +107,17 @@ public class DeathCollision : MonoBehaviour
         }
 
         Vector2 shootDirection = GetShootDirection();
+        Vector2 force = shootDirection.normalized * shootSpeed;
 
-        parentRb.AddForce(shootDirection.normalized * shootSpeed, ForceMode2D.Impulse);
+        // Apply force to civilian
+        parentRb.AddForce(force, ForceMode2D.Impulse);
         parentRb.AddTorque(rotationForce * (invertDirection ? -1 : 1), ForceMode2D.Impulse);
+
+        if (playerBody != null)
+        {
+            Vector2 recoilForce = -force * (1f / 4f); // 1/4th of the force recoiled back
+            playerBody.AddForce(recoilForce, ForceMode2D.Impulse);
+        }
     }
 
     private Vector2 GetShootDirection()
