@@ -10,12 +10,32 @@ public class PogoStickMovement : MonoBehaviour
     [SerializeField] private float leanSpeed = 90f; // Degrees per second while holding A/D
     [SerializeField] private float leanReturnSpeed = 45f; // Degrees per second when releasing A/D
     [SerializeField] private float maxLeanAngle = 30f; // Max lean angle in degrees
+    [SerializeField] private float compressAmount = .5f;
+    [SerializeField] private float compressSpeed = 5f;
+    [SerializeField] private float compressReturnSpeed = 10f;
+    [SerializeField] private float minLocalY = -0.5f;
+    [SerializeField] public float Health = 3;
 
     [Header("References")]
     [SerializeField] private Transform pivot; // Pivot at player's feet
     [SerializeField] private Transform groundCheck;
+    [SerializeField] public GameObject body;
+    [SerializeField] public GameObject HobsBody;
     [SerializeField] private float groundRadius = 0.1f;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] public Transform Spawn;
+    [SerializeField] private Collider2D BodColl;
+    [SerializeField] public bool hasBread;
+
+    [Header("Crash Settings")]
+    [SerializeField] private float crashDuration = 1f;
+    [SerializeField] private float respawnHeight = 2f;
+    [SerializeField] private float crashVelocityThreshold = -5f;
+    [SerializeField] private ParticleSystem crashParticles;
+
+    private bool isCrashing = false;
+    private float crashTimer;
+    private Vector2 crashPosition;
 
     private float charge = 0f;
     private bool isCharging = false;
@@ -23,6 +43,7 @@ public class PogoStickMovement : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerController playerControls;
     private bool wasGrounded; // Track previous frame's grounded state
+    [SerializeField] private Vector3 initialLocalPos;
 
     // Track lean input states
     private bool isLeaningLeft = false;
@@ -35,8 +56,10 @@ public class PogoStickMovement : MonoBehaviour
 
     void Awake()
     {
+        initialLocalPos = body.transform.localPosition;
         rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
+        sr = body.GetComponent<SpriteRenderer>();
+        BodColl = body.GetComponent<Collider2D>();
         playerControls = new PlayerController();
     }
 
@@ -65,7 +88,9 @@ public class PogoStickMovement : MonoBehaviour
     void Update()
     {
         HandleLeaning();
+        HandleBread();
         HandleCharge();
+        HandleCrash();
         UpdatePivotPosition();
         ResetMomentumOnLanding();
     }
@@ -73,11 +98,17 @@ public class PogoStickMovement : MonoBehaviour
     // --- Input Handlers ---
     void OnChargeStart(InputAction.CallbackContext context)
     {
-        if (IsGrounded()) isCharging = true;
+
+
+        if (IsGrounded())
+        {
+            isCharging = true;
+        }
     }
 
     void OnChargeRelease(InputAction.CallbackContext context)
     {
+
         if (isCharging)
         {
             isCharging = false;
@@ -115,7 +146,7 @@ public class PogoStickMovement : MonoBehaviour
         else
         {
             // Return to upright only if neither key is pressed
-            if (!isLeaningLeft && !isLeaningRight)
+            if (!isLeaningLeft && !isLeaningRight && !isCrashing)
             {
                 sr.sprite = spriteUp;
                 currentLeanAngle = Mathf.MoveTowards(currentLeanAngle, 0f, leanReturnSpeed * Time.deltaTime);
@@ -144,11 +175,39 @@ public class PogoStickMovement : MonoBehaviour
     void HandleCharge()
     {
         if (isCharging)
+        {
+            // Move the body downward (local Y axis) during charge
+            float newY = Mathf.MoveTowards(
+                body.transform.localPosition.y,
+                initialLocalPos.y + minLocalY, // Target compressed position
+                compressSpeed * Time.deltaTime
+            );
+
+            body.transform.localPosition = new Vector3(
+                initialLocalPos.x,
+                newY,
+                initialLocalPos.z
+            );
+
             charge = Mathf.Min(charge + chargeSpeed * Time.deltaTime, maxCharge);
+            //body.transform.position = MoveTowardsVector3(body.transform.position, targetCompress, compressSpeed * Time.deltaTime);
+        }
+        else
+        {
+            // Return to the original local position
+            body.transform.localPosition = Vector3.MoveTowards(
+                body.transform.localPosition,
+                initialLocalPos,
+                compressReturnSpeed * Time.deltaTime
+            );
+        }
     }
 
     void Jump()
     {
+        //body.transform.position = MoveTowardsVector3(body.transform.position, origionalBody.position, compressReturnSpeed * Time.deltaTime);
+
+
         if (!IsGrounded()) return;
 
         // Calculate jump direction based on lean angle
@@ -169,6 +228,11 @@ public class PogoStickMovement : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
 
         wasGrounded = isGrounded;
+
+        if (!isCrashing && IsGrounded() && !wasGrounded)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
     }
 
     void UpdatePivotPosition()
@@ -184,9 +248,97 @@ public class PogoStickMovement : MonoBehaviour
         return Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
     }
 
-    void OnDrawGizmos()
+    public void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+    }
+
+
+    void HandleCrash()
+    {
+        // Only check collisions using body's collider
+        if (!isCrashing && BodColl.IsTouchingLayers(groundLayer))
+        {
+            StartCrash();
+        }
+
+        if (isCrashing)
+        {
+            crashTimer += Time.deltaTime;
+
+            if (crashTimer >= crashDuration)
+            {
+                EndCrash();
+            }
+        }
+
+        wasGrounded = IsGrounded();
+    }
+
+    public void StartCrash()
+    {
+        isCrashing = true;
+        Health--;
+        crashTimer = 0f;
+        crashPosition = transform.position;
+
+        // Freeze all movement
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        playerControls.Disable();
+
+        // Visual feedback
+        if (crashParticles != null)
+        {
+            crashParticles.transform.position = crashPosition;
+            crashParticles.Play();
+        }
+        sr.color = new Color(1, 0.5f, 0.5f); // Orange tint
+    }
+
+    public void EndCrash()
+    {
+        isCrashing = false;
+
+        // Respawn above crash position
+        Vector2 respawnPos = crashPosition + Vector2.up * respawnHeight;
+        transform.position = respawnPos;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        currentLeanAngle = 0;
+
+        // Restore physics
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.linearVelocity = Vector2.zero;
+
+        // Reset visuals
+        sr.color = Color.white;
+        if (crashParticles != null) crashParticles.Stop();
+
+        // Re-enable controls
+        playerControls.Enable();
+    }
+
+    void HandleBread()
+    {
+        if (hasBread)
+        {
+            sr.flipX = true;
+            HobsBody.GetComponent<SpriteRenderer>().flipX = true;
+
+        }
+        else if (!hasBread)
+        {
+            sr.flipX = false;
+            HobsBody.GetComponent<SpriteRenderer>().flipX = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("bread"))
+        {
+            hasBread = true;
+            Destroy(collision.gameObject);
+        }
     }
 }
