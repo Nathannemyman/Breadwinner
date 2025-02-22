@@ -33,11 +33,27 @@ public class PogoStickMovement : MonoBehaviour
     public Sprite spriteRight;
     private SpriteRenderer sr;
 
+    public bool civilain_can_die = false;
+
+    private static PogoStickMovement _instance;
+    public static PogoStickMovement Instance 
+    {
+        get { return _instance; }
+        private set { _instance = value; }
+    }
+
+    public Quaternion player_rotation // Meant to reference the player rotation for external use
+    {
+        get { return transform.rotation; }
+    }
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         playerControls = new PlayerController();
+
+        Instance = this;
     }
 
     void OnEnable()
@@ -68,6 +84,7 @@ public class PogoStickMovement : MonoBehaviour
         HandleCharge();
         UpdatePivotPosition();
         ResetMomentumOnLanding();
+
     }
 
     // --- Input Handlers ---
@@ -82,7 +99,14 @@ public class PogoStickMovement : MonoBehaviour
         {
             isCharging = false;
             Jump();
+            // Reset after 1 second
+            //Invoke(nameof(CivilianCannotDie), 1f);
         }
+    }
+
+    void CivilianCannotDie()
+    {
+        civilain_can_die = false;
     }
 
     // --- Leaning Logic ---
@@ -150,7 +174,7 @@ public class PogoStickMovement : MonoBehaviour
     void Jump()
     {
         if (!IsGrounded()) return;
-
+        
         // Calculate jump direction based on lean angle
         float leanDirection = currentLeanAngle / maxLeanAngle; // Normalize to [-1, 1]
         Vector2 jumpDirection = (Vector2)(pivot.up + pivot.right * leanDirection).normalized;
