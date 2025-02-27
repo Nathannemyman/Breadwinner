@@ -3,10 +3,11 @@ using UnityEngine.InputSystem;
 
 public class DeathCollision : MonoBehaviour
 {
-    public PogoStickMovement pogoStickMovement;
     public float shootSpeed = 30f; // Speed civilian is shot off screen
     public float rotationForce = 20f; // Speed civilian rotates off screen
     public bool invertDirection = false;
+
+    private PogoStickMovement pogoStickMovement;
 
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D parentRb;
@@ -25,25 +26,35 @@ public class DeathCollision : MonoBehaviour
 
         InitializePhysics();
 
-        Transform playerTransform = transform.root.Find("Player");
-        if (playerTransform != null)
+        // Find the player and PogoStickMovement at runtime (because Civilain is a prefab)
+        FindPlayerReferences();
+    }
+
+    void FindPlayerReferences()
+    {
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObj != null)
         {
-            Transform bodyTransform = playerTransform.Find("Body");
+            Transform bodyTransform = playerObj.transform.Find("Body");
+
             if (bodyTransform != null)
             {
+                pogoStickMovement = bodyTransform.GetComponent<PogoStickMovement>();
                 playerBody = bodyTransform.GetComponent<Rigidbody2D>();
-            }
-        }
 
-        if (pogoStickMovement != null)
-        {
-            playerInput = pogoStickMovement.GetComponent<PlayerInput>();
-            if (playerInput != null)
-            {
-                chargeAction = playerInput.actions.FindAction("Charge");
+                if (pogoStickMovement != null)
+                {
+                    playerInput = pogoStickMovement.GetComponent<PlayerInput>();
+                    if (playerInput != null)
+                    {
+                        chargeAction = playerInput.actions.FindAction("Charge");
+                    }
+                }
             }
         }
     }
+
 
 
     void InitializePhysics()
