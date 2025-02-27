@@ -58,6 +58,8 @@ public class PogoStickMovement : MonoBehaviour
     public Sprite spriteLeft;
     public Sprite spriteRight;
     private SpriteRenderer sr;
+    private float BodCollOffset;
+    private Vector2 currentOffset;
 
     //Added code from Adam
     private static PogoStickMovement _instance;
@@ -76,9 +78,10 @@ public class PogoStickMovement : MonoBehaviour
         initialLocalPos = body.transform.localPosition;
         rb = GetComponent<Rigidbody2D>();
         sr = HobsBody.GetComponent<SpriteRenderer>();
-        BodColl = body.GetComponent<Collider2D>();
+        BodColl = HobsBody.GetComponent<Collider2D>();
         playerControls = new PlayerController();
-
+        BodCollOffset = BodColl.offset.x;
+        currentOffset = BodColl.offset;
         rb.centerOfMass = pivot.localPosition;
     }
 
@@ -364,6 +367,8 @@ public class PogoStickMovement : MonoBehaviour
         {
             flipped = true;
             sr.flipX = true;
+            currentOffset.x = -BodCollOffset;
+            BodColl.offset = currentOffset;
             HobsBody.GetComponent<SpriteRenderer>().flipX = true;
 
         }
@@ -371,6 +376,8 @@ public class PogoStickMovement : MonoBehaviour
         {
             flipped = false;
             sr.flipX = false;
+            currentOffset.x = BodCollOffset;
+            BodColl.offset = currentOffset;
             HobsBody.GetComponent<SpriteRenderer>().flipX = false;
         }
     }
