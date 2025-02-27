@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: dd29328db25b25e4a9a0f097e0128d25
+guid: fbd2a0f99ccd42549af1dfc412621619
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3958147610884623930
-    second: Breadwinner_ElPogo_StickPart_0
+      213: 4106759726452852648
+    second: Breadwinner_Hopkins_Back_Show_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Breadwinner_ElPogo_StickPart_0
+      name: Breadwinner_Hopkins_Back_Show_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 5
-        width: 32
-        height: 175
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 51
+        y: 111
+        width: 158
+        height: 194
+      alignment: 9
+      pivot: {x: 0.8, y: 0.45}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a3ec65be74a2ee630800000000000000
-      internalID: 3958147610884623930
+      spriteID: 8a74a1176342ef830800000000000000
+      internalID: 4106759726452852648
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b553474ac2ac628499d1f59ea830b062
+    spriteID: 0f9a4a7ea105baa408cf8cec147bccd5
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Breadwinner_ElPogo_StickPart_0: 3958147610884623930
+      Breadwinner_Hopkins_Back_Show_0: 4106759726452852648
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

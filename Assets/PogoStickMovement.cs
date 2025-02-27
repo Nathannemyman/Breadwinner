@@ -4,6 +4,10 @@ using UnityEngine.InputSystem;
 public class PogoStickMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
+    [SerializeField] public float leanTorque = 50f;
+    [SerializeField] public float gravityTorque = 10f;
+    [SerializeField] public float uprightThreshold = 10f;
+    [SerializeField] public float gravityStrength = 50f;
     [SerializeField] private float chargeSpeed = 5f;
     [SerializeField] private float maxCharge = 10f;
     [SerializeField] private float jumpForce = 15f;
@@ -36,13 +40,14 @@ public class PogoStickMovement : MonoBehaviour
     private bool isCrashing = false;
     private float crashTimer;
     private Vector2 crashPosition;
+    private bool flipped = false; //checks if sprite is flipped after getting bread
 
     private float charge = 0f;
     private bool isCharging = false;
     private float currentLeanAngle = 0f; // Current lean angle (positive = right, negative = left)
     private Rigidbody2D rb;
     private PlayerController playerControls;
-    private bool wasGrounded; // Track previous frame's grounded state
+    [SerializeField] private bool wasGrounded = false; // Track previous frame's grounded state
     [SerializeField] private Vector3 initialLocalPos;
 
     // Track lean input states
@@ -54,13 +59,27 @@ public class PogoStickMovement : MonoBehaviour
     public Sprite spriteRight;
     private SpriteRenderer sr;
 
+    //Added code from Adam
+    private static PogoStickMovement _instance;
+    public static PogoStickMovement Instance
+    {
+        get { return _instance; }
+        private set { _instance = value; }
+    }
+    public Quaternion player_rotation // Meant to reference the player rotation for external use
+    {
+        get { return transform.rotation; }
+    }
+
     void Awake()
     {
         initialLocalPos = body.transform.localPosition;
         rb = GetComponent<Rigidbody2D>();
-        sr = body.GetComponent<SpriteRenderer>();
+        sr = HobsBody.GetComponent<SpriteRenderer>();
         BodColl = body.GetComponent<Collider2D>();
         playerControls = new PlayerController();
+
+        rb.centerOfMass = pivot.localPosition;
     }
 
     void OnEnable()
@@ -85,30 +104,31 @@ public class PogoStickMovement : MonoBehaviour
         playerControls.Player.Charge.canceled -= OnChargeRelease;
     }
 
+    private void FixedUpdate()
+    {
+        //ResetMomentumOnLanding();
+    }
+
     void Update()
     {
         HandleLeaning();
         HandleBread();
         HandleCharge();
-        HandleCrash();
-        UpdatePivotPosition();
         ResetMomentumOnLanding();
+        HandleCrash();
+
     }
 
     // --- Input Handlers ---
     void OnChargeStart(InputAction.CallbackContext context)
     {
+        isCharging = true;
 
-
-        if (IsGrounded())
-        {
-            isCharging = true;
-        }
     }
 
     void OnChargeRelease(InputAction.CallbackContext context)
     {
-
+        rb.constraints = RigidbodyConstraints2D.None;
         if (isCharging)
         {
             isCharging = false;
@@ -128,30 +148,54 @@ public class PogoStickMovement : MonoBehaviour
         }
         else if (isLeaningLeft)
         {
-            sr.sprite = spriteLeft;
+            if (!flipped)
+            {
+                sr.sprite = spriteLeft;
+            }
+            else
+            {
+                sr.sprite = spriteRight;
+            }
             leanInput = -1f;
         }
         else if (isLeaningRight)
         {
-            sr.sprite = spriteRight;
+            if (!flipped)
+            {
+                sr.sprite = spriteRight;
+            }
+            else
+            {
+                sr.sprite = spriteLeft;
+            }
             leanInput = 1f;
         }
 
         if (leanInput != 0)
         {
-            // Accumulate lean angle
+            // Accumulate lean angle (input-driven)
             currentLeanAngle += leanInput * leanSpeed * Time.deltaTime;
-            currentLeanAngle = Mathf.Clamp(currentLeanAngle, -maxLeanAngle, maxLeanAngle);
         }
-        else
+        else if (!isLeaningLeft && !isLeaningRight && !isCrashing)
         {
-            // Return to upright only if neither key is pressed
-            if (!isLeaningLeft && !isLeaningRight && !isCrashing)
+            sr.sprite = spriteUp;
+            // Apply gravity or return to upright
+            if (Mathf.Abs(currentLeanAngle) > uprightThreshold)
             {
-                sr.sprite = spriteUp;
+                // Apply gravity-based angular acceleration
+                float angleRad = currentLeanAngle * Mathf.Deg2Rad;
+                float gravityTorque = Mathf.Sin(angleRad) * gravityStrength;
+                currentLeanAngle += gravityTorque * Time.deltaTime;
+            }
+            else
+            {
+                // Return to upright position
                 currentLeanAngle = Mathf.MoveTowards(currentLeanAngle, 0f, leanReturnSpeed * Time.deltaTime);
             }
         }
+
+        // Clamp the angle to prevent over-leaning
+        currentLeanAngle = Mathf.Clamp(currentLeanAngle, -maxLeanAngle, maxLeanAngle);
 
         // Apply rotation to the pivot and player
         RotatePlayerAroundPivot();
@@ -221,27 +265,23 @@ public class PogoStickMovement : MonoBehaviour
     // --- Ground Handling ---
     void ResetMomentumOnLanding()
     {
-        bool isGrounded = IsGrounded();
-
         // Reset velocity when landing
-        if (isGrounded && !wasGrounded)
+        if (IsGrounded() && !wasGrounded)
+        {
             rb.linearVelocity = Vector2.zero;
+            //rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        }
 
-        wasGrounded = isGrounded;
+        wasGrounded = IsGrounded();
 
         if (!isCrashing && IsGrounded() && !wasGrounded)
         {
             rb.linearVelocity = Vector2.zero;
+            //rb.constraints = RigidbodyConstraints2D.FreezePosition;
         }
     }
 
-    void UpdatePivotPosition()
-    {
-        // Keep pivot at player's feet
-        Vector2 feetPosition = (Vector2)transform.position;
-        pivot.position = feetPosition;
-        groundCheck.position = feetPosition;
-    }
+
 
     bool IsGrounded()
     {
@@ -322,12 +362,14 @@ public class PogoStickMovement : MonoBehaviour
     {
         if (hasBread)
         {
+            flipped = true;
             sr.flipX = true;
             HobsBody.GetComponent<SpriteRenderer>().flipX = true;
 
         }
         else if (!hasBread)
         {
+            flipped = false;
             sr.flipX = false;
             HobsBody.GetComponent<SpriteRenderer>().flipX = false;
         }
