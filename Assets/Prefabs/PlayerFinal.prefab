@@ -184,6 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1536740722607668097}
   - component: {fileID: 7992102002620405019}
+  - component: {fileID: 6929255238015341813}
   m_Layer: 0
   m_Name: HopsBody
   m_TagString: Untagged
@@ -261,6 +262,43 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!70 &6929255238015341813
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2858495776589476760}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.255, y: 0}
+  m_Size: {x: 1.02, y: 1.82}
+  m_Direction: 0
 --- !u!1 &2944561756679999710
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,13 +601,13 @@ MonoBehaviour:
   leanTorque: 50
   gravityTorque: 10
   uprightThreshold: 10
-  gravityStrength: 75
+  gravityStrength: 100
   chargeSpeed: 7
   maxCharge: 5
   jumpForce: 5
   leanSpeed: 90
   leanReturnSpeed: 45
-  maxLeanAngle: 90
+  maxLeanAngle: 120
   compressAmount: 0.5
   compressSpeed: 5
   compressReturnSpeed: 10
