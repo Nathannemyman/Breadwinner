@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MovementTestScene.unity
-    guid: 138b828fd165bc249807cff6be75f67b
+    path: Assets/Scenes/ChrisTestScene.unity
+    guid: 7f978787d785ed445972887d3a33bbf1
   - enabled: 1
     path: Assets/Scenes/WinScene.unity
     guid: 7bc9040b870ea504b825b7fbaf999bb5
