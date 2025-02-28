@@ -6,9 +6,12 @@ public class Civilian_Movement : MonoBehaviour
     private float speed;
     private bool isMoving = true;
     private const float check_movement_interval = 3f;
+    private Animator animator;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
+
         speed = Random.Range(1f, 5f);
         StartCoroutine(Movement_Stops_Routine());
     }
@@ -18,6 +21,7 @@ public class Civilian_Movement : MonoBehaviour
         if (isMoving)
         {
             transform.position += Vector3.left * speed * Time.deltaTime;
+            animator.speed = 1; // resume animation
         }
     }
     IEnumerator Movement_Stops_Routine()
@@ -29,6 +33,7 @@ public class Civilian_Movement : MonoBehaviour
             if (Random.Range(0f, 1f) < 0.4f)
             {
                 isMoving = false;
+                animator.speed = 0; // pause animation
                 yield return new WaitForSeconds(3f);
                 isMoving = true;
             }

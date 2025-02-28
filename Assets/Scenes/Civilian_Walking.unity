@@ -288,7 +288,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 3869435998034926941, guid: f34722ed834cf614085cf0ea6f6aeb2e, type: 3}
   spawnInterval: 10
   targetCamera: {fileID: 258261285}
-  ySpawnLevel: -2.55
+  ySpawnLevel: -1.26
   offscreenOffset: 10
 --- !u!1 &258261283
 GameObject:
@@ -353,7 +353,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 16.5
+  orthographic size: 11.22
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -539,7 +539,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 16.5
+    OrthographicSize: 11.22
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -931,11 +931,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8252674932941882281, guid: 058eeb8993320c94691f7092bf72a667, type: 3}
       propertyPath: m_Color.b
-      value: 0.46855342
+      value: 0.103773475
       objectReference: {fileID: 0}
     - target: {fileID: 8252674932941882281, guid: 058eeb8993320c94691f7092bf72a667, type: 3}
       propertyPath: m_Color.g
-      value: 0.92436975
+      value: 0.66371137
       objectReference: {fileID: 0}
     - target: {fileID: 8252674932941882281, guid: 058eeb8993320c94691f7092bf72a667, type: 3}
       propertyPath: m_Color.r

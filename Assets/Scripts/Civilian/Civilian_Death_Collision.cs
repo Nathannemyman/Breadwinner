@@ -17,6 +17,7 @@ public class DeathCollision : MonoBehaviour
     private PlayerInput playerInput;
     private InputAction chargeAction;
     private Rigidbody2D playerBody;
+    private Animator civilianAnimator;
 
     void Start()
     {
@@ -28,6 +29,8 @@ public class DeathCollision : MonoBehaviour
 
         // Find the player and PogoStickMovement at runtime (because Civilain is a prefab)
         FindPlayerReferences();
+
+        civilianAnimator = transform.parent.GetComponent<Animator>();
     }
 
     void FindPlayerReferences()
@@ -103,8 +106,6 @@ public class DeathCollision : MonoBehaviour
 
     private void RunDeathFunction()
     {
-        spriteRenderer.color = Color.white;
-
         if (parentRb == null) return;
 
         Collider2D[] currentColliders = transform.parent.GetComponentsInChildren<Collider2D>();
@@ -128,6 +129,11 @@ public class DeathCollision : MonoBehaviour
         {
             Vector2 recoilForce = -force * (1f / 4f); // 1/4th of the force recoiled back
             playerBody.AddForce(recoilForce, ForceMode2D.Impulse);
+        }
+
+        if (civilianAnimator != null)
+        {
+            civilianAnimator.speed = 0; // pause animation
         }
     }
 

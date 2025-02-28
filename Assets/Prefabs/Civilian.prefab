@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7276560836134438709}
   - component: {fileID: 2434568648726347975}
   - component: {fileID: 4083664137745717098}
+  - component: {fileID: 8612848430888542531}
   m_Layer: 0
   m_Name: Civilian
   m_TagString: Untagged
@@ -28,9 +29,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3869435998034926941}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.5494976, y: -5.9071856, z: 0.14001884}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.275, y: -5.1579, z: 0.14001884}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 257585962827864206}
@@ -80,8 +81,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 05cbefb37dc82254eb1ed40e278bf361, type: 3}
-  m_Color: {r: 1, g: 0.12045357, b: 0, a: 1}
+  m_Sprite: {fileID: -2760747109937537746, guid: 1aba0e7e74225944197cdf2a5c112053, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -152,8 +153,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 1}
-  m_Size: {x: 1, y: 2}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.3, y: 0.78}
   m_Direction: 0
 --- !u!114 &4083664137745717098
 MonoBehaviour:
@@ -167,6 +168,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b09eead22e099e2498c45c7d38f044ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &8612848430888542531
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869435998034926941}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3b8eabbff1b5d244eb5529476414d980, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4894720321062444976
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,8 +219,8 @@ Transform:
   m_GameObject: {fileID: 4894720321062444976}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.016, y: 1.0534, z: 0}
-  m_LocalScale: {x: 1.2068349, y: 2.0668473, z: 1}
+  m_LocalPosition: {x: 0.0194, y: 0.1187, z: 0}
+  m_LocalScale: {x: 0.32544544, y: 0.6148229, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7830618118856957296}
@@ -247,7 +270,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.4862745}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -315,7 +338,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8a722742103724f9ca7a9c38bd8e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pogoStickMovement: {fileID: 0}
   shootSpeed: 50
   rotationForce: 200
   invertDirection: 0
