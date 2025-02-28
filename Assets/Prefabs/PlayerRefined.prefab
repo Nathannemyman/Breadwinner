@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chargeSpeed: 7
   maxCharge: 5
-  jumpForce: 5
+  jumpForce: 3
   leanSpeed: 90
   leanReturnSpeed: 45
   maxLeanAngle: 90

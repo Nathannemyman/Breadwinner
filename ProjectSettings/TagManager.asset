@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - Bread
   - bread
   layers:
   - Default
@@ -39,6 +40,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: New Layer 2
+    uniqueID: 2468266689
+    locked: 0
+  - name: BG
+    uniqueID: 2178692905
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
