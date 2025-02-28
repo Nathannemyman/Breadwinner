@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WinScene.unity
     guid: 7bc9040b870ea504b825b7fbaf999bb5
+  - enabled: 1
+    path: Assets/Scenes/BreadBuyingMenu.unity
+    guid: 3a0e36589928d4a23bd3b4f96303741c
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f58f923c045c3fd47af15d20e7ee81aa, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 78eca2888baccd44784197793d3c16d5, type: 3}

@@ -21,6 +21,8 @@ public class PlayerCurrencyManager : MonoBehaviour
         {
             playerCurrency -= itemCost;
             UpdateCurrencyUI();
+            GameManager.Instance.HasBread = true;
+            GameManager.Instance.CloseShop();
             Debug.Log("Purchase successful! Remaining Currency: " + playerCurrency);
         }
         else

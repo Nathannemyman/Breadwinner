@@ -39,20 +39,15 @@ public class DeathCollision : MonoBehaviour
 
         if (playerObj != null)
         {
-            Transform bodyTransform = playerObj.transform.Find("Body");
+            pogoStickMovement = playerObj.GetComponent<PogoStickMovement>();
+            playerBody = playerObj.GetComponent<Rigidbody2D>();
 
-            if (bodyTransform != null)
+            if (pogoStickMovement != null)
             {
-                pogoStickMovement = bodyTransform.GetComponent<PogoStickMovement>();
-                playerBody = bodyTransform.GetComponent<Rigidbody2D>();
-
-                if (pogoStickMovement != null)
+                playerInput = pogoStickMovement.GetComponent<PlayerInput>();
+                if (playerInput != null)
                 {
-                    playerInput = pogoStickMovement.GetComponent<PlayerInput>();
-                    if (playerInput != null)
-                    {
-                        chargeAction = playerInput.actions.FindAction("Charge");
-                    }
+                    chargeAction = playerInput.actions.FindAction("Charge");
                 }
             }
         }
@@ -135,6 +130,8 @@ public class DeathCollision : MonoBehaviour
         {
             civilianAnimator.speed = 0; // pause animation
         }
+
+        GameManager.Instance.Money += 15;
     }
 
     private Vector2 GetShootDirection()

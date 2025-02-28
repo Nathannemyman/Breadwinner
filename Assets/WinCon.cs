@@ -14,7 +14,7 @@ public class WinCon : MonoBehaviour
     {
         if (collision.TryGetComponent(out PogoStickMovement player))
         {
-            if (player.hasBread)
+            if (GameManager.Instance.HasBread)
             {
                 GameWon = true;
                 onGameWin?.Invoke();

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bread
   - bread
+  - Civ
   layers:
   - Default
   - TransparentFX

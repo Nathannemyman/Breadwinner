@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -83,6 +84,10 @@ public class PogoStickMovement : MonoBehaviour
         BodCollOffset = BodColl.offset.x;
         currentOffset = BodColl.offset;
         rb.centerOfMass = pivot.localPosition;
+    }
+
+    void Start() {
+       GameManager.Instance.HasBread = false; 
     }
 
     void OnEnable()
@@ -363,7 +368,7 @@ public class PogoStickMovement : MonoBehaviour
 
     void HandleBread()
     {
-        if (hasBread)
+        if (GameManager.Instance.HasBread)
         {
             flipped = true;
             sr.flipX = true;
@@ -372,7 +377,7 @@ public class PogoStickMovement : MonoBehaviour
             HobsBody.GetComponent<SpriteRenderer>().flipX = true;
 
         }
-        else if (!hasBread)
+        else if (!GameManager.Instance.HasBread)
         {
             flipped = false;
             sr.flipX = false;
@@ -384,10 +389,9 @@ public class PogoStickMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("bread"))
-        {
-            hasBread = true;
-            Destroy(collision.gameObject);
+        if (collision.CompareTag("bread") && !GameManager.Instance.ShopOpen) {
+            GameManager.Instance.OpenShop();
+            collision.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }
