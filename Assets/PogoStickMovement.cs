@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PogoStickMovement : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PogoStickMovement : MonoBehaviour
     [SerializeField] private float compressReturnSpeed = 10f;
     [SerializeField] private float minLocalY = -0.5f;
     [SerializeField] public float Health = 3;
+
 
     [Header("References")]
     [SerializeField] private Transform pivot; // Pivot at player's feet
@@ -32,6 +34,11 @@ public class PogoStickMovement : MonoBehaviour
     [SerializeField] private float respawnHeight = 2f;
     [SerializeField] private float crashVelocityThreshold = -5f;
     [SerializeField] private ParticleSystem crashParticles;
+    [SerializeField] private AudioClip chargeReleaseSFX;
+    [SerializeField] private AudioClip chargeStartSFX;
+    [SerializeField] private AudioClip chargeHoldSFX;
+    private AudioSource audioSource;
+    
 
     private bool isCrashing = false;
     private float crashTimer;
@@ -61,6 +68,7 @@ public class PogoStickMovement : MonoBehaviour
         sr = body.GetComponent<SpriteRenderer>();
         BodColl = body.GetComponent<Collider2D>();
         playerControls = new PlayerController();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void OnEnable()
@@ -94,7 +102,16 @@ public class PogoStickMovement : MonoBehaviour
         UpdatePivotPosition();
         ResetMomentumOnLanding();
     }
-
+    IEnumerator ChargingSFX()
+    {
+        audioSource.clip = chargeStartSFX;
+        audioSource.loop = false; //play the starting sfx once
+        audioSource.Play();
+        yield return new WaitForSeconds(chargeStartSFX.length);
+        audioSource.clip = chargeHoldSFX;
+        audioSource.loop = true; //loop the charge hold sound effect
+        audioSource.Play();
+    }
     // --- Input Handlers ---
     void OnChargeStart(InputAction.CallbackContext context)
     {
@@ -103,6 +120,7 @@ public class PogoStickMovement : MonoBehaviour
         if (IsGrounded())
         {
             isCharging = true;
+            StartCoroutine(ChargingSFX());
         }
     }
 
@@ -112,6 +130,8 @@ public class PogoStickMovement : MonoBehaviour
         if (isCharging)
         {
             isCharging = false;
+            audioSource.Stop(); //stops the loop
+            AudioSource.PlayClipAtPoint(chargeReleaseSFX, transform.position);
             Jump();
         }
     }
@@ -176,6 +196,7 @@ public class PogoStickMovement : MonoBehaviour
     {
         if (isCharging)
         {
+            //AudioSource.PlayOneShot(chargeStartSFX, 0.7F);
             // Move the body downward (local Y axis) during charge
             float newY = Mathf.MoveTowards(
                 body.transform.localPosition.y,

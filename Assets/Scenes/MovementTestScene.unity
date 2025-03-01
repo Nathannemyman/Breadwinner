@@ -719,6 +719,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerRefined
       objectReference: {fileID: 0}
+    - target: {fileID: 7220709302192878902, guid: fd201e4ef1c4a554b9721486b9cff451, type: 3}
+      propertyPath: chargeStartSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 318cde1cf87e01546940381ae12010ea, type: 3}
+    - target: {fileID: 7220709302192878902, guid: fd201e4ef1c4a554b9721486b9cff451, type: 3}
+      propertyPath: chargeReleaseSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: eb82440480c24e245bba2f20387f96b6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
