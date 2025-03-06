@@ -838,12 +838,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 602662843329887941, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
+      propertyPath: leanSpeed
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 602662843329887941, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
       propertyPath: maxCharge
-      value: 3
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 602662843329887941, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
+      propertyPath: chargeSpeed
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 990843212772134925, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
       propertyPath: m_GravityScale
       value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119921462770768680, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
+      propertyPath: m_Size.y
+      value: 2.9
       objectReference: {fileID: 0}
     - target: {fileID: 3952915635587110306, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
       propertyPath: m_LocalPosition.x
