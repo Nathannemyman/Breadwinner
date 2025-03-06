@@ -13,8 +13,7 @@ public class PogoStickMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 15f;
     [SerializeField] private float leanSpeed = 90f; // Degrees per second while holding A/D
     [SerializeField] private float leanReturnSpeed = 45f; // Degrees per second when releasing A/D
-    [SerializeField] private float maxLeanAngle = 30f; // Max lean angle in degrees
-    [SerializeField] private float compressAmount = .5f;
+    //[SerializeField] private float maxLeanAngle = 30f; // Max lean angle in degrees
     [SerializeField] private float compressSpeed = 5f;
     [SerializeField] private float compressReturnSpeed = 10f;
     [SerializeField] private float minLocalY = -0.5f;
@@ -34,7 +33,6 @@ public class PogoStickMovement : MonoBehaviour
     [Header("Crash Settings")]
     [SerializeField] private float crashDuration = 1f;
     [SerializeField] private float respawnHeight = 2f;
-    [SerializeField] private float crashVelocityThreshold = -5f;
     [SerializeField] private ParticleSystem crashParticles;
 
     private bool isCrashing = false;
@@ -198,7 +196,7 @@ public class PogoStickMovement : MonoBehaviour
         }
 
         // Clamp the angle to prevent over-leaning
-        currentLeanAngle = Mathf.Clamp(currentLeanAngle, -maxLeanAngle, maxLeanAngle);
+        //currentLeanAngle = Mathf.Clamp(currentLeanAngle, -maxLeanAngle, maxLeanAngle);
 
         // Apply rotation to the pivot and player
         RotatePlayerAroundPivot();
@@ -258,7 +256,9 @@ public class PogoStickMovement : MonoBehaviour
         if (!IsGrounded()) return;
 
         // Calculate jump direction based on lean angle
-        float leanDirection = currentLeanAngle / maxLeanAngle; // Normalize to [-1, 1]
+        //float leanDirection = currentLeanAngle / maxLeanAngle; // Normalize to [-1, 1]
+        float leanDirection = (currentLeanAngle % 360f) / 180f;
+        //Debug.Log(leanDirection);
         Vector2 jumpDirection = (Vector2)(pivot.up + pivot.right * leanDirection).normalized;
 
         rb.AddForce(jumpDirection * charge * jumpForce, ForceMode2D.Impulse);
