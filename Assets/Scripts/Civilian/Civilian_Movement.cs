@@ -33,7 +33,11 @@ public class Civilian_Movement : MonoBehaviour
             if (Random.Range(0f, 1f) < 0.4f)
             {
                 isMoving = false;
-                animator.speed = 0; // pause animation
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                // Pause animation
+                animator.speed = 0;
+                // Play first frame
+                animator.Play(stateInfo.fullPathHash, 0, 0.0f);
                 yield return new WaitForSeconds(3f);
                 isMoving = true;
             }
