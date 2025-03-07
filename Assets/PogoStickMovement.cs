@@ -112,6 +112,14 @@ public class PogoStickMovement : MonoBehaviour
         playerControls.Player.Charge.canceled -= OnChargeRelease;
     }
 
+    // Offsets the player rotation so that they're off-balance when shoved by civilian (for external use)
+    public void ApplyExternalRotation(float rotationAmount)
+    {
+        transform.rotation = Quaternion.Euler(0, 0, rotationAmount);
+        currentLeanAngle = rotationAmount;
+        currentLeanAngle = Mathf.Clamp(currentLeanAngle, -maxLeanAngle, maxLeanAngle);
+    }
+
     private void FixedUpdate()
     {
         //ResetMomentumOnLanding();
