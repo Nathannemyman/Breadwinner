@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ea116ae298158fc41827eb0323e33064
+guid: 871f613523c38a949971127ba3abd287
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7310412223892935018
-    second: breadwinner road 3_0
+      213: 7479655493672037131
+    second: Road Tile_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: breadwinner road 3_0
+      name: Road Tile_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1147
-        height: 325
+        width: 511
+        height: 941
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 69e203980d23c8a90800000000000000
-      internalID: -7310412223892935018
+      spriteID: b0bee96ea031dc760800000000000000
+      internalID: 7479655493672037131
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      breadwinner road 3_0: -7310412223892935018
+      Road Tile_0: 7479655493672037131
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
