@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class DeathCollision : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class DeathCollision : MonoBehaviour
     private InputAction chargeAction;
     private Rigidbody2D playerBody;
     private Animator civilianAnimator;
+    [SerializeField] private AudioClip killCivilianSFX;
+    private AudioSource killCivilianAudio;
 
     void Start()
     {
@@ -31,6 +34,7 @@ public class DeathCollision : MonoBehaviour
         FindPlayerReferences();
 
         civilianAnimator = transform.parent.GetComponent<Animator>();
+        killCivilianAudio = GetComponent<AudioSource>();
     }
 
     void FindPlayerReferences()
@@ -80,13 +84,22 @@ public class DeathCollision : MonoBehaviour
             hasRunDeathFunction = true;
         }
     }
-
+    IEnumerator PlayKillSFX()
+    {
+        killCivilianAudio.clip = killCivilianSFX;
+        killCivilianAudio.loop = false; //play the kill civilian sfx once
+        killCivilianAudio.Play();
+        yield return new WaitForSeconds(killCivilianSFX.length);
+        killCivilianAudio.Stop();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Pogo_Bottom_Hitbox" &&
             collision.GetComponent<BoxCollider2D>() != null)
         {
             isCollidingWithPogo = true;
+            StartCoroutine(PlayKillSFX());
+            //AudioSource.PlayClipAtPoint(killCivilianSFX, transform.position);
         }
     }
 
