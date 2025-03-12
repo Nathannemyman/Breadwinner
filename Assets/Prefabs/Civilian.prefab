@@ -541,7 +541,8 @@ MonoBehaviour:
   shootSpeed: 50
   rotationForce: 200
   invertDirection: 0
-  killCivilianSFX: {fileID: 8300000, guid: ff0e6408003949244bc44b9fd3ba3ef3, type: 3}
+  killCivilianSFX: {fileID: 8300000, guid: 0c8942c8f62749048a3ed2c34b3e23e5, type: 3}
+  exitSFX: {fileID: 8300000, guid: 11a5fc9aee90d3c4fb97ed149113b018, type: 3}
 --- !u!114 &5367259963703008957
 MonoBehaviour:
   m_ObjectHideFlags: 0

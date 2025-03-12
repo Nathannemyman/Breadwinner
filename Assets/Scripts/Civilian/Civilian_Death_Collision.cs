@@ -20,6 +20,7 @@ public class DeathCollision : MonoBehaviour
     private Rigidbody2D playerBody;
     private Animator civilianAnimator;
     [SerializeField] private AudioClip killCivilianSFX;
+    [SerializeField] private AudioClip exitSFX;
     private AudioSource killCivilianAudio;
 
     void Start()
@@ -83,6 +84,7 @@ public class DeathCollision : MonoBehaviour
             RunDeathFunction();
             hasRunDeathFunction = true;
         }
+
     }
     IEnumerator PlayKillSFX()
     {
@@ -90,6 +92,14 @@ public class DeathCollision : MonoBehaviour
         killCivilianAudio.loop = false; //play the kill civilian sfx once
         killCivilianAudio.Play();
         yield return new WaitForSeconds(killCivilianSFX.length);
+        if (!CheckVisibility())
+        {
+            killCivilianAudio.clip = exitSFX;
+            killCivilianAudio.loop = false; //play the exit sfx(the explosion) once
+            killCivilianAudio.Play();
+            yield return new WaitForSeconds(exitSFX.length);
+            killCivilianAudio.Stop();
+        }
         killCivilianAudio.Stop();
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -110,6 +120,11 @@ public class DeathCollision : MonoBehaviour
         {
             isCollidingWithPogo = false;
         }
+    }
+    private bool CheckVisibility()
+    {
+        Vector3 viewportPoint = Camera.main.WorldToViewportPoint(transform.position); //checks if the civilian is on the screen
+        return viewportPoint.x >= 0 && viewportPoint.x <= 1 && viewportPoint.y >= 0 && viewportPoint.y <= 1 && viewportPoint.z > 0;
     }
 
     private void RunDeathFunction()
