@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    Material mat;
+    public Material[] mats;
     float distance;
     [Range(0f, 0.5f)]
     public float speed = 0.2f;
@@ -10,13 +10,13 @@ public class Parallax : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        mat = GetComponent<Renderer>().material;
+        GetComponent<Renderer>().material = mats[Random.Range(0, mats.Length-1)];
     }
 
     // Update is called once per frame
     void Update()
     {
         distance += Time.deltaTime * speed;
-        mat.SetTextureOffset("_MainTex", Vector2.right * distance);
+        GetComponent<Renderer>().material.SetTextureOffset("_MainTex", Vector2.right * distance);
     }
 }
