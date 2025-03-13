@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class DeathCollision : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class DeathCollision : MonoBehaviour
     private InputAction chargeAction;
     private Rigidbody2D playerBody;
     private Animator civilianAnimator;
+    [SerializeField] private AudioClip killCivilianSFX;
+    [SerializeField] private AudioClip exitSFX;
+    private AudioSource killCivilianAudio;
 
     void Start()
     {
@@ -31,6 +35,7 @@ public class DeathCollision : MonoBehaviour
         FindPlayerReferences();
 
         civilianAnimator = transform.parent.GetComponent<Animator>();
+        killCivilianAudio = GetComponent<AudioSource>();
     }
 
     void FindPlayerReferences()
@@ -79,14 +84,32 @@ public class DeathCollision : MonoBehaviour
             RunDeathFunction();
             hasRunDeathFunction = true;
         }
-    }
 
+    }
+    IEnumerator PlayKillSFX()
+    {
+        killCivilianAudio.clip = killCivilianSFX;
+        killCivilianAudio.loop = false; //play the kill civilian sfx once
+        killCivilianAudio.Play();
+        yield return new WaitForSeconds(killCivilianSFX.length);
+        if (!CheckVisibility())
+        {
+            killCivilianAudio.clip = exitSFX;
+            killCivilianAudio.loop = false; //play the exit sfx(the explosion) once
+            killCivilianAudio.Play();
+            yield return new WaitForSeconds(exitSFX.length);
+            killCivilianAudio.Stop();
+        }
+        killCivilianAudio.Stop();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Pogo_Bottom_Hitbox" &&
             collision.GetComponent<BoxCollider2D>() != null)
         {
             isCollidingWithPogo = true;
+            StartCoroutine(PlayKillSFX());
+            //AudioSource.PlayClipAtPoint(killCivilianSFX, transform.position);
         }
     }
 
@@ -97,6 +120,11 @@ public class DeathCollision : MonoBehaviour
         {
             isCollidingWithPogo = false;
         }
+    }
+    private bool CheckVisibility()
+    {
+        Vector3 viewportPoint = Camera.main.WorldToViewportPoint(transform.position); //checks if the civilian is on the screen
+        return viewportPoint.x >= 0 && viewportPoint.x <= 1 && viewportPoint.y >= 0 && viewportPoint.y <= 1 && viewportPoint.z > 0;
     }
 
     private void RunDeathFunction()
