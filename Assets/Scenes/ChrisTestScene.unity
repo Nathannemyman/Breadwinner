@@ -312,7 +312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577d588b99a78df40b84274e8258ba70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  killCivilianSFX: {fileID: 8300000, guid: ff0e6408003949244bc44b9fd3ba3ef3, type: 3}
 --- !u!1 &930786208
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,10 +558,10 @@ BoxCollider2D:
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1457,8 +1456,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b2ffb0b9e181f418b4020201bc91a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3869435998034926941, guid: f34722ed834cf614085cf0ea6f6aeb2e, type: 3}
-  spawnInterval: 10
+  civilianPrefab: {fileID: 3869435998034926941, guid: f34722ed834cf614085cf0ea6f6aeb2e, type: 3}
+  policeOfficerPrefab: {fileID: 7158991356753566004, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
+  civilianSpawnInterval: 8
+  policeSpawnInterval: 10
   targetCamera: {fileID: 1768491079}
   ySpawnLevel: -1.26
   offscreenOffset: 10
