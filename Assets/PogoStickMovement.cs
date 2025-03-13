@@ -339,8 +339,8 @@ public class PogoStickMovement : MonoBehaviour
         crashTimer = 0f;
         crashPosition = transform.position;
 
-        // Freeze all movement
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        // Freeze all movement (except for y axis so you can fall down)
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
         playerControls.Disable();
 
         // Visual feedback

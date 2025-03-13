@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour {
     public int Money { get; set; }
     public bool HasBread {get; set ;}
     public bool ShopOpen {get; set; }
+    public bool policeSpawning { get; set; } // Determines whether police should spawn or not
 
     void Update() {
         MoneyText.text = $"{Money}";

@@ -6,6 +6,7 @@ public class DeathCollision : MonoBehaviour
     public float shootSpeed = 30f; // Speed civilian is shot off screen
     public float rotationForce = 20f; // Speed civilian rotates off screen
     public bool invertDirection = false;
+    public bool isPoliceOfficer = false; // New flag to identify police officers
 
     private PogoStickMovement pogoStickMovement;
 
@@ -21,6 +22,8 @@ public class DeathCollision : MonoBehaviour
 
     void Start()
     {
+        GameManager.Instance.policeSpawning = false; // Initially set police not to spawn
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         parentRb = transform.parent.GetComponent<Rigidbody2D>();
         allColliders = transform.parent.GetComponentsInChildren<Collider2D>();
@@ -53,14 +56,12 @@ public class DeathCollision : MonoBehaviour
         }
     }
 
-
-
     void InitializePhysics()
     {
         if (parentRb != null)
         {
-            parentRb.bodyType = RigidbodyType2D.Kinematic;
-            parentRb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            string parentTag = transform.parent.tag;
+    
 
             foreach (Collider2D col in allColliders)
             {
@@ -132,6 +133,7 @@ public class DeathCollision : MonoBehaviour
         }
 
         GameManager.Instance.Money += 15;
+        GameManager.Instance.policeSpawning = true;
     }
 
     private Vector2 GetShootDirection()
