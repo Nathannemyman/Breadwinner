@@ -46,7 +46,7 @@ public class EnemySpawner : MonoBehaviour
         );
 
         // Instantiate the enemy prefab at the spawn position
-        Instantiate(civilianPrefab, spawnPosition, Quaternion.identity);
+        // Instantiate(civilianPrefab, spawnPosition, Quaternion.identity);
     }
 
     void SpawnPoliceOfficer()
