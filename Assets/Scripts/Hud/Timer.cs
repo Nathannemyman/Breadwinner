@@ -6,6 +6,8 @@ public class Timer : MonoBehaviour {
     // need to be in seconds so if 5 min that mean 300 seconds
     [SerializeField] private float timerDuration;
     [SerializeField] TextMeshProUGUI textObject;
+    [SerializeField] TextMeshProUGUI milisecObject;
+
 
     private float timeRemaining;
     public float TimeRemaining { get => timeRemaining; private set => timeRemaining = value; }
@@ -29,7 +31,9 @@ public class Timer : MonoBehaviour {
             int seconds = Mathf.FloorToInt(timeRemaining % 60f);
             int milisecond = Mathf.FloorToInt((timeRemaining - Mathf.Floor(timeRemaining)) * 1000);
 
-            textObject.text = string.Format("{0:00}:{1:00}:<size=20>{2:000}</size>", minutes, seconds, milisecond);
+            textObject.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            milisecObject.text = string.Format(":<size=20>{0:00}</size>", milisecond);
+            // milisecObject.text = string.Format(":{0:000}", milisecond);
 
             if (timeRemaining < 120) {
                 ChangeTextColor(Color.red);
