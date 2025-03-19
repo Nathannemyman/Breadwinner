@@ -32,7 +32,7 @@ public class Timer : MonoBehaviour {
             int milisecond = Mathf.FloorToInt((timeRemaining - Mathf.Floor(timeRemaining)) * 1000);
 
             textObject.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-            milisecObject.text = string.Format(":<size=20>{0:00}</size>", milisecond);
+            milisecObject.text = string.Format(":<size=25>{0:00}</size>", milisecond);
             // milisecObject.text = string.Format(":{0:000}", milisecond);
 
             if (timeRemaining < 120) {
