@@ -9,10 +9,24 @@ public class PlayerCurrencyManager : MonoBehaviour
     public TMP_Text currencyText; // TextMeshPro UI element
     public GameObject buyButton; // Reference to the Buy Button
     public GameObject denyButton; // Reference to the Deny Button
+    public GameObject heartUI; //  Reference to Heart UI
+    public GameObject shopUI; //  Reference to Shop UI
 
     void Start()
     {
         UpdateCurrencyUI();
+    }
+    public void OpenShop()
+    {
+        if (shopUI != null)
+        {
+            shopUI.SetActive(true);  // Show the shop UI
+        }
+
+        if (heartUI != null)
+        {
+            heartUI.SetActive(false);  // Hide the heart UI
+        }
     }
 
     public void BuyItem()
@@ -22,6 +36,15 @@ public class PlayerCurrencyManager : MonoBehaviour
             playerCurrency -= itemCost;
             UpdateCurrencyUI();
             Debug.Log("Purchase successful! Remaining Currency: " + playerCurrency);
+
+            if (heartUI != null)
+            {
+                heartUI.SetActive(true);
+            }
+            if (shopUI != null)
+            {
+                shopUI.SetActive(false);
+            }
         }
         else
         {

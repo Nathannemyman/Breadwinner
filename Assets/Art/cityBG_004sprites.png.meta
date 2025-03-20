@@ -459,7 +459,21 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cityBG_004sprites_0: 3851404900395116826
+      cityBG_004sprites_1: -160482728332653681
+      cityBG_004sprites_10: 4192360312567580876
+      cityBG_004sprites_11: 126849122932787369
+      cityBG_004sprites_12: 307746142506581295
+      cityBG_004sprites_13: -2754910956819565928
+      cityBG_004sprites_2: -4588996456132941953
+      cityBG_004sprites_3: -3034750747624733174
+      cityBG_004sprites_4: 4793351282064972666
+      cityBG_004sprites_5: -6019875285186858395
+      cityBG_004sprites_6: -4413294390634482074
+      cityBG_004sprites_7: 7096711438837222351
+      cityBG_004sprites_8: -8558661301909712829
+      cityBG_004sprites_9: 2510293897036561036
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

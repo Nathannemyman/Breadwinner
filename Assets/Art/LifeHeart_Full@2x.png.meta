@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 89d4302d0f489b24b8a4247e38ad6a6b
+guid: 3a0c7ff777252442fbd7fce80e772354
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5982982386441021374
-    second: farbuildings_0
+      213: 530846414861212623
+    second: LifeHeart_Full@2x_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: farbuildings_0
+      name: LifeHeart_Full@2x_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1200
-        height: 206
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 24893cef73d28fca0800000000000000
-      internalID: -5982982386441021374
+      spriteID: fcb97147002fd5700800000000000000
+      internalID: 530846414861212623
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      farbuildings_0: -5982982386441021374
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
