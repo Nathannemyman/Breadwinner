@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 754082330308817957}
   - component: {fileID: 6362600820289339863}
   - component: {fileID: 5581911757304113428}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Civilian_Shover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 9184288679869326862}
   - component: {fileID: 4083664137745717098}
   - component: {fileID: 8612848430888542531}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Civilian
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 6452188241966434526}
   - component: {fileID: 5367259963703008957}
   - component: {fileID: 4281303380454750545}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Civilian_Death_Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -503,6 +503,7 @@ MonoBehaviour:
   shootSpeed: 50
   rotationForce: 200
   invertDirection: 0
+  isPoliceOfficer: 0
   killCivilianSFX: {fileID: 8300000, guid: 0c8942c8f62749048a3ed2c34b3e23e5, type: 3}
   exitSFX: {fileID: 8300000, guid: 11a5fc9aee90d3c4fb97ed149113b018, type: 3}
 --- !u!114 &5367259963703008957
