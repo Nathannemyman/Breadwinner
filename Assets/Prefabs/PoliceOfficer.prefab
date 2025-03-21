@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1076159687929480455}
   - component: {fileID: 4347487798911344073}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PoliceArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6839573379361355203}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4528664742880453989}
   - component: {fileID: 6669597670117274837}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 7545038616276448278}
   - component: {fileID: 6155227555299583061}
   - component: {fileID: 5458874769574215492}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Police_Shover (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +368,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3304283746062623011}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BulletPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 7285186606091268128}
   - component: {fileID: 6580343279867946778}
   - component: {fileID: 7274119682772574209}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Police_Shover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,7 +555,7 @@ GameObject:
   - component: {fileID: 876395703736695894}
   - component: {fileID: 1909271401908060908}
   - component: {fileID: 5508842858927155566}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PoliceOfficer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -748,7 +748,7 @@ GameObject:
   - component: {fileID: 621453237336249415}
   - component: {fileID: 8382975639724054921}
   - component: {fileID: 1741670968680207466}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Police_Death_Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -887,6 +887,8 @@ MonoBehaviour:
   rotationForce: 200
   invertDirection: 0
   isPoliceOfficer: 0
+  killCivilianSFX: {fileID: 0}
+  exitSFX: {fileID: 0}
 --- !u!114 &1741670968680207466
 MonoBehaviour:
   m_ObjectHideFlags: 0
