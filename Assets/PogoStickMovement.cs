@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PogoStickMovement : MonoBehaviour
 {
@@ -29,6 +31,10 @@ public class PogoStickMovement : MonoBehaviour
     [SerializeField] public Transform Spawn;
     [SerializeField] private Collider2D BodColl;
     [SerializeField] public bool hasBread;
+    [SerializeField] private AudioClip chargeReleaseSFX;
+    [SerializeField] private AudioClip chargeStartSFX;
+    [SerializeField] private AudioClip chargeHoldSFX;
+    private AudioSource audioSource;
 
     [Header("Crash Settings")]
     [SerializeField] private float crashDuration = 1f;
@@ -81,6 +87,11 @@ public class PogoStickMovement : MonoBehaviour
         BodCollOffset = BodColl.offset.x;
         currentOffset = BodColl.offset;
         rb.centerOfMass = pivot.localPosition;
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    void Start() {
+       GameManager.Instance.HasBread = false; 
     }
 
     void OnEnable()
@@ -105,6 +116,14 @@ public class PogoStickMovement : MonoBehaviour
         playerControls.Player.Charge.canceled -= OnChargeRelease;
     }
 
+    // Offsets the player rotation so that they're off-balance when shoved by civilian (for external use)
+    public void ApplyExternalRotation(float rotationAmount)
+    {
+        transform.rotation = Quaternion.Euler(0, 0, rotationAmount);
+        currentLeanAngle = rotationAmount;
+        currentLeanAngle = Mathf.Clamp(currentLeanAngle, -maxLeanAngle, maxLeanAngle);
+    }
+
     private void FixedUpdate()
     {
         //ResetMomentumOnLanding();
@@ -119,11 +138,32 @@ public class PogoStickMovement : MonoBehaviour
         HandleCrash();
 
     }
-
+    IEnumerator ChargingSFX()
+    {
+        audioSource.clip = chargeStartSFX;
+        audioSource.loop = false; //play the starting sfx once
+        audioSource.Play();
+        yield return new WaitForSeconds(chargeStartSFX.length);
+        if (isCharging)
+        {
+            audioSource.clip = chargeHoldSFX;
+            audioSource.loop = true; //loop the charge hold sound effect
+            audioSource.Play();
+        }
+        //audioSource.clip = chargeHoldSFX;
+        //audioSource.loop = true; //loop the charge hold sound effect
+        //audioSource.Play();
+    }
     // --- Input Handlers ---
     void OnChargeStart(InputAction.CallbackContext context)
     {
-        isCharging = true;
+        if (IsGrounded())
+        {
+            isCharging = true;
+            StartCoroutine(ChargingSFX());
+        }
+        //isCharging = true;
+        //StartCoroutine(ChargingSFX());
 
     }
 
@@ -133,6 +173,8 @@ public class PogoStickMovement : MonoBehaviour
         if (isCharging)
         {
             isCharging = false;
+            audioSource.Stop(); //stops the loop
+            AudioSource.PlayClipAtPoint(chargeReleaseSFX, transform.position);
             Jump();
         }
     }
@@ -326,8 +368,8 @@ public class PogoStickMovement : MonoBehaviour
         crashTimer = 0f;
         crashPosition = transform.position;
 
-        // Freeze all movement
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        // Freeze all movement (except for y axis so you can fall down)
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
         playerControls.Disable();
 
         // Visual feedback
@@ -363,7 +405,7 @@ public class PogoStickMovement : MonoBehaviour
 
     void HandleBread()
     {
-        if (hasBread)
+        if (GameManager.Instance.HasBread)
         {
             flipped = true;
             sr.flipX = true;
@@ -372,7 +414,7 @@ public class PogoStickMovement : MonoBehaviour
             HobsBody.GetComponent<SpriteRenderer>().flipX = true;
 
         }
-        else if (!hasBread)
+        else if (!GameManager.Instance.HasBread)
         {
             flipped = false;
             sr.flipX = false;
@@ -384,10 +426,9 @@ public class PogoStickMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("bread"))
-        {
-            hasBread = true;
-            Destroy(collision.gameObject);
+        if (collision.CompareTag("bread") && !GameManager.Instance.ShopOpen) {
+            GameManager.Instance.OpenShop();
+            collision.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }
