@@ -1,7 +1,6 @@
-using TMPro;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
 
 public class PogoStickMovement : MonoBehaviour
 {
@@ -14,9 +13,10 @@ public class PogoStickMovement : MonoBehaviour
     [SerializeField] private float maxCharge = 10f;
     [SerializeField] private float jumpForce = 15f;
     [SerializeField] private float leanSpeed = 90f; // Degrees per second while holding A/D
+    [SerializeField] private float inAirLeanMult = 2;
+    private float tempLeanSpeed;
     [SerializeField] private float leanReturnSpeed = 45f; // Degrees per second when releasing A/D
-    [SerializeField] private float maxLeanAngle = 30f; // Max lean angle in degrees
-    [SerializeField] private float compressAmount = .5f;
+    //[SerializeField] private float maxLeanAngle = 30f; // Max lean angle in degrees
     [SerializeField] private float compressSpeed = 5f;
     [SerializeField] private float compressReturnSpeed = 10f;
     [SerializeField] private float minLocalY = -0.5f;
@@ -40,7 +40,6 @@ public class PogoStickMovement : MonoBehaviour
     [Header("Crash Settings")]
     [SerializeField] private float crashDuration = 1f;
     [SerializeField] private float respawnHeight = 2f;
-    [SerializeField] private float crashVelocityThreshold = -5f;
     [SerializeField] private ParticleSystem crashParticles;
 
     private bool isCrashing = false;
@@ -90,10 +89,12 @@ public class PogoStickMovement : MonoBehaviour
         currentOffset = BodColl.offset;
         rb.centerOfMass = pivot.localPosition;
         audioSource = GetComponent<AudioSource>();
+        tempLeanSpeed = leanSpeed;
     }
 
-    void Start() {
-       GameManager.Instance.HasBread = false; 
+    void Start()
+    {
+        GameManager.Instance.HasBread = false;
     }
 
     void OnEnable()
@@ -123,12 +124,7 @@ public class PogoStickMovement : MonoBehaviour
     {
         transform.rotation = Quaternion.Euler(0, 0, rotationAmount);
         currentLeanAngle = rotationAmount;
-        currentLeanAngle = Mathf.Clamp(currentLeanAngle, -maxLeanAngle, maxLeanAngle);
-    }
-
-    private void FixedUpdate()
-    {
-        //ResetMomentumOnLanding();
+        //currentLeanAngle = Mathf.Clamp(currentLeanAngle, -maxLeanAngle, maxLeanAngle);
     }
 
     void Update()
@@ -184,6 +180,15 @@ public class PogoStickMovement : MonoBehaviour
     // --- Leaning Logic ---
     void HandleLeaning()
     {
+        if (!IsGrounded())
+        {
+            leanSpeed = inAirLeanMult * tempLeanSpeed;
+        }
+        else
+        {
+            leanSpeed = tempLeanSpeed;
+        }
+
         // Determine lean direction
         float leanInput = 0f;
         if (isLeaningLeft && isLeaningRight)
@@ -218,8 +223,10 @@ public class PogoStickMovement : MonoBehaviour
 
         if (leanInput != 0)
         {
+
             // Accumulate lean angle (input-driven)
             currentLeanAngle += leanInput * leanSpeed * Time.deltaTime;
+
         }
         else if (!isLeaningLeft && !isLeaningRight && !isCrashing)
         {
@@ -238,9 +245,13 @@ public class PogoStickMovement : MonoBehaviour
                 currentLeanAngle = Mathf.MoveTowards(currentLeanAngle, 0f, leanReturnSpeed * Time.deltaTime);
             }
         }
+        if (currentLeanAngle >= 360 || currentLeanAngle <= -360)
+        {
+            currentLeanAngle = 0;
+        }
 
         // Clamp the angle to prevent over-leaning
-        currentLeanAngle = Mathf.Clamp(currentLeanAngle, -maxLeanAngle, maxLeanAngle);
+        //currentLeanAngle = Mathf.Clamp(currentLeanAngle, -maxLeanAngle, maxLeanAngle);
 
         // Apply rotation to the pivot and player
         RotatePlayerAroundPivot();
@@ -300,7 +311,11 @@ public class PogoStickMovement : MonoBehaviour
         if (!IsGrounded()) return;
 
         // Calculate jump direction based on lean angle
-        float leanDirection = currentLeanAngle / maxLeanAngle; // Normalize to [-1, 1]
+        //float leanDirection = currentLeanAngle / maxLeanAngle; // Normalize to [-1, 1]
+        float leanDirection = (transform.rotation.z % 360f) / 180f;
+        //Debug.Log(transform.rotation.eulerAngles.z);
+        Debug.Log(transform.rotation.z);
+        Debug.Log(currentLeanAngle);
         Vector2 jumpDirection = (Vector2)(pivot.up + pivot.right * leanDirection).normalized;
 
         rb.AddForce(jumpDirection * charge * jumpForce, ForceMode2D.Impulse);
@@ -426,7 +441,8 @@ public class PogoStickMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("bread") && !GameManager.Instance.ShopOpen) {
+        if (collision.CompareTag("bread") && !GameManager.Instance.ShopOpen)
+        {
             GameManager.Instance.OpenShop();
             collision.GetComponent<BoxCollider2D>().enabled = false;
         }
