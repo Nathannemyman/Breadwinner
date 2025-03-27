@@ -16,13 +16,13 @@ public class MoneyCounter : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        moneyText.text = "MONEY: " + currentMoney.ToString();
+        moneyText.text = "    : " + currentMoney.ToString();
     }
 
     public void IncreaseMoney(int v)
     {
         currentMoney += v;
-        moneyText.text = "MONEY: " + currentMoney.ToString();
+        moneyText.text = "    : " + currentMoney.ToString();
 
     }
 }

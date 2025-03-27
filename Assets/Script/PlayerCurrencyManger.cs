@@ -4,28 +4,30 @@ using TMPro;
 
 public class PlayerCurrencyManager : MonoBehaviour
 {
-    public int playerCurrency = 100; // Starting currency
-    public int itemCost = 20; // Cost of the item
-    public TMP_Text currencyText; // TextMeshPro UI element
+    public int playerCurrency = 0; // Starting currency
+    public int itemCost = 15; // Cost of the item
+    public TMP_Text heartMoneyText; // Money Counter in Heart UI
+    public TMP_Text shopMoneyText;  // Money display in Shop UI
     public GameObject buyButton; // Reference to the Buy Button
     public GameObject denyButton; // Reference to the Deny Button
-    public GameObject heartUI; //  Reference to Heart UI
-    public GameObject shopUI; //  Reference to Shop UI
+    public GameObject heartUI; // Reference to Heart UI
+    public GameObject shopUI; // Reference to Shop UI
 
     void Start()
     {
         UpdateCurrencyUI();
     }
+
     public void OpenShop()
     {
         if (shopUI != null)
         {
-            shopUI.SetActive(true);  // Show the shop UI
+            shopUI.SetActive(true);  // Show the Shop UI
         }
 
         if (heartUI != null)
         {
-            heartUI.SetActive(false);  // Hide the heart UI
+            heartUI.SetActive(false);  // Hide the Heart UI
         }
     }
 
@@ -39,11 +41,11 @@ public class PlayerCurrencyManager : MonoBehaviour
 
             if (heartUI != null)
             {
-                heartUI.SetActive(true);
+                heartUI.SetActive(true);  // Show Heart UI again after buying
             }
             if (shopUI != null)
             {
-                shopUI.SetActive(false);
+                shopUI.SetActive(false);  // Close the Shop UI
             }
         }
         else
@@ -54,9 +56,13 @@ public class PlayerCurrencyManager : MonoBehaviour
 
     void UpdateCurrencyUI()
     {
-        if (currencyText != null)
+        if (heartMoneyText != null)
         {
-            currencyText.text = "Currency: " + playerCurrency;
+            heartMoneyText.text = "    :" + playerCurrency;
+        }
+        if (shopMoneyText != null)
+        {
+            shopMoneyText.text = "    :" + playerCurrency;
         }
 
         // Show/hide buttons based on currency

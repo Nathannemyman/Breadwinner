@@ -3,6 +3,7 @@ using UnityEngine;
 public class ShopUIManager : MonoBehaviour
 {
     public GameObject heartUI; // Reference to the Heart UI
+    //public GameObject timerUI; // Reference to the Timer UI
     public GameObject shopPanel; // Reference to the Shop UI panel
     public GameObject breadPrefab; // The bread item to be given when purchased
     public Transform playerTransform; // Where the bread will be given (player position)
@@ -20,8 +21,12 @@ public class ShopUIManager : MonoBehaviour
         if (shopPanel != null)
         {
             shopPanel.SetActive(true);
+            
             if (heartUI != null)
                 heartUI.SetActive(false); // Hide hearts when shop opens
+
+            //if (timerUI != null)
+            //    timerUI.SetActive(false); // Hide timer when shop opens
         }
     }
 
@@ -49,6 +54,9 @@ public class ShopUIManager : MonoBehaviour
 
             if (heartUI != null)
                 heartUI.SetActive(true); // Re-enable hearts when shop closes
+
+            //if (timerUI != null)
+            //    timerUI.SetActive(true); // Re-enable timer when shop closes
         }
     }
 }
