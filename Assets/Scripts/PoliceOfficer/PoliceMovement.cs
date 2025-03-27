@@ -15,6 +15,7 @@ public class PoliceMovement : MonoBehaviour
     private int groundLayerMask;
     private float despawnDistance = 100f;
     private float despawnCheckInterval = 2f;
+    private Animator animator; // Added animator reference
 
     private float lastTurnTime = 0f;
     private float turnCooldown = 1f; // Police can't turn around more than once per second
@@ -23,7 +24,7 @@ public class PoliceMovement : MonoBehaviour
     void Start()
     {
         policeShooter = GetComponent<PoliceShooter>();
-
+        animator = GetComponent<Animator>(); // Initialize animator
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
 
@@ -45,10 +46,7 @@ public class PoliceMovement : MonoBehaviour
     void FindPlayerReference()
     {
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-
-
         playerPosition = playerObj.transform;
-
     }
 
     IEnumerator CheckDistanceForDespawn()
@@ -78,6 +76,12 @@ public class PoliceMovement : MonoBehaviour
                 Jump();
             }
         }
+
+        // Handle animation state based on movement
+        if (isMoving)
+        {
+            animator.speed = 1; // Resume animation while moving
+        }
     }
 
     void FixedUpdate()
@@ -103,7 +107,7 @@ public class PoliceMovement : MonoBehaviour
                 {
                     // Allow the turn
                     velocity.x = newFacingDirection * speed;
-                    spriteRenderer.flipX = newFacingDirection < 0;
+                    transform.rotation = Quaternion.Euler(0, newFacingDirection < 0 ? 0 : 180, 0);
                     lastFacingDirection = newFacingDirection;
                     lastTurnTime = Time.time;
                 }
@@ -160,7 +164,6 @@ public class PoliceMovement : MonoBehaviour
 
     IEnumerator WaitForLanding()
     {
-
         // Wait until we're falling
         yield return new WaitUntil(() => rb.linearVelocity.y < 0);
 
@@ -172,7 +175,6 @@ public class PoliceMovement : MonoBehaviour
         while (!IsGrounded() && frameCounter < 300) // Safety timeout of ~5 seconds
         {
             frameCounter++;
-
             yield return null;
         }
 
@@ -189,6 +191,12 @@ public class PoliceMovement : MonoBehaviour
             if (Random.Range(0f, 1f) < 0.1f)
             {
                 isMoving = false;
+
+                // Pause animation and set to first frame
+                animator.speed = 0;
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                animator.Play(stateInfo.fullPathHash, 0, 0.0f);
+
                 yield return new WaitForSeconds(3f);
                 isMoving = true;
             }

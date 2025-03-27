@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &211753672 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4114337347355642125, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
+  m_PrefabInstance: {fileID: 1541918325}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &355417199
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,6 +803,63 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7558166805667389253, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
   m_PrefabInstance: {fileID: 347023116780016376}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1541918325
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1594534331}
+    m_Modifications:
+    - target: {fileID: 4114337347355642125, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 4114337347355642125, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 4114337347355642125, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4114337347355642125, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4114337347355642125, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4114337347355642125, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4114337347355642125, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4114337347355642125, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4114337347355642125, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4114337347355642125, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7158991356753566004, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
+      propertyPath: m_Name
+      value: PoliceOfficer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
 --- !u!1 &1553952820
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,6 +965,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 211753672}
   - {fileID: 1768491080}
   - {fileID: 1636594835}
   - {fileID: 4568055122746806718}
@@ -1593,8 +1656,8 @@ MonoBehaviour:
   offscreenOffset: 10
   timer: {fileID: 1676424348}
   despawnDistance: 30
-  startCivilianInterval: 0.05
-  endCivilianInterval: 10
+  startCivilianInterval: 9990.05
+  endCivilianInterval: 99910
   startPoliceInterval: 10
   endPoliceInterval: 1
 --- !u!4 &2109343753
