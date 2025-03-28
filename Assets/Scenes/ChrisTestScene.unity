@@ -1504,6 +1504,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2777828824632473167, guid: 128c812a152359d45b6a826494ad1801, type: 3}
+      propertyPath: timerDuration
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3828324860963869278, guid: 128c812a152359d45b6a826494ad1801, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 135
