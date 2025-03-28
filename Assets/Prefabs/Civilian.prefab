@@ -505,7 +505,7 @@ MonoBehaviour:
   invertDirection: 0
   isPoliceOfficer: 0
   killCivilianSFX: {fileID: 8300000, guid: 0c8942c8f62749048a3ed2c34b3e23e5, type: 3}
-  exitSFX: {fileID: 8300000, guid: 11a5fc9aee90d3c4fb97ed149113b018, type: 3}
+  exitSFX: {fileID: 8300000, guid: bb3301f981419b54abd316ccf4a5164f, type: 3}
 --- !u!114 &5367259963703008957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,7 +555,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 120
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
