@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour {
     // need to be in seconds so if 5 min that mean 300 seconds
@@ -47,6 +48,7 @@ public class Timer : MonoBehaviour {
             if (!eventEvoked) {
                 OnTimerComplete?.Invoke();
                 eventEvoked = true;
+                SceneManager.LoadScene(3); // Loads loss screen
             }
         }
     }
