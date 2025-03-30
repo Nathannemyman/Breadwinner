@@ -1,0 +1,351 @@
+fileFormatVersion: 2
+guid: d0826e6239ea3e147868137d684048f4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6935358859159044462
+    second: Phone Pause Menu Layout_Menu Screen - Settings Button_0
+  - first:
+      213: -9155165374715352143
+    second: Phone Pause Menu Layout_Menu Screen - Settings Button_1
+  - first:
+      213: 2617376582047123680
+    second: Phone Pause Menu Layout_Menu Screen - Settings Button_2
+  - first:
+      213: 656994115147064011
+    second: Phone Pause Menu Layout_Menu Screen - Settings Button_3
+  - first:
+      213: 4071100095565353999
+    second: Phone Pause Menu Layout_Menu Screen - Settings Button_4
+  - first:
+      213: 3297240548629975631
+    second: Phone Pause Menu Layout_Menu Screen - Settings Button_5
+  - first:
+      213: 941710813873557585
+    second: Phone Pause Menu Layout_Menu Screen - Settings Button_6
+  - first:
+      213: -2659291426932795115
+    second: Phone Pause Menu Layout_Menu Screen - Settings Button_7
+  - first:
+      213: 4755837104523977408
+    second: Phone Pause Menu Layout_Menu Screen - Settings Button_8
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Phone Pause Menu Layout_Menu Screen - Settings Button_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 136
+        width: 448
+        height: 449
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29e77f9dcd7a0cf90800000000000000
+      internalID: -6935358859159044462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phone Pause Menu Layout_Menu Screen - Settings Button_1
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 52
+        width: 43
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bba22c099152f080800000000000000
+      internalID: -9155165374715352143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phone Pause Menu Layout_Menu Screen - Settings Button_2
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 52
+        width: 35
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e84858422ac25420800000000000000
+      internalID: 2617376582047123680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phone Pause Menu Layout_Menu Screen - Settings Button_3
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 52
+        width: 35
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc2ecd4baac1e1900800000000000000
+      internalID: 656994115147064011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phone Pause Menu Layout_Menu Screen - Settings Button_4
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 52
+        width: 35
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f045b31a7f37f7830800000000000000
+      internalID: 4071100095565353999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phone Pause Menu Layout_Menu Screen - Settings Button_5
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 52
+        width: 14
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f429a183fc622cd20800000000000000
+      internalID: 3297240548629975631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phone Pause Menu Layout_Menu Screen - Settings Button_6
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 52
+        width: 43
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 150d31eeef0a11d00800000000000000
+      internalID: 941710813873557585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phone Pause Menu Layout_Menu Screen - Settings Button_7
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 52
+        width: 39
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 519dd67698c481bd0800000000000000
+      internalID: -2659291426932795115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phone Pause Menu Layout_Menu Screen - Settings Button_8
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 52
+        width: 43
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c226c826a0200240800000000000000
+      internalID: 4755837104523977408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Phone Pause Menu Layout_Menu Screen - Settings Button_0: -6935358859159044462
+      Phone Pause Menu Layout_Menu Screen - Settings Button_1: -9155165374715352143
+      Phone Pause Menu Layout_Menu Screen - Settings Button_2: 2617376582047123680
+      Phone Pause Menu Layout_Menu Screen - Settings Button_3: 656994115147064011
+      Phone Pause Menu Layout_Menu Screen - Settings Button_4: 4071100095565353999
+      Phone Pause Menu Layout_Menu Screen - Settings Button_5: 3297240548629975631
+      Phone Pause Menu Layout_Menu Screen - Settings Button_6: 941710813873557585
+      Phone Pause Menu Layout_Menu Screen - Settings Button_7: -2659291426932795115
+      Phone Pause Menu Layout_Menu Screen - Settings Button_8: 4755837104523977408
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
