@@ -822,8 +822,8 @@ MonoBehaviour:
   rotationForce: 200
   invertDirection: 0
   isPoliceOfficer: 0
-  killCivilianSFX: {fileID: 0}
-  exitSFX: {fileID: 0}
+  killCivilianSFX: {fileID: 8300000, guid: 0c8942c8f62749048a3ed2c34b3e23e5, type: 3}
+  exitSFX: {fileID: 8300000, guid: bb3301f981419b54abd316ccf4a5164f, type: 3}
 --- !u!114 &1741670968680207466
 MonoBehaviour:
   m_ObjectHideFlags: 0

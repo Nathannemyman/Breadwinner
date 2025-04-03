@@ -20,7 +20,6 @@ public class PogoStickMovement : MonoBehaviour
     [SerializeField] private float compressSpeed = 5f;
     [SerializeField] private float compressReturnSpeed = 10f;
     [SerializeField] private float minLocalY = -0.5f;
-    [SerializeField] public float Health = 3;
 
     [Header("References")]
     [SerializeField] private Transform pivot; // Pivot at player's feet
@@ -379,7 +378,6 @@ public class PogoStickMovement : MonoBehaviour
     public void StartCrash()
     {
         isCrashing = true;
-        Health--;
         crashTimer = 0f;
         crashPosition = transform.position;
 
@@ -399,6 +397,7 @@ public class PogoStickMovement : MonoBehaviour
     public void EndCrash()
     {
         isCrashing = false;
+        GameManager.Instance.playerHearts--;
 
         // Respawn above crash position
         Vector2 respawnPos = crashPosition + Vector2.up * respawnHeight;

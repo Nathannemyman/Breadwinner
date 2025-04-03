@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -31,15 +32,40 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        // Initialize with default value
+        totalGameTime = 300f;
+
+        // Try to get time from timer if available
         if (timer != null)
-            totalGameTime = timer.TimeRemaining;
+        {
+            // Wait one frame to ensure timer has initialized
+            StartCoroutine(InitializeAfterTimer());
+        }
+
     }
+
+    private IEnumerator InitializeAfterTimer()
+    {
+        // Wait for end of frame to ensure timer Start() has run
+        yield return new WaitForEndOfFrame();
+
+        if (timer != null)
+        {
+            totalGameTime = timer.TimeRemaining;
+            Debug.Log($"[EnemySpawner] InitializeAfterTimer - totalGameTime set to: {totalGameTime}");
+        }
+    }
+
 
     private void Update()
     {
-        // Update intervals
+        // Add null check and safety for timeRatio calculation
+        float timeRatio = 1.0f;
+        if (timer != null && totalGameTime > 0)
+        {
+            timeRatio = Mathf.Clamp01(timer.TimeRemaining / totalGameTime);
 
-        float timeRatio = timer.TimeRemaining / totalGameTime;
+        }
         currentCivilianInterval = Mathf.Lerp(endCivilianInterval, startCivilianInterval, timeRatio);
         currentPoliceInterval = Mathf.Lerp(endPoliceInterval, startPoliceInterval, timeRatio);
 
