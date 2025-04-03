@@ -66,7 +66,7 @@ public class DeathCollision : MonoBehaviour
         if (parentRb != null)
         {
             string parentTag = transform.parent.tag;
-    
+
 
             foreach (Collider2D col in allColliders)
             {
@@ -152,7 +152,21 @@ public class DeathCollision : MonoBehaviour
         if (playerBody != null)
         {
             Vector2 recoilForce = -force * (1f / 4f); // 1/4th of the force recoiled back
-            playerBody.AddForce(recoilForce, ForceMode2D.Impulse);
+
+            // Check if player's velocity is already above 10
+            float currentVelocityMagnitude = playerBody.linearVelocity.magnitude;
+
+            // Debug log player velocity when shooting upward
+            if (force.y > 0)
+            {
+                Debug.Log("Player velocity: " + currentVelocityMagnitude);
+            }
+
+            // Only apply force if velocity is below 20
+            if (currentVelocityMagnitude < 20f)
+            {
+                playerBody.AddForce(recoilForce, ForceMode2D.Impulse);
+            }
         }
 
         if (civilianAnimator != null)
@@ -160,7 +174,7 @@ public class DeathCollision : MonoBehaviour
             civilianAnimator.speed = 0; // pause animation
         }
 
-        GameManager.Instance.Money += 15;
+        GameManager.Instance.Money += 10;
         GameManager.Instance.policeSpawning = true;
     }
 

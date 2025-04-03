@@ -76,6 +76,11 @@ public class PogoStickMovement : MonoBehaviour
     {
         get { return transform.rotation; }
     }
+    // Crashout sprite stuff
+    [SerializeField] private GameObject pogoStickHitbox;
+    [SerializeField] private GameObject crashOutFront;
+    [SerializeField] private GameObject crashOutBack;
+    [SerializeField] private GameObject bodyHitbox;
 
     void Awake()
     {
@@ -94,6 +99,9 @@ public class PogoStickMovement : MonoBehaviour
     void Start()
     {
         GameManager.Instance.HasBread = false;
+
+        crashOutBack.SetActive(false);
+        crashOutFront.SetActive(false);
     }
 
     void OnEnable()
@@ -133,7 +141,7 @@ public class PogoStickMovement : MonoBehaviour
         HandleCharge();
         ResetMomentumOnLanding();
         HandleCrash();
-
+        
     }
     IEnumerator ChargingSFX()
     {
@@ -381,7 +389,57 @@ public class PogoStickMovement : MonoBehaviour
         crashTimer = 0f;
         crashPosition = transform.position;
 
-        // Freeze all movement (except for y axis so you can fall down)
+        // Make the main sprite completely invisible
+        if (sr != null)
+        {
+            sr.color = new Color(1, 1, 1, 0);
+        }
+
+        // Make Pogo_Bottom_Hitbox transparent
+        if (pogoStickHitbox != null)
+        {
+            SpriteRenderer pogoRenderer = pogoStickHitbox.GetComponent<SpriteRenderer>();
+            if (pogoRenderer != null)
+            {
+                pogoRenderer.color = new Color(1, 1, 1, 0);
+            }
+        }
+
+        // Handle body transparency with null check and recovery
+        if (bodyHitbox == null)
+        {
+            // Try to find the body reference if it's null after scene reset
+            bodyHitbox = GameObject.Find("Body");
+        }
+
+        if (bodyHitbox != null)
+        {
+            SpriteRenderer bodyRenderer = bodyHitbox.GetComponent<SpriteRenderer>();
+            if (bodyRenderer != null)
+            {
+                bodyRenderer.color = new Color(1, 1, 1, 0);
+            }
+        }
+
+        float actualRotation = transform.rotation.eulerAngles.z;
+        Debug.Log("Crash Rotation: " + actualRotation);
+
+        // Show appropriate crash sprite based on lean direction
+        if (crashOutFront != null && crashOutBack != null)
+        {
+            if (actualRotation < 180 || actualRotation > 300)
+            {
+                crashOutFront.SetActive(false);
+                crashOutBack.SetActive(true);
+            }
+            else
+            {
+                crashOutFront.SetActive(true);
+                crashOutBack.SetActive(false);
+            }
+        }
+
+        // Freeze movement
         rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
         playerControls.Disable();
 
@@ -391,11 +449,37 @@ public class PogoStickMovement : MonoBehaviour
             crashParticles.transform.position = crashPosition;
             crashParticles.Play();
         }
-        sr.color = new Color(1, 0.5f, 0.5f); // Orange tint
     }
 
     public void EndCrash()
     {
+        // Hide crash sprites
+        if (crashOutFront != null) crashOutFront.SetActive(false);
+        if (crashOutBack != null) crashOutBack.SetActive(false);
+
+        // Make main sprite visible again
+        if (sr != null) sr.color = Color.white;
+
+        // Make Pogo_Bottom_Hitbox visible again
+        if (pogoStickHitbox != null)
+        {
+            SpriteRenderer pogoRenderer = pogoStickHitbox.GetComponent<SpriteRenderer>();
+            if (pogoRenderer != null)
+            {
+                pogoRenderer.color = new Color(1, 1, 1, 1);
+            }
+        }
+
+        // Make bodyHitbox visible again
+        if (bodyHitbox != null)
+        {
+            SpriteRenderer bodyRenderer = bodyHitbox.GetComponent<SpriteRenderer>();
+            if (bodyRenderer != null)
+            {
+                bodyRenderer.color = new Color(1, 1, 1, 1);
+            }
+        }
+
         isCrashing = false;
         GameManager.Instance.playerHearts--;
 
@@ -409,12 +493,35 @@ public class PogoStickMovement : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.None;
         rb.linearVelocity = Vector2.zero;
 
-        // Reset visuals
-        sr.color = Color.white;
+        // Visual feedback
         if (crashParticles != null) crashParticles.Stop();
 
         // Re-enable controls
         playerControls.Enable();
+    }
+
+    // Find stuff when scene resets
+    private void ResetReferences()
+    {
+        if (bodyHitbox == null)
+        {
+            bodyHitbox = GameObject.Find("Body");
+        }
+
+        if (pogoStickHitbox == null)
+        {
+            pogoStickHitbox = GameObject.Find("Pogo_Bottom_Hitbox");
+        }
+
+        if (crashOutFront == null)
+        {
+            crashOutFront = GameObject.Find("CrashOutFront");
+        }
+
+        if (crashOutBack == null)
+        {
+            crashOutBack = GameObject.Find("CrashOutBack");
+        }
     }
 
     void HandleBread()
