@@ -6,7 +6,7 @@ public class TitleScreenManager : MonoBehaviour
     public void NewGame()
     {
         // Replace "GameScene" with your actual game scene name
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("JohnMilestoneTestScene");
     }
 
     public void ContinueGame()
