@@ -1,16 +1,22 @@
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class WinCon : MonoBehaviour
 {
-    public bool GameWon = false;
+    public UnityEvent onGameWin = default;
+
     public PogoStickMovement player;
 
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && player.hasBread)
+        if (collision.TryGetComponent(out PogoStickMovement _))
         {
-            GameWon = true;
+            if (GameManager.Instance.HasBread)
+            {
+                onGameWin?.Invoke();
+            }
         }
     }
 }
