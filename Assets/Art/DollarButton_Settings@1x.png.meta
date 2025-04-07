@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DollarButton_Settings@1x_0: 4082196121530995055
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

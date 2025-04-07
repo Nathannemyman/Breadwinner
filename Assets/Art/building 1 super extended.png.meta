@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: dec26c9f8d5e24d84abd755beb6e292e
+guid: 32a442849bdea9744a37edeeb5f50202
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5449823924760657279
-    second: DollarButton_NewGame@1x_0
+      213: 5969319835370602630
+    second: building 1 super extended_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,9 +40,9 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
-    wrapW: 1
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DollarButton_NewGame@1x_0
+      name: building 1 super extended_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 64
+        width: 2911
+        height: 605
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f7db8c33cf9a1ab40800000000000000
-      internalID: 5449823924760657279
+      spriteID: 68045f173c847d250800000000000000
+      internalID: 5969319835370602630
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      DollarButton_NewGame@1x_0: 5449823924760657279
+      building 1 super extended_0: 5969319835370602630
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
