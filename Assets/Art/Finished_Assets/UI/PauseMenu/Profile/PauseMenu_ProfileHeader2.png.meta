@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e901a370c84d69c48bcc91c1179dc22b
+guid: 1b08b05e617583b4dab3a84cd7e0caf6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6099994524773415054
-    second: Phone Pause Menu Layout_Menu Screen - Continue Button_0
+      213: 2411332029432548899
+    second: Phone Pause Menu_Settings_Chacter Settings - Part 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Phone Pause Menu Layout_Menu Screen - Continue Button_0
+      name: Phone Pause Menu_Settings_Chacter Settings - Part 1_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 28
-        width: 952
-        height: 391
+        x: 38
+        y: 23
+        width: 1847
+        height: 692
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2778d038c47785ba0800000000000000
-      internalID: -6099994524773415054
+      spriteID: 32e49d974b5c67120800000000000000
+      internalID: 2411332029432548899
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Phone Pause Menu Layout_Menu Screen - Continue Button_0: -6099994524773415054
+      Phone Pause Menu_Settings_Chacter Settings - Part 1_0: 2411332029432548899
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

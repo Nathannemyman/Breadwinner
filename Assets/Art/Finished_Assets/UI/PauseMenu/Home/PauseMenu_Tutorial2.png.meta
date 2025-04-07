@@ -1,31 +1,34 @@
 fileFormatVersion: 2
-guid: bdb1814bdc027c44c8d6997bdaeb5c46
+guid: 33ffca73033232b45aa1a08ff9c94ac2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2862523114006760745
-    second: Phone Pause Menu Layout_Menu Screen - Profile Button_0
+      213: 738697464546684417
+    second: PauseMenu_Tutorial2_0
   - first:
-      213: 8251629256840124567
-    second: Phone Pause Menu Layout_Menu Screen - Profile Button_1
+      213: 1012116431882601134
+    second: PauseMenu_Tutorial2_1
   - first:
-      213: -3539264438740516423
-    second: Phone Pause Menu Layout_Menu Screen - Profile Button_2
+      213: -7184988467414414402
+    second: PauseMenu_Tutorial2_2
   - first:
-      213: -2491117469365423806
-    second: Phone Pause Menu Layout_Menu Screen - Profile Button_3
+      213: -8200421535631057180
+    second: PauseMenu_Tutorial2_3
   - first:
-      213: 6820906031431283516
-    second: Phone Pause Menu Layout_Menu Screen - Profile Button_4
+      213: 3077278704571663394
+    second: PauseMenu_Tutorial2_4
   - first:
-      213: -3421673363268144779
-    second: Phone Pause Menu Layout_Menu Screen - Profile Button_5
+      213: -3893196742362511509
+    second: PauseMenu_Tutorial2_5
   - first:
-      213: 4972940353054472518
-    second: Phone Pause Menu Layout_Menu Screen - Profile Button_6
+      213: -3319112525378205298
+    second: PauseMenu_Tutorial2_6
   - first:
-      213: -4837324328226714568
-    second: Phone Pause Menu Layout_Menu Screen - Profile Button_7
+      213: 8324845645076960390
+    second: PauseMenu_Tutorial2_7
+  - first:
+      213: 8818578060404830077
+    second: PauseMenu_Tutorial2_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -58,7 +61,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -96,7 +99,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -121,7 +124,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Phone Pause Menu Layout_Menu Screen - Profile Button_0
+      name: PauseMenu_Tutorial2_0
       rect:
         serializedVersion: 2
         x: 26
@@ -136,83 +139,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 92dc7bb1b99b9b720800000000000000
-      internalID: 2862523114006760745
+      spriteID: 10e69c22e61604a00800000000000000
+      internalID: 738697464546684417
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Phone Pause Menu Layout_Menu Screen - Profile Button_1
+      name: PauseMenu_Tutorial2_1
       rect:
         serializedVersion: 2
-        x: 123
-        y: 52
-        width: 39
-        height: 57
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7981d20171da38270800000000000000
-      internalID: 8251629256840124567
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Phone Pause Menu Layout_Menu Screen - Profile Button_2
-      rect:
-        serializedVersion: 2
-        x: 166
-        y: 52
-        width: 39
-        height: 57
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9b103baaeb102eec0800000000000000
-      internalID: -3539264438740516423
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Phone Pause Menu Layout_Menu Screen - Profile Button_3
-      rect:
-        serializedVersion: 2
-        x: 210
-        y: 52
-        width: 39
-        height: 57
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 24134b03cd5cd6dd0800000000000000
-      internalID: -2491117469365423806
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Phone Pause Menu Layout_Menu Screen - Profile Button_4
-      rect:
-        serializedVersion: 2
-        x: 253
+        x: 100
         y: 52
         width: 35
         height: 57
@@ -224,17 +161,105 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c33f7c995e9b8ae50800000000000000
-      internalID: 6820906031431283516
+      spriteID: ea2c2b94882cb0e00800000000000000
+      internalID: 1012116431882601134
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Phone Pause Menu Layout_Menu Screen - Profile Button_5
+      name: PauseMenu_Tutorial2_2
       rect:
         serializedVersion: 2
-        x: 289
+        x: 140
+        y: 52
+        width: 39
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebb4c7c7e0bc94c90800000000000000
+      internalID: -7184988467414414402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenu_Tutorial2_3
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 52
+        width: 35
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ee5f30af00423e80800000000000000
+      internalID: -8200421535631057180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenu_Tutorial2_4
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 52
+        width: 39
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2244edc7da0b4ba20800000000000000
+      internalID: 3077278704571663394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenu_Tutorial2_5
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 52
+        width: 39
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6746ca903698f9c0800000000000000
+      internalID: -3893196742362511509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenu_Tutorial2_6
+      rect:
+        serializedVersion: 2
+        x: 308
         y: 52
         width: 14
         height: 57
@@ -246,17 +271,39 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5717cf47436c380d0800000000000000
-      internalID: -3421673363268144779
+      spriteID: e89484b5eb420f1d0800000000000000
+      internalID: -3319112525378205298
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Phone Pause Menu Layout_Menu Screen - Profile Button_6
+      name: PauseMenu_Tutorial2_7
       rect:
         serializedVersion: 2
-        x: 307
+        x: 326
+        y: 52
+        width: 39
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68415ccd10bc78370800000000000000
+      internalID: 8324845645076960390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenu_Tutorial2_8
+      rect:
+        serializedVersion: 2
+        x: 369
         y: 52
         width: 32
         height: 57
@@ -268,30 +315,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 649740147ee630540800000000000000
-      internalID: 4972940353054472518
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Phone Pause Menu Layout_Menu Screen - Profile Button_7
-      rect:
-        serializedVersion: 2
-        x: 343
-        y: 52
-        width: 35
-        height: 57
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 83c01b8172f5edcb0800000000000000
-      internalID: -4837324328226714568
+      spriteID: d7fab7ae502e16a70800000000000000
+      internalID: 8818578060404830077
       vertices: []
       indices: 
       edges: []
@@ -310,14 +335,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Phone Pause Menu Layout_Menu Screen - Profile Button_0: 2862523114006760745
-      Phone Pause Menu Layout_Menu Screen - Profile Button_1: 8251629256840124567
-      Phone Pause Menu Layout_Menu Screen - Profile Button_2: -3539264438740516423
-      Phone Pause Menu Layout_Menu Screen - Profile Button_3: -2491117469365423806
-      Phone Pause Menu Layout_Menu Screen - Profile Button_4: 6820906031431283516
-      Phone Pause Menu Layout_Menu Screen - Profile Button_5: -3421673363268144779
-      Phone Pause Menu Layout_Menu Screen - Profile Button_6: 4972940353054472518
-      Phone Pause Menu Layout_Menu Screen - Profile Button_7: -4837324328226714568
+      PauseMenu_Tutorial2_0: 738697464546684417
+      PauseMenu_Tutorial2_1: 1012116431882601134
+      PauseMenu_Tutorial2_2: -7184988467414414402
+      PauseMenu_Tutorial2_3: -8200421535631057180
+      PauseMenu_Tutorial2_4: 3077278704571663394
+      PauseMenu_Tutorial2_5: -3893196742362511509
+      PauseMenu_Tutorial2_6: -3319112525378205298
+      PauseMenu_Tutorial2_7: 8324845645076960390
+      PauseMenu_Tutorial2_8: 8818578060404830077
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
