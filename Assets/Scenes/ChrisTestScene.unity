@@ -931,15 +931,15 @@ PrefabInstance:
     - target: {fileID: 602662843329887941, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
       propertyPath: chargeHoldSFX
       value: 
-      objectReference: {fileID: 8300000, guid: 2fa679ffa9fa0a644bca87b9b932efa8, type: 3}
+      objectReference: {fileID: 8300000, guid: 6346b9a6cf4d5cd4d881b3bff0bd7045, type: 3}
     - target: {fileID: 602662843329887941, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
       propertyPath: chargeStartSFX
       value: 
-      objectReference: {fileID: 8300000, guid: f6f96b7a3de7d964b951fe3f27abd68f, type: 3}
+      objectReference: {fileID: 8300000, guid: 204f7e96dccf5b843be4d07c6de0e43f, type: 3}
     - target: {fileID: 602662843329887941, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
       propertyPath: chargeReleaseSFX
       value: 
-      objectReference: {fileID: 8300000, guid: f4c1b343974787a48aa2bb20f455dbb3, type: 3}
+      objectReference: {fileID: 8300000, guid: 2a8f0b2e452208d4c8005da5eff6d1dc, type: 3}
     - target: {fileID: 3952915635587110306, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.16
