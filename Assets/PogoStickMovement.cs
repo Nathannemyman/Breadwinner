@@ -30,7 +30,7 @@ public class PogoStickMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] public Transform Spawn;
     [SerializeField] private Collider2D BodColl;
-    [SerializeField] public bool hasBread;
+    [SerializeField] public bool HasBread;
     [SerializeField] private AudioClip chargeReleaseSFX;
     [SerializeField] private AudioClip chargeStartSFX;
     [SerializeField] private AudioClip chargeHoldSFX;
