@@ -504,8 +504,8 @@ MonoBehaviour:
   rotationForce: 200
   invertDirection: 0
   isPoliceOfficer: 0
-  killCivilianSFX: {fileID: 8300000, guid: 0c8942c8f62749048a3ed2c34b3e23e5, type: 3}
-  exitSFX: {fileID: 8300000, guid: bb3301f981419b54abd316ccf4a5164f, type: 3}
+  killCivilianSFX: {fileID: 8300000, guid: 9bbd69ecdfeb0984082cd7447694d357, type: 3}
+  exitSFX: {fileID: 8300000, guid: bc111329ade07794682e6ce31f5baabb, type: 3}
 --- !u!114 &5367259963703008957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,7 +545,7 @@ AudioSource:
   m_GameObject: {fileID: 4894720321062444976}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 294640514169179497, guid: 9543868ef9cf8b34589ea92caffd8d28, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0

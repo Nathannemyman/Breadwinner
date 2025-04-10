@@ -171,7 +171,11 @@ public class PogoStickMovement : MonoBehaviour
         {
             isCharging = false;
             audioSource.Stop(); //stops the loop
-            AudioSource.PlayClipAtPoint(chargeReleaseSFX, transform.position);
+            audioSource.clip = chargeReleaseSFX; //all pogo stick SFX can be played under audioSource
+            audioSource.loop = false;
+            audioSource.Play();
+            //AudioSource.PlayClipAtPoint(chargeReleaseSFX, transform.position);
+            
             Jump();
         }
     }
