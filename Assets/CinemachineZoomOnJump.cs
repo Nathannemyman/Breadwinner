@@ -118,7 +118,7 @@ public class CinemachineZoomOnJump : MonoBehaviour
 
         // Get the most constraining factor with a small margin
         float maxPossibleOrthoSize = Mathf.Min(maxWidthBasedOrthoSize, maxHeightBasedOrthoSize) * 0.95f;
-        
+
         // Return the smallest of the desired and maximum possible sizes
         return Mathf.Min(desiredSize, maxPossibleOrthoSize);
     }
