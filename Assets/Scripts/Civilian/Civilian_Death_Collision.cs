@@ -4,7 +4,7 @@ using System.Collections;
 
 public class DeathCollision : MonoBehaviour
 {
-    public float shootSpeed = 30f; // Speed civilian is shot off screen
+    public float shootSpeed = 300f; // Speed civilian is shot off screen
     public float rotationForce = 20f; // Speed civilian rotates off screen
     public bool invertDirection = false;
     public bool isPoliceOfficer = false; // New flag to identify police officers
@@ -151,7 +151,7 @@ public class DeathCollision : MonoBehaviour
 
         if (playerBody != null)
         {
-            Vector2 recoilForce = -force * (1f / 4f); // 1/4th of the force recoiled back
+            Vector2 recoilForce = -force * (1f / 400f); // 1/400th of the force recoiled back
 
             // Check if player's velocity is already above 10
             float currentVelocityMagnitude = playerBody.linearVelocity.magnitude;

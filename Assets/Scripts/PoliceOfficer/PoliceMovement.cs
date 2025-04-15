@@ -11,11 +11,11 @@ public class PoliceMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
     private bool isJumping = false;
-    private float jumpForce = 12f;
+    private float jumpForce = 1200f;
     private int groundLayerMask;
     private float despawnDistance = 100f;
     private float despawnCheckInterval = 2f;
-    private Animator animator; // Added animator reference
+    private Animator animator; // Animator reference
 
     private float lastTurnTime = 0f;
     private float turnCooldown = 1f; // Police can't turn around more than once per second
@@ -41,6 +41,19 @@ public class PoliceMovement : MonoBehaviour
         StartCoroutine(CheckDistanceForDespawn());
 
         lastFacingDirection = spriteRenderer.flipX ? -1 : 1;
+
+        if (GameManager.Instance.HasBread)
+        {
+            // Face right (flipped sprite)
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            lastFacingDirection = 1; // Right
+        }
+        else
+        {
+            // Default facing left
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            lastFacingDirection = -1; // Left
+        }
     }
 
     void FindPlayerReference()
@@ -82,10 +95,18 @@ public class PoliceMovement : MonoBehaviour
         {
             animator.speed = 1; // Resume animation while moving
         }
+
+        // Update xVelocity parameter in animator
+        if (animator != null && rb != null)
+        {
+            animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
+        }
     }
 
     void FixedUpdate()
     {
+        // We've moved the animation parameter update to Update() for consistency
+
         if (isMoving && playerPosition != null)
         {
             // Determine direction based on player position
@@ -153,10 +174,13 @@ public class PoliceMovement : MonoBehaviour
         isJumping = true;
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
-        // Using SendMessage to access the private shoot method
         if (policeShooter != null)
         {
-            policeShooter.shoot();
+            // 50% chance of shooting on jump
+            if (Random.value < 0.5f)
+            {
+                policeShooter.shoot();
+            }
         }
 
         StartCoroutine(WaitForLanding());

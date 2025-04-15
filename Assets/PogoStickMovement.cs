@@ -65,6 +65,10 @@ public class PogoStickMovement : MonoBehaviour
     private float BodCollOffset;
     private Vector2 currentOffset;
 
+    private bool isInvincible = false;
+    private float invincibilityTimer = 0f;
+    private float invincibilityDuration = 1f; // 1 second of invincibility after crashing out
+
     //Added code from Adam
     private static PogoStickMovement _instance;
     public static PogoStickMovement Instance
@@ -164,11 +168,9 @@ public class PogoStickMovement : MonoBehaviour
     {
         if (IsGrounded())
         {
-            isCharging = true;
             StartCoroutine(ChargingSFX());
         }
-        //isCharging = true;
-        //StartCoroutine(ChargingSFX());
+        isCharging = true;
 
     }
 
@@ -296,8 +298,11 @@ public class PogoStickMovement : MonoBehaviour
                 initialLocalPos.z
             );
 
-            charge = Mathf.Min(charge + chargeSpeed * Time.deltaTime, maxCharge);
-            //body.transform.position = MoveTowardsVector3(body.transform.position, targetCompress, compressSpeed * Time.deltaTime);
+            // Only increase charge when grounded
+            if (IsGrounded())
+            {
+                charge = Mathf.Min(charge + chargeSpeed * Time.deltaTime, maxCharge);
+            }
         }
         else
         {
@@ -335,7 +340,10 @@ public class PogoStickMovement : MonoBehaviour
         // Reset velocity when landing
         if (IsGrounded() && !wasGrounded)
         {
-            rb.linearVelocity = Vector2.zero;
+            Vector2 currentVelocity = rb.linearVelocity;
+            // 30% speed decrease should make floor less splippery
+            rb.linearVelocity = currentVelocity * 0.7f;
+            //rb.linearVelocity = Vector2.zero;
             //rb.constraints = RigidbodyConstraints2D.FreezePosition;
         }
 
@@ -344,7 +352,7 @@ public class PogoStickMovement : MonoBehaviour
         if (!isCrashing && IsGrounded() && !wasGrounded)
         {
             rb.linearVelocity = Vector2.zero;
-            //rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            rb.constraints = RigidbodyConstraints2D.FreezePosition;
         }
     }
 
@@ -365,7 +373,7 @@ public class PogoStickMovement : MonoBehaviour
     void HandleCrash()
     {
         // Only check collisions using body's collider
-        if (!isCrashing && BodColl.IsTouchingLayers(groundLayer))
+        if (!isCrashing && !isInvincible && BodColl.IsTouchingLayers(groundLayer))
         {
             StartCrash();
         }
@@ -380,6 +388,16 @@ public class PogoStickMovement : MonoBehaviour
             }
         }
 
+        if (isInvincible)
+        {
+            invincibilityTimer += Time.deltaTime;
+
+            if (invincibilityTimer >= invincibilityDuration)
+            {
+                isInvincible = false;
+            }
+        }
+
         wasGrounded = IsGrounded();
     }
 
@@ -389,7 +407,52 @@ public class PogoStickMovement : MonoBehaviour
         crashTimer = 0f;
         crashPosition = transform.position;
 
-        // Make the main sprite completely invisible
+        // Store player velocity at time of crash
+        Vector2 crashVelocity = rb.linearVelocity;
+
+        // Get position and rotation for crash sprites
+        Vector3 crashSpritePosition = (HobsBody != null) ? HobsBody.transform.position : crashPosition;
+        Quaternion crashSpriteRotation = (HobsBody != null) ? HobsBody.transform.rotation : transform.rotation;
+
+        // Apply 90-degree rotation offset
+        Quaternion rotationOffset = Quaternion.Euler(0, 0, 90);
+        Quaternion finalRotation = crashSpriteRotation * rotationOffset;
+
+        // Set position and rotation of crash sprites to match with offset
+        if (crashOutFront != null)
+        {
+            crashOutFront.transform.position = crashSpritePosition;
+            crashOutFront.transform.rotation = finalRotation;
+
+            // Apply velocity to front crash sprite
+            Rigidbody2D frontRb = crashOutFront.GetComponent<Rigidbody2D>();
+            if (frontRb == null)
+            {
+                // Add Rigidbody2D if it doesn't exist
+                frontRb = crashOutFront.AddComponent<Rigidbody2D>();
+            }
+            frontRb.linearVelocity = crashVelocity;
+        }
+
+        if (crashOutBack != null)
+        {
+            crashOutBack.transform.position = crashSpritePosition;
+            crashOutBack.transform.rotation = finalRotation;
+
+            // Apply velocity to back crash sprite
+            Rigidbody2D backRb = crashOutBack.GetComponent<Rigidbody2D>();
+            if (backRb == null)
+            {
+                // Add Rigidbody2D if it doesn't exist
+                backRb = crashOutBack.AddComponent<Rigidbody2D>();
+            }
+            backRb.linearVelocity = crashVelocity;
+        }
+
+        // Change layer for this object and all children except crash sprites
+        ChangeLayerRecursively(gameObject, LayerMask.NameToLayer("Everything_But_Ground"));
+
+        // Make the main sprite invisible
         if (sr != null)
         {
             sr.color = new Color(1, 1, 1, 0);
@@ -450,12 +513,31 @@ public class PogoStickMovement : MonoBehaviour
             crashParticles.Play();
         }
     }
-
     public void EndCrash()
     {
-        // Hide crash sprites
-        if (crashOutFront != null) crashOutFront.SetActive(false);
-        if (crashOutBack != null) crashOutBack.SetActive(false);
+        // Change layer back to Default for this object and all children except crash sprites
+        ChangeLayerRecursively(gameObject, LayerMask.NameToLayer("Default"));
+
+        // Hide crash sprites and reset their velocity
+        if (crashOutFront != null)
+        {
+            crashOutFront.SetActive(false);
+            Rigidbody2D frontRb = crashOutFront.GetComponent<Rigidbody2D>();
+            if (frontRb != null)
+            {
+                frontRb.linearVelocity = Vector2.zero;
+            }
+        }
+
+        if (crashOutBack != null)
+        {
+            crashOutBack.SetActive(false);
+            Rigidbody2D backRb = crashOutBack.GetComponent<Rigidbody2D>();
+            if (backRb != null)
+            {
+                backRb.linearVelocity = Vector2.zero;
+            }
+        }
 
         // Make main sprite visible again
         if (sr != null) sr.color = Color.white;
@@ -481,7 +563,12 @@ public class PogoStickMovement : MonoBehaviour
         }
 
         isCrashing = false;
+
         GameManager.Instance.playerHearts--;
+
+        // Start invincibility period
+        isInvincible = true;
+        invincibilityTimer = 0f;
 
         // Respawn above crash position
         Vector2 respawnPos = crashPosition + Vector2.up * respawnHeight;
@@ -498,6 +585,28 @@ public class PogoStickMovement : MonoBehaviour
 
         // Re-enable controls
         playerControls.Enable();
+    }
+
+    // Helper method to change layers for an object and all its children, excluding crash sprites
+    public void ChangeLayerRecursively(GameObject obj, int newLayer)
+    {
+        // Skip null checks
+        if (obj == null) return;
+
+        // Skip the crash sprite objects
+        if (obj == crashOutFront || obj == crashOutBack) return;
+
+        // Change the layer of the current object
+        obj.layer = newLayer;
+
+        // Change the layer of all children
+        foreach (Transform child in obj.transform)
+        {
+            if (child != null && child.gameObject != crashOutFront && child.gameObject != crashOutBack)
+            {
+                ChangeLayerRecursively(child.gameObject, newLayer);
+            }
+        }
     }
 
     // Find stuff when scene resets

@@ -7,6 +7,8 @@ TagManager:
   - Bread
   - bread
   - Civ
+  - Shover
+  - Player_Body
   layers:
   - Default
   - TransparentFX
@@ -16,10 +18,10 @@ TagManager:
   - UI
   - Ground
   - Enemies
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy_No_Floor
+  - Everything_But_Ground
+  - Wall
   - 
   - 
   - 
