@@ -13,7 +13,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - LeftBarrier
   - Water
   - UI
   - Ground
@@ -22,6 +22,7 @@ TagManager:
   - Enemy_No_Floor
   - Everything_But_Ground
   - Wall
+  - Background
   - 
   - 
   - 

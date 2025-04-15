@@ -109,7 +109,7 @@ public class DeathCollision : MonoBehaviour
             collision.GetComponent<BoxCollider2D>() != null)
         {
             isCollidingWithPogo = true;
-            StartCoroutine(PlayKillSFX());
+            //StartCoroutine(PlayKillSFX());
             //AudioSource.PlayClipAtPoint(killCivilianSFX, transform.position);
         }
     }
@@ -144,7 +144,7 @@ public class DeathCollision : MonoBehaviour
 
         Vector2 shootDirection = GetShootDirection();
         Vector2 force = shootDirection.normalized * shootSpeed;
-
+        StartCoroutine(PlayKillSFX()); // taco bell bong plays when civilian dies, not when pogo collides with player
         // Apply force to civilian
         parentRb.AddForce(force, ForceMode2D.Impulse);
         parentRb.AddTorque(rotationForce * (invertDirection ? -1 : 1), ForceMode2D.Impulse);
