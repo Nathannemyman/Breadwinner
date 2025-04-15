@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      HopsHutcherson_0: -2401307745930595587
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
