@@ -2955,7 +2955,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -1323129678025983431, guid: e186a03c86f10cd4ba07eb04df7146d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -7703,7 +7703,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 4417986630465203839, guid: 434a0bea19198d9438391b2d5a8f0144, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -7881,16 +7881,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   civilianPrefab: {fileID: 3869435998034926941, guid: f34722ed834cf614085cf0ea6f6aeb2e, type: 3}
   policeOfficerPrefab: {fileID: 7158991356753566004, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
-  deathBlastPrefab: {fileID: 0}
+  deathBlastPrefab: {fileID: 2855018972346107647, guid: 05b5227d009d64b4b83f81e4dcb9ac81, type: 3}
   targetCamera: {fileID: 1768491079}
   ySpawnLevel: -1.26
   offscreenOffset: 10
   timer: {fileID: 1676424348}
   despawnDistance: 30
-  startCivilianInterval: 0.08
-  endCivilianInterval: 10
-  startPoliceInterval: 10
-  endPoliceInterval: 1
+  startCivilianInterval: 2
+  endCivilianInterval: 20
+  startPoliceInterval: 20
+  endPoliceInterval: 2
 --- !u!4 &2109343753
 Transform:
   m_ObjectHideFlags: 0
@@ -8103,7 +8103,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: f4c1b343974787a48aa2bb20f455dbb3, type: 3}
     - target: {fileID: 2282928028685120309, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3952915635587110306, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8145,6 +8145,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4934410490879885173, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6929255238015341813, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
       propertyPath: m_Offset.x
       value: -0.28
@@ -8155,7 +8159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7992102002620405019, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
