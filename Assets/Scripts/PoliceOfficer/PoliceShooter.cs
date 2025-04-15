@@ -5,6 +5,7 @@ public class PoliceShooter : MonoBehaviour
 {
     public GameObject bullet;
     public Transform bulletPos;
+    public float minimumShootDistance = 10f;
 
     private GameObject player;
     private float timer;
@@ -14,8 +15,8 @@ public class PoliceShooter : MonoBehaviour
 
     void Start()
     {
-        // Shoot randomly every 10-15 seconds
-        nextShootTime = Random.Range(10f, 15f);
+        // Shoot randomly every 15-25 seconds
+        nextShootTime = Random.Range(15f, 25f);
         player = GameObject.FindGameObjectWithTag("Player");
 
         policeArm = transform.Find("PoliceArm");
@@ -45,11 +46,24 @@ public class PoliceShooter : MonoBehaviour
             policeArm.rotation = Quaternion.Euler(0, 0, angle);
         }
 
-        if (timer > nextShootTime)
+        if (timer > nextShootTime && player != null)
         {
-            timer = 0;
-            nextShootTime = Random.Range(3f, 7f);
-            shoot();
+            // Calculate distance to player
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+            // Only shoot if player is beyond minimum distance
+            if (distanceToPlayer > minimumShootDistance)
+            {
+                timer = 0;
+                nextShootTime = Random.Range(3f, 7f);
+                shoot();
+            }
+            else
+            {
+                // Reset timer but don't shoot
+                timer = 0;
+                nextShootTime = Random.Range(3f, 7f);
+            }
         }
     }
 

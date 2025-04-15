@@ -135,7 +135,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.4, y: 1.8}
+  m_Size: {x: 0.4, y: 1.89}
   m_EdgeRadius: 0
 --- !u!70 &6160847705206822677
 CapsuleCollider2D:
@@ -296,8 +296,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.255, y: 0}
-  m_Size: {x: 1.02, y: 1.82}
+  m_Offset: {x: -0.32, y: 0}
+  m_Size: {x: 0.72, y: 1.45}
   m_Direction: 0
 --- !u!1 &2944561756679999710
 GameObject:
@@ -606,13 +606,11 @@ MonoBehaviour:
   maxCharge: 5
   jumpForce: 5
   leanSpeed: 90
+  inAirLeanMult: 2
   leanReturnSpeed: 45
-  maxLeanAngle: 120
-  compressAmount: 0.5
   compressSpeed: 5
   compressReturnSpeed: 10
   minLocalY: -0.5
-  Health: 3
   pivot: {fileID: 1398595699772151899}
   groundCheck: {fileID: 7114037778103929431}
   body: {fileID: 6818584394677368319}
@@ -624,15 +622,21 @@ MonoBehaviour:
   Spawn: {fileID: 4889306873097738898}
   BodColl: {fileID: 0}
   hasBread: 0
+  chargeReleaseSFX: {fileID: 0}
+  chargeStartSFX: {fileID: 0}
+  chargeHoldSFX: {fileID: 0}
   crashDuration: 1.5
   respawnHeight: 2
-  crashVelocityThreshold: -5
   crashParticles: {fileID: 0}
   wasGrounded: 0
   initialLocalPos: {x: 0, y: 0, z: 0}
   spriteUp: {fileID: -2924935733860114488, guid: 6dfa7183368152f4c9573b9c3145bf65, type: 3}
   spriteLeft: {fileID: 4106759726452852648, guid: fbd2a0f99ccd42549af1dfc412621619, type: 3}
   spriteRight: {fileID: 6236529718723677301, guid: 1574e1cf25a19fb4cbb9d93a923f1578, type: 3}
+  pogoStickHitbox: {fileID: 2311513284145347234}
+  crashOutFront: {fileID: 0}
+  crashOutBack: {fileID: 0}
+  bodyHitbox: {fileID: 0}
 --- !u!50 &990843212772134925
 Rigidbody2D:
   serializedVersion: 5
@@ -694,6 +698,6 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 1.5}
-  m_Size: {x: 0.3, y: 3}
+  m_Offset: {x: -0.27, y: 1.5}
+  m_Size: {x: 1, y: 3}
   m_Direction: 0
