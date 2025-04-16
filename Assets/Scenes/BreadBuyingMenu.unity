@@ -417,6 +417,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 91
       objectReference: {fileID: 0}
+    - target: {fileID: 5552821835427613176, guid: 67c453e3f959245769fdc91047062980, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5949622612824150177, guid: 67c453e3f959245769fdc91047062980, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -516,6 +520,18 @@ PrefabInstance:
     - target: {fileID: 7242015328261725753, guid: 67c453e3f959245769fdc91047062980, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7756502588171493849, guid: 67c453e3f959245769fdc91047062980, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9395693
+      objectReference: {fileID: 0}
+    - target: {fileID: 7756502588171493849, guid: 67c453e3f959245769fdc91047062980, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9395693
+      objectReference: {fileID: 0}
+    - target: {fileID: 7756502588171493849, guid: 67c453e3f959245769fdc91047062980, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9622642
       objectReference: {fileID: 0}
     - target: {fileID: 8540463937682894097, guid: 67c453e3f959245769fdc91047062980, type: 3}
       propertyPath: m_Name
@@ -751,6 +767,18 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 7225368462109246272, guid: 6322ad2191287314a87685642d2820b2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7225368462109246272, guid: 6322ad2191287314a87685642d2820b2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7225368462109246272, guid: 6322ad2191287314a87685642d2820b2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -405
+      objectReference: {fileID: 0}
     - target: {fileID: 8108122870831953332, guid: 6322ad2191287314a87685642d2820b2, type: 3}
       propertyPath: m_Pivot.x
       value: 0

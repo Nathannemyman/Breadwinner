@@ -30,7 +30,7 @@ public class PogoStickMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] public Transform Spawn;
     [SerializeField] private Collider2D BodColl;
-    [SerializeField] public bool hasBread;
+    [SerializeField] public bool HasBread;
     [SerializeField] private AudioClip chargeReleaseSFX;
     [SerializeField] private AudioClip chargeStartSFX;
     [SerializeField] private AudioClip chargeHoldSFX;
@@ -171,7 +171,11 @@ public class PogoStickMovement : MonoBehaviour
         {
             isCharging = false;
             audioSource.Stop(); //stops the loop
-            AudioSource.PlayClipAtPoint(chargeReleaseSFX, transform.position);
+            audioSource.clip = chargeReleaseSFX; //all pogo stick SFX can be played under audioSource
+            audioSource.loop = false;
+            audioSource.Play();
+            //AudioSource.PlayClipAtPoint(chargeReleaseSFX, transform.position);
+            
             Jump();
         }
     }
