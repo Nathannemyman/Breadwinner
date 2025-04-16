@@ -5,7 +5,7 @@ public class BulletScript : MonoBehaviour
     private GameObject player;
     private Rigidbody2D rb;
     public float force;
-    public float lifetime = 10f; // How long the bullet exists before despawning
+    public float lifetime = 5f; // How long the bullet exists before despawning
 
     private static float lastCrashTime = -5f; // Allows first crash immedietly cus -5+5 = 0
     private static float crashCooldown = 5f; // 5 second cooldown after crashing so you don't get stuck in a crashing loop
@@ -39,6 +39,7 @@ public class BulletScript : MonoBehaviour
                 {
                     pogoScript.StartCrash();
                     lastCrashTime = Time.time;
+                    Destroy(gameObject);
                 }
             }
         }
