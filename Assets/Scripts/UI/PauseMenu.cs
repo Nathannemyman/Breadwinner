@@ -5,9 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Animator))]
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject menu;
-    [SerializeField] private AudioMixer audioMixer;
-    
+    [SerializeField] private GameObject menu;    
 
     private bool gamePaused = false;
     private Animator anim;
@@ -31,10 +29,5 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = gamePaused ? 0 : 1;
         menu.SetActive(gamePaused);
         anim.SetTrigger("ToggleMenu");
-    }
-
-    public void SetMasterVolume(Slider slider)
-    {
-        audioMixer.SetFloat("MasterVolume", slider.value);
     }
 }
