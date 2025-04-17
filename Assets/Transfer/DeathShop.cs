@@ -26,6 +26,9 @@ public class DeathShop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    // Edit from here
+            try
+            {
             for (int i = 0; i < Items.Count + 2; i++)
             {
                 int rnd = Random.Range(0, Items.Count);
@@ -35,6 +38,7 @@ public class DeathShop : MonoBehaviour
 
                 ItemsCost[i].text = ItemsOut[i].cost.ToString();
             }
+            } catch { }
     }
 
     // Update is called once per frame
