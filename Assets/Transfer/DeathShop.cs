@@ -26,7 +26,7 @@ public class DeathShop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    // Edit from here
+    /// Edit from here
             try
             {
             for (int i = 0; i < Items.Count + 2; i++)
