@@ -39,7 +39,7 @@ public class DeathShop : MonoBehaviour
                 ItemsCost[i].text = ItemsOut[i].cost.ToString();
             }
             } catch { }
-        }
+        
         
     }
 
