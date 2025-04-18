@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject menu;
+    [SerializeField] private GameObject menu;    
 
     private bool gamePaused = false;
     private Animator anim;
