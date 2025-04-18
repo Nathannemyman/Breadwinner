@@ -207,7 +207,6 @@ public class EnemySpawner : MonoBehaviour
                 SpawnDeathBlast(xPosition, velocityDirection);
 
                 // Remove the entity
-                Destroy(entity);
                 spawnedEntities.RemoveAt(i);
             }
         }
