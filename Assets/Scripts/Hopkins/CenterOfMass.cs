@@ -1,65 +1,55 @@
 using UnityEngine;
 
-public class PartialCenterOfMassModifier : MonoBehaviour
+public class CenterOfGravityController : MonoBehaviour
 {
-    [Range(0f, 1f)]
-    public float customMassPercentage = 0.7f; // 70% at custom point, 30% at default
-    public Vector2 customMassPosition = new Vector2(0, 0);
+    [SerializeField] private Vector2 centerOfGravity = Vector2.zero;
 
     private Rigidbody2D rb;
-    private Vector2 defaultCenterOfMass;
 
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody2D component is missing!");
+            enabled = false;
+            return;
+        }
+    }
+
+    private void Start()
+    {
+        UpdateCenterOfGravity();
+    }
+
+    private void OnValidate()
+    {
         if (rb != null)
         {
-            // Store the default center of mass
-            defaultCenterOfMass = rb.centerOfMass;
-
-            // Calculate and set the weighted center of mass
-            UpdateCenterOfMass();
+            UpdateCenterOfGravity();
         }
     }
 
-    void Update()
+    private void UpdateCenterOfGravity()
     {
-        // Allow for runtime adjustments
-        if (rb != null)
-        {
-            UpdateCenterOfMass();
-        }
+        rb.centerOfMass = centerOfGravity;
     }
 
-    void UpdateCenterOfMass()
+    private void OnDrawGizmos()
     {
-        // Calculate weighted average of the two positions
-        Vector2 weightedCenterOfMass = (customMassPosition * customMassPercentage) +
-                                       (defaultCenterOfMass * (1f - customMassPercentage));
+        if (!Application.isPlaying && !enabled)
+            return;
 
-        rb.centerOfMass = weightedCenterOfMass;
-    }
+        // Get the transform to properly position the gizmo
+        Transform t = transform;
+        Vector3 worldCogPosition = t.TransformPoint(centerOfGravity);
 
-    // Visualize the center of mass
-    void OnDrawGizmosSelected()
-    {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        if (rb != null && Application.isPlaying)
-        {
-            // Draw the actual center of mass
-            Gizmos.color = Color.red;
-            Vector3 comPosition = transform.position + (Vector3)(transform.rotation * rb.centerOfMass);
-            Gizmos.DrawSphere(comPosition, 0.1f);
+        // Draw the center of gravity marker
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(worldCogPosition, 0.1f);
 
-            // Draw the custom position point
-            Gizmos.color = Color.blue;
-            Vector3 customPosition = transform.position + (Vector3)(transform.rotation * customMassPosition);
-            Gizmos.DrawSphere(customPosition, 0.08f);
-
-            // Draw the default position point
-            Gizmos.color = Color.green;
-            Vector3 defaultPosition = transform.position + (Vector3)(transform.rotation * defaultCenterOfMass);
-            Gizmos.DrawSphere(defaultPosition, 0.08f);
-        }
+        // Draw a line connecting to the object's pivot
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(t.position, worldCogPosition);
     }
 }

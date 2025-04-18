@@ -26,7 +26,10 @@ public class DeathShop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-            for (int i = 0; i < Items.Count + 1; i++)
+    /// Edit from here
+            try
+            {
+            for (int i = 0; i < Items.Count + 2; i++)
             {
                 int rnd = Random.Range(0, Items.Count);
                 BuyableItems thisItem = Instantiate(Items[rnd], ItemsSpots[i].transform.position, transform.rotation);
@@ -35,7 +38,11 @@ public class DeathShop : MonoBehaviour
 
                 ItemsCost[i].text = ItemsOut[i].cost.ToString();
             }
+            } catch { }
+        
+        
     }
+
 
     // Update is called once per frame
     void Update()
@@ -45,24 +52,6 @@ public class DeathShop : MonoBehaviour
 
         Money.text = bankAccount.ToString();
 
-        /*
-        if (spots[pick].GetComponent<Image>().sprite != Hover)
-        {
-            spots[pick].GetComponent<SpriteRenderer>().sprite = Hover;
-        }
-        else
-        {
-            for (int i = 0; i < spots.Length; i++)
-            {
-                if (pick != i)
-                {
-                    spots[i].GetComponent<SpriteRenderer>().sprite = Regular;
-                }
-            }
-        }
-        */
-
-    //    Description.text = ItemsOut[pick].description.ToString();
         
         if (pick > ItemsOut.Count - 1)
         {
@@ -74,22 +63,5 @@ public class DeathShop : MonoBehaviour
 
        // Cursor.transform.position = spots[pick].position + Offset;
 
-
-        if (Input.GetAxisRaw("Horizontal") > 0.4f || Input.GetAxisRaw("Horizontal") < -0.4f)
-        {
-            if (!pressing)
-            {
-                pick += (int)Input.GetAxisRaw("Horizontal");
-            }
-        }
-
-        if (Input.GetAxisRaw("Horizontal") > 0.5f || Input.GetAxisRaw("Horizontal") < -0.5f || Input.GetAxisRaw("Vertical") > 0.5f || Input.GetAxisRaw("Vertical") < -0.5f)
-        {
-            pressing = true;
-        }
-        else
-        {
-            pressing = false;
-        }
     }
 }

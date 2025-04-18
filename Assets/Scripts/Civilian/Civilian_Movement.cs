@@ -23,7 +23,16 @@ public class Civilian_Movement : MonoBehaviour
             transform.position += Vector3.left * speed * Time.deltaTime;
             animator.speed = 1; // resume animation
         }
+
+        // Update xVelocity parameter in animator (similar to PoliceMovement)
+        if (animator != null)
+        {
+            // Calculate x velocity based on movement state
+            float xVelocity = isMoving ? speed : 0f;
+            animator.SetFloat("xVelocity", xVelocity);
+        }
     }
+
     IEnumerator Movement_Stops_Routine()
     {
         while (true)

@@ -201,7 +201,7 @@ Transform:
   m_GameObject: {fileID: 2858495776589476760}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: 1.496, z: -0.13620792}
+  m_LocalPosition: {x: 0, y: 1.496, z: -0.13620792}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -296,7 +296,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.32, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.72, y: 1.45}
   m_Direction: 0
 --- !u!1 &2944561756679999710
@@ -531,6 +531,7 @@ GameObject:
   - component: {fileID: 602662843329887941}
   - component: {fileID: 990843212772134925}
   - component: {fileID: 2119921462770768680}
+  - component: {fileID: 3810881248955689924}
   m_Layer: 0
   m_Name: PlayerFinal
   m_TagString: Player
@@ -611,6 +612,11 @@ MonoBehaviour:
   compressSpeed: 5
   compressReturnSpeed: 10
   minLocalY: -0.5
+  leanTransitionTime: 0.1
+  leftInbetween1: {fileID: -8995339818551266808, guid: 1bc2f74710189a6438413c0e13558177, type: 3}
+  leftInbetween2: {fileID: -5277798127524776548, guid: 4185319bab99e3f4ba93d07c851b45d0, type: 3}
+  rightInbetween1: {fileID: 4466808129581898500, guid: 3198b15f3f54db2409ebdb061fb7b3ed, type: 3}
+  rightInbetween2: {fileID: 2467675197960369428, guid: 77b85fe4731814640917a23dcd469159, type: 3}
   pivot: {fileID: 1398595699772151899}
   groundCheck: {fileID: 7114037778103929431}
   body: {fileID: 6818584394677368319}
@@ -621,7 +627,7 @@ MonoBehaviour:
     m_Bits: 64
   Spawn: {fileID: 4889306873097738898}
   BodColl: {fileID: 0}
-  hasBread: 0
+  HasBread: 0
   chargeReleaseSFX: {fileID: 0}
   chargeStartSFX: {fileID: 0}
   chargeHoldSFX: {fileID: 0}
@@ -633,6 +639,8 @@ MonoBehaviour:
   spriteUp: {fileID: -2924935733860114488, guid: 6dfa7183368152f4c9573b9c3145bf65, type: 3}
   spriteLeft: {fileID: 4106759726452852648, guid: fbd2a0f99ccd42549af1dfc412621619, type: 3}
   spriteRight: {fileID: 6236529718723677301, guid: 1574e1cf25a19fb4cbb9d93a923f1578, type: 3}
+  stunnedSprite: {fileID: 2347592917098302820, guid: 4b4aacabad4036744afe48c8389fdabb, type: 3}
+  stunned: 0
   pogoStickHitbox: {fileID: 2311513284145347234}
   crashOutFront: {fileID: 0}
   crashOutBack: {fileID: 0}
@@ -701,3 +709,16 @@ CapsuleCollider2D:
   m_Offset: {x: -0.27, y: 1.5}
   m_Size: {x: 1, y: 3}
   m_Direction: 0
+--- !u!114 &3810881248955689924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7558166805667389253}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a04b4b67f0fb7504dab96bef3bd863db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  centerOfGravity: {x: 0, y: 1.82}
