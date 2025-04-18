@@ -1609,10 +1609,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a4cf88ada216046920ca20ca0e3d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mats:
-  - {fileID: 2100000, guid: c6a9b4b8ef040a640897cf46887fcfb6, type: 2}
-  - {fileID: 2100000, guid: e44e26dd383efb2469bd2d9e2ccac9ce, type: 2}
-  - {fileID: 2100000, guid: 123ca0c883bcf16429329bca84afc573, type: 2}
   speed: 0.135
 --- !u!64 &714963984
 MeshCollider:
@@ -1736,10 +1732,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a4cf88ada216046920ca20ca0e3d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mats:
-  - {fileID: 2100000, guid: c6a9b4b8ef040a640897cf46887fcfb6, type: 2}
-  - {fileID: 2100000, guid: e44e26dd383efb2469bd2d9e2ccac9ce, type: 2}
-  - {fileID: 2100000, guid: 123ca0c883bcf16429329bca84afc573, type: 2}
   speed: 0.184
 --- !u!64 &788173958
 MeshCollider:
@@ -3014,8 +3006,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a4cf88ada216046920ca20ca0e3d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mats:
-  - {fileID: 2100000, guid: 7c6cfb67d0c95b44d970c62260c40c14, type: 2}
   speed: 0.2
 --- !u!64 &1297143164
 MeshCollider:
@@ -3139,10 +3129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a4cf88ada216046920ca20ca0e3d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mats:
-  - {fileID: 2100000, guid: c6a9b4b8ef040a640897cf46887fcfb6, type: 2}
-  - {fileID: 2100000, guid: e44e26dd383efb2469bd2d9e2ccac9ce, type: 2}
-  - {fileID: 2100000, guid: 123ca0c883bcf16429329bca84afc573, type: 2}
   speed: 0.16
 --- !u!64 &1359606136
 MeshCollider:
@@ -3797,6 +3783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   civilianPrefab: {fileID: 3869435998034926941, guid: f34722ed834cf614085cf0ea6f6aeb2e, type: 3}
   policeOfficerPrefab: {fileID: 7158991356753566004, guid: 2d0dca07ff3e659459f3b87f1c66180b, type: 3}
+  deathBlastPrefab: {fileID: 0}
   targetCamera: {fileID: 868735343}
   ySpawnLevel: -1.26
   offscreenOffset: 10
