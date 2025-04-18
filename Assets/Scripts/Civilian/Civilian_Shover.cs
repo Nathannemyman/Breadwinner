@@ -10,6 +10,7 @@ public class Civilian_Shover : MonoBehaviour
     [SerializeField] private float rotationAngle = 30f;
     [SerializeField] private float windupTime = 0.7f;
     [SerializeField] private float cooldownTime = 0.5f;
+    [SerializeField] private float civilianAnimOffset = 0.2f; // Time before shove to start animation
 
     [Header("Shake Settings")]
     [SerializeField] private float shakeDuration = 0.3f;
@@ -91,7 +92,6 @@ public class Civilian_Shover : MonoBehaviour
             }
         }
     }
-
     private IEnumerator ShoveSequence(GameObject player)
     {
         Debug.Log("ShoveSequence started");
@@ -107,6 +107,11 @@ public class Civilian_Shover : MonoBehaviour
             yield break;
         }
 
+        if (playerPogoMovement != null)
+        {
+            Debug.Log("Player stunned state set to true");
+        }
+
         // Store original physics state for restoration later
         RigidbodyType2D originalBodyType = playerRb.bodyType;
         float originalGravityScale = playerRb.gravityScale;
@@ -114,26 +119,62 @@ public class Civilian_Shover : MonoBehaviour
         // Safety flag to track if we need emergency physics restoration
         bool needPhysicsRestoration = true;
 
-        // Start punch animation and stop civilian movement
+        // Setup state
         isPunching = true;
         canShove = false;
         isShaking = false;
         hasPushed = false;
 
-        // Stop the character from moving and start punch animation
-        StopCharacterMovement();
-
-        if (animator != null && civilianMovement != null)
-            animator.SetBool("IsPunching", true);
+        // Stop the character from moving BUT DO NOT FREEZE ANIMATION
+        StopCharacterMovement(true); // Pass true to indicate we're in windup phase
 
         Debug.Log("Windup phase started");
-        // Wait for windup
+
+        // STEP 1: Wait for windup time (civilian stands still)
         yield return new WaitForSeconds(windupTime);
 
-        // Check if player is still valid and in range
+        // Check player validity
         if (player == null || playerRb == null || !playerInTrigger)
         {
-            Debug.Log($"Player no longer valid after windup - player null: {player == null}, playerRb null: {playerRb == null}, playerInTrigger: {playerInTrigger}");
+            ResetState();
+            StartCoroutine(CooldownRoutine());
+            yield break;
+        }
+
+        // STEP 2: Start the animation IMMEDIATELY after windup
+        float animationStartTime = Time.time;
+        float minimumAnimationDuration = 0.55f; // Set this to match your full animation length
+
+        if (animator != null)
+        {
+            // Make sure animator is running at normal speed
+            animator.speed = 1;
+
+            // Set the animation parameter
+            animator.SetBool("IsPunching", true);
+
+            Debug.Log("Starting punch animation immediately after windup");
+        }
+
+        // STEP 3: Wait for civilianAnimOffset seconds while animation plays
+        if (civilianAnimOffset > 0)
+        {
+            Debug.Log($"Animation playing for {civilianAnimOffset} seconds before physical impact");
+            yield return new WaitForSeconds(civilianAnimOffset);
+        }
+
+        // Check if player is still valid before physical effects
+        if (player == null || playerRb == null || !playerInTrigger)
+        {
+            Debug.Log("Player no longer valid before shake");
+
+            // Ensure animation completes before resetting
+            float timeElapsed = Time.time - animationStartTime;
+            if (timeElapsed < minimumAnimationDuration)
+            {
+                yield return new WaitForSeconds(minimumAnimationDuration - timeElapsed);
+            }
+
             ResetState();
             StartCoroutine(CooldownRoutine());
             yield break;
@@ -141,13 +182,13 @@ public class Civilian_Shover : MonoBehaviour
 
         // Store original position for shake effect
         Vector3 originalPosition = playerTransform.position;
-        Vector2 originalVelocity = playerRb.linearVelocity;
 
         // Freeze player temporarily for the shake
         playerRb.linearVelocity = Vector2.zero;
         playerRb.bodyType = RigidbodyType2D.Kinematic;
 
-        // Perform position-based shake
+        // STEP 4: Perform shake
+        playerPogoMovement.stunned = true;
         Debug.Log("Shake phase started");
         isShaking = true;
         float elapsed = 0f;
@@ -157,13 +198,12 @@ public class Civilian_Shover : MonoBehaviour
             if (player == null || playerTransform == null)
             {
                 Debug.LogError("Player lost during shake phase");
-                // Abandon and make sure we restore physics in the cleanup phase
                 break;
             }
 
             elapsed += Time.deltaTime;
             float progress = elapsed / shakeDuration;
-            float amplitude = shakeIntensity * (1f - progress); // Fade out shake
+            float amplitude = shakeIntensity * (1f - progress);
 
             float xOffset = Mathf.Sin(progress * shakeVibrato * 6.28f) * amplitude;
             float yOffset = Mathf.Cos(progress * shakeVibrato * 6.28f) * amplitude * 0.7f;
@@ -189,12 +229,11 @@ public class Civilian_Shover : MonoBehaviour
         if (player == null || playerRb == null)
         {
             Debug.LogError("Player lost before push phase");
-
             // We'll do physics restoration in the cleanup phase
             goto CleanupPhase;
         }
 
-        // Unfreeze player for the push - RESTORE PHYSICS STATE
+        // STEP 5: Unfreeze player for the push and restore physics
         playerRb.bodyType = RigidbodyType2D.Dynamic;
         playerRb.gravityScale = originalGravityScale;
         needPhysicsRestoration = false;  // We've successfully restored physics
@@ -243,6 +282,17 @@ public class Civilian_Shover : MonoBehaviour
             StartCoroutine(ResetLayerAfterDelay(player));
         }
 
+        // Calculate how much time has passed since animation started
+        float animationElapsedTime = Time.time - animationStartTime;
+
+        // Wait additional time to ensure the full animation plays
+        if (animationElapsedTime < minimumAnimationDuration)
+        {
+            float remainingTime = minimumAnimationDuration - animationElapsedTime;
+            Debug.Log($"Waiting {remainingTime} seconds to complete animation");
+            yield return new WaitForSeconds(remainingTime);
+        }
+
     // Cleanup phase label
     CleanupPhase:
 
@@ -253,6 +303,17 @@ public class Civilian_Shover : MonoBehaviour
             playerRb.bodyType = RigidbodyType2D.Dynamic;
             playerRb.gravityScale = originalGravityScale;
         }
+
+        // Reset stunned state to false at the end of the sequence
+        if (playerPogoMovement != null)
+        {
+            playerPogoMovement.stunned = false;
+            Debug.Log("Player stunned state set to false");
+        }
+
+        // Calculate final animation time
+        float finalAnimationTime = Time.time - animationStartTime;
+        Debug.Log($"Animation played for a total of {finalAnimationTime} seconds");
 
         // Reset state
         ResetState();
@@ -290,9 +351,9 @@ public class Civilian_Shover : MonoBehaviour
     }
 
 
-    private void StopCharacterMovement()
+    private void StopCharacterMovement(bool isWindupPhase = false)
     {
-        // Stop Civilian movement if available - freeze frame on 1
+        // Stop Civilian movement if available
         if (civilianMovement != null)
         {
             // Access the Civilian_Movement's fields using reflection
@@ -305,8 +366,8 @@ public class Civilian_Shover : MonoBehaviour
             {
                 movingField.SetValue(civilianMovement, false);
 
-                // Pause animation and set to first frame
-                if (animator != null)
+                // Only pause animation if we're not in windup phase
+                if (animator != null && !isWindupPhase)
                 {
                     AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
                     animator.speed = 0;
@@ -328,11 +389,11 @@ public class Civilian_Shover : MonoBehaviour
             {
                 movingField.SetValue(policeMovement, false);
 
-                // For police, trigger the punch animation instead of freezing
-                if (animator != null)
+                // For police, we don't freeze animation
+                // If in windup phase, we wait to set the punch animation
+                if (animator != null && !isWindupPhase)
                 {
                     animator.SetBool("IsPunching", true);
-                    // Keep animator running to play the punch animation
                     animator.speed = 1;
                 }
             }
@@ -353,12 +414,7 @@ public class Civilian_Shover : MonoBehaviour
             {
                 movingField.SetValue(civilianMovement, true);
 
-                // Resume the animation
-                if (animator != null)
-                {
-                    animator.speed = 1;
-                    animator.SetBool("IsPunching", false);
-                }
+                // No need to reset animation here since already done in ResetState
             }
         }
 
@@ -374,12 +430,7 @@ public class Civilian_Shover : MonoBehaviour
             {
                 movingField.SetValue(policeMovement, true);
 
-                // For police, stop the punch animation
-                if (animator != null)
-                {
-                    animator.SetBool("IsPunching", false);
-                    // Animation speed already at 1
-                }
+                // Animation already reset in ResetState
             }
         }
     }
@@ -417,6 +468,19 @@ public class Civilian_Shover : MonoBehaviour
         isShaking = false;
         hasPushed = false;
         EmergencyRestorePlayerPhysics();
+
+        // Ensure animation is properly reset before resuming movement
+        if (animator != null)
+        {
+            animator.SetBool("IsPunching", false);
+            animator.speed = 1;  // Make sure animation speed is normal
+
+            // Force a small frame update to ensure animation transitions correctly
+            if (animator.enabled)
+            {
+                animator.Update(0.01f);
+            }
+        }
 
         // Resume character movement
         ResumeCivilianMovement();

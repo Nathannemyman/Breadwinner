@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/JohnMilestoneTestScene.unity
-    guid: 508638467eb176d478abebe99900a02b
+    path: Assets/Scenes/TitleScreen.unity
+    guid: 4360b4e0d2fa1434dbf41224fe6ece23
+  - enabled: 1
+    path: Assets/Scenes/New_Adam_Tweaks.unity
+    guid: 1df7ea797cdd7b844950fe62d1f150ae
   - enabled: 1
     path: Assets/Scenes/WinScene.unity
     guid: 7bc9040b870ea504b825b7fbaf999bb5
