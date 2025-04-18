@@ -31,7 +31,7 @@ public class Hearts : MonoBehaviour
                     Heart_1.gameObject.SetActive(false);
                     Heart_2.gameObject.SetActive(false);
                     Heart_3.gameObject.SetActive(false);
-                    SceneManager.LoadScene(3);
+                    SceneManager.LoadScene(4);
                     break;
                 }
             case 1:

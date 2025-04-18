@@ -21,6 +21,13 @@ public class PogoStickMovement : MonoBehaviour
     [SerializeField] private float compressReturnSpeed = 10f;
     [SerializeField] private float minLocalY = -0.5f;
 
+    [Header("Leaning Animation Settings")]
+    [SerializeField] private float leanTransitionTime = 0.1f; // Total time for leaning transition
+    [SerializeField] private Sprite leftInbetween1; // First inbetween frame for leaning left
+    [SerializeField] private Sprite leftInbetween2; // Second inbetween frame for leaning left
+    [SerializeField] private Sprite rightInbetween1; // First inbetween frame for leaning right
+    [SerializeField] private Sprite rightInbetween2; // Second inbetween frame for leaning right
+
     [Header("References")]
     [SerializeField] private Transform pivot; // Pivot at player's feet
     [SerializeField] private Transform groundCheck;
@@ -57,10 +64,13 @@ public class PogoStickMovement : MonoBehaviour
     // Track lean input states
     private bool isLeaningLeft = false;
     private bool isLeaningRight = false;
+    private bool isTransitioning = false;
+    private Coroutine leanCoroutine;
 
     public Sprite spriteUp;
     public Sprite spriteLeft;
     public Sprite spriteRight;
+    public Sprite stunnedSprite;
     private SpriteRenderer sr;
     private float BodCollOffset;
     private Vector2 currentOffset;
@@ -68,6 +78,8 @@ public class PogoStickMovement : MonoBehaviour
     private bool isInvincible = false;
     private float invincibilityTimer = 0f;
     private float invincibilityDuration = 1f; // 1 second of invincibility after crashing out
+
+    public bool stunned = false;
 
     //Added code from Adam
     private static PogoStickMovement _instance;
@@ -111,10 +123,10 @@ public class PogoStickMovement : MonoBehaviour
     void OnEnable()
     {
         playerControls.Enable();
-        playerControls.Player.LeanLeft.started += _ => isLeaningLeft = true;
-        playerControls.Player.LeanLeft.canceled += _ => isLeaningLeft = false;
-        playerControls.Player.LeanRight.started += _ => isLeaningRight = true;
-        playerControls.Player.LeanRight.canceled += _ => isLeaningRight = false;
+        playerControls.Player.LeanLeft.started += OnLeanLeftStart;
+        playerControls.Player.LeanLeft.canceled += OnLeanLeftEnd;
+        playerControls.Player.LeanRight.started += OnLeanRightStart;
+        playerControls.Player.LeanRight.canceled += OnLeanRightEnd;
         playerControls.Player.Charge.started += OnChargeStart;
         playerControls.Player.Charge.canceled += OnChargeRelease;
     }
@@ -122,12 +134,201 @@ public class PogoStickMovement : MonoBehaviour
     void OnDisable()
     {
         playerControls.Disable();
-        playerControls.Player.LeanLeft.started -= _ => isLeaningLeft = true;
-        playerControls.Player.LeanLeft.canceled -= _ => isLeaningLeft = false;
-        playerControls.Player.LeanRight.started -= _ => isLeaningRight = true;
-        playerControls.Player.LeanRight.canceled -= _ => isLeaningRight = false;
+        playerControls.Player.LeanLeft.started -= OnLeanLeftStart;
+        playerControls.Player.LeanLeft.canceled -= OnLeanLeftEnd;
+        playerControls.Player.LeanRight.started -= OnLeanRightStart;
+        playerControls.Player.LeanRight.canceled -= OnLeanRightEnd;
         playerControls.Player.Charge.started -= OnChargeStart;
         playerControls.Player.Charge.canceled -= OnChargeRelease;
+    }
+
+    // Improved coroutine for transitioning to leaning
+    IEnumerator TransitionToLeaning(bool isRight)
+    {
+        isTransitioning = true;
+        float frameTime = leanTransitionTime / 2f;
+
+        // Determine which sprites to use based on direction and whether flipped
+        Sprite inbetween1, inbetween2, finalSprite;
+        if (isRight)
+        {
+            if (!flipped)
+            {
+                inbetween1 = rightInbetween1;
+                inbetween2 = rightInbetween2;
+                finalSprite = spriteRight;
+            }
+            else
+            {
+                inbetween1 = leftInbetween1;
+                inbetween2 = leftInbetween2;
+                finalSprite = spriteLeft;
+            }
+        }
+        else
+        {
+            if (!flipped)
+            {
+                inbetween1 = leftInbetween1;
+                inbetween2 = leftInbetween2;
+                finalSprite = spriteLeft;
+            }
+            else
+            {
+                inbetween1 = rightInbetween1;
+                inbetween2 = rightInbetween2;
+                finalSprite = spriteRight;
+            }
+        }
+
+        // First inbetween frame
+        sr.sprite = inbetween1;
+        yield return new WaitForSeconds(frameTime);
+
+        // Check if direction changed during the frame delay
+        if ((isRight && !isLeaningRight) || (!isRight && !isLeaningLeft))
+        {
+            isTransitioning = false;
+            yield break;
+        }
+
+        // Second inbetween frame
+        sr.sprite = inbetween2;
+        yield return new WaitForSeconds(frameTime);
+
+        // Check if direction changed during the frame delay
+        if ((isRight && !isLeaningRight) || (!isRight && !isLeaningLeft))
+        {
+            isTransitioning = false;
+            yield break;
+        }
+
+        // Final frame
+        sr.sprite = finalSprite;
+        isTransitioning = false;
+    }
+
+    // Improved coroutine for transitioning back to upright
+    IEnumerator TransitionToUpright(bool fromRight)
+    {
+        isTransitioning = true;
+        float frameTime = leanTransitionTime / 2f;
+
+        // Determine which sprites to use based on direction and whether flipped
+        Sprite inbetween2, inbetween1;
+        if (fromRight)
+        {
+            if (!flipped)
+            {
+                inbetween2 = rightInbetween1;
+                inbetween1 = rightInbetween2;
+            }
+            else
+            {
+                inbetween2 = leftInbetween1;
+                inbetween1 = leftInbetween2;
+            }
+        }
+        else
+        {
+            if (!flipped)
+            {
+                inbetween2 = leftInbetween1;
+                inbetween1 = leftInbetween2;
+            }
+            else
+            {
+                inbetween2 = rightInbetween1;
+                inbetween1 = rightInbetween2;
+            }
+        }
+
+        // First transition frame
+        sr.sprite = inbetween1;
+        yield return new WaitForSeconds(frameTime);
+
+        // Check if direction changed during the frame delay
+        if (isLeaningLeft || isLeaningRight)
+        {
+            isTransitioning = false;
+            yield break;
+        }
+
+        // Second transition frame
+        sr.sprite = inbetween2;
+        yield return new WaitForSeconds(frameTime);
+
+        // Check if direction changed during the frame delay
+        if (isLeaningLeft || isLeaningRight)
+        {
+            isTransitioning = false;
+            yield break;
+        }
+
+        // Final upright frame
+        sr.sprite = spriteUp;
+        isTransitioning = false;
+    }
+
+    // Also modify your input handlers to correctly handle interruptions
+    void OnLeanLeftStart(InputAction.CallbackContext context)
+    {
+        isLeaningLeft = true;
+
+        if (!isCrashing)
+        {
+            if (leanCoroutine != null)
+            {
+                StopCoroutine(leanCoroutine);
+                isTransitioning = false;
+            }
+            leanCoroutine = StartCoroutine(TransitionToLeaning(false));
+        }
+    }
+
+    void OnLeanRightStart(InputAction.CallbackContext context)
+    {
+        isLeaningRight = true;
+
+        if (!isCrashing)
+        {
+            if (leanCoroutine != null)
+            {
+                StopCoroutine(leanCoroutine);
+                isTransitioning = false;
+            }
+            leanCoroutine = StartCoroutine(TransitionToLeaning(true));
+        }
+    }
+
+    void OnLeanLeftEnd(InputAction.CallbackContext context)
+    {
+        isLeaningLeft = false;
+
+        if (!isLeaningRight && !isCrashing)
+        {
+            if (leanCoroutine != null)
+            {
+                StopCoroutine(leanCoroutine);
+                isTransitioning = false;
+            }
+            leanCoroutine = StartCoroutine(TransitionToUpright(false));
+        }
+    }
+
+    void OnLeanRightEnd(InputAction.CallbackContext context)
+    {
+        isLeaningRight = false;
+
+        if (!isLeaningLeft && !isCrashing)
+        {
+            if (leanCoroutine != null)
+            {
+                StopCoroutine(leanCoroutine);
+                isTransitioning = false;
+            }
+            leanCoroutine = StartCoroutine(TransitionToUpright(true));
+        }
     }
 
     // Offsets the player rotation so that they're off-balance when shoved by civilian (for external use)
@@ -145,7 +346,8 @@ public class PogoStickMovement : MonoBehaviour
         HandleCharge();
         ResetMomentumOnLanding();
         HandleCrash();
-        
+        HandleStunnedState();
+
     }
     IEnumerator ChargingSFX()
     {
@@ -185,7 +387,7 @@ public class PogoStickMovement : MonoBehaviour
             audioSource.loop = false;
             audioSource.Play();
             //AudioSource.PlayClipAtPoint(chargeReleaseSFX, transform.position);
-            
+
             Jump();
         }
     }
@@ -211,39 +413,26 @@ public class PogoStickMovement : MonoBehaviour
         }
         else if (isLeaningLeft)
         {
-            if (!flipped)
-            {
-                sr.sprite = spriteLeft;
-            }
-            else
-            {
-                sr.sprite = spriteRight;
-            }
             leanInput = -1f;
         }
         else if (isLeaningRight)
         {
-            if (!flipped)
-            {
-                sr.sprite = spriteRight;
-            }
-            else
-            {
-                sr.sprite = spriteLeft;
-            }
             leanInput = 1f;
         }
 
         if (leanInput != 0)
         {
-
             // Accumulate lean angle (input-driven)
             currentLeanAngle += leanInput * leanSpeed * Time.deltaTime;
-
         }
         else if (!isLeaningLeft && !isLeaningRight && !isCrashing)
         {
-            sr.sprite = spriteUp;
+            // Don't change the sprite here if we're transitioning
+            if (!isTransitioning)
+            {
+                sr.sprite = spriteUp;
+            }
+
             // Apply gravity or return to upright
             if (Mathf.Abs(currentLeanAngle) > uprightThreshold)
             {
@@ -262,9 +451,6 @@ public class PogoStickMovement : MonoBehaviour
         {
             currentLeanAngle = 0;
         }
-
-        // Clamp the angle to prevent over-leaning
-        //currentLeanAngle = Mathf.Clamp(currentLeanAngle, -maxLeanAngle, maxLeanAngle);
 
         // Apply rotation to the pivot and player
         RotatePlayerAroundPivot();
@@ -403,6 +589,15 @@ public class PogoStickMovement : MonoBehaviour
         }
 
         wasGrounded = IsGrounded();
+    }
+
+    void HandleStunnedState()
+    {
+        // If stunned, override the current sprite
+        if (stunned)
+        {
+            sr.sprite = stunnedSprite;
+        }
     }
 
     public void StartCrash()

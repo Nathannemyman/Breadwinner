@@ -677,6 +677,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas - PauseMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 4840583137929596153, guid: 811a6500be4951248bacb7da22becef0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -102.65967
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135435342294312871, guid: 811a6500be4951248bacb7da22becef0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -107.37744
+      objectReference: {fileID: 0}
     - target: {fileID: 7044652996567236935, guid: 811a6500be4951248bacb7da22becef0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1054,7 +1062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
+  m_ScaleFactor: 0.459
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -2509,7 +2517,7 @@ GameObject:
   - component: {fileID: 2013611493}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
