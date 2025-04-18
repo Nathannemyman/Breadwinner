@@ -8082,6 +8082,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 347023116780016377}
     - target: {fileID: 602662843329887941, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
+      propertyPath: spriteLeft
+      value: 
+      objectReference: {fileID: 4106759726452852648, guid: fbd2a0f99ccd42549af1dfc412621619, type: 3}
+    - target: {fileID: 602662843329887941, guid: ff9ac8867a784984dbfee61738292a88, type: 3}
       propertyPath: crashOutBack
       value: 
       objectReference: {fileID: 2102113358}
