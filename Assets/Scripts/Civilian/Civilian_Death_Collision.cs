@@ -21,8 +21,10 @@ public class DeathCollision : MonoBehaviour
     private Rigidbody2D playerBody;
     private Animator civilianAnimator;
     [SerializeField] private AudioClip killCivilianSFX;
+    [SerializeField] private AudioClip flyingCivilianSFX;
     [SerializeField] private AudioClip exitSFX;
     private AudioSource killCivilianAudio;
+    private AudioSource shootCivilianAudio;
 
     void Start()
     {
@@ -38,7 +40,12 @@ public class DeathCollision : MonoBehaviour
         FindPlayerReferences();
 
         civilianAnimator = transform.parent.GetComponent<Animator>();
-        killCivilianAudio = GetComponent<AudioSource>();
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+        if (audioSources.Length >= 2)
+        {
+            killCivilianAudio = audioSources[0];
+            shootCivilianAudio = audioSources[1];
+        }
     }
 
     void FindPlayerReferences()
@@ -92,7 +99,14 @@ public class DeathCollision : MonoBehaviour
         killCivilianAudio.clip = killCivilianSFX;
         killCivilianAudio.loop = false; //play the kill civilian sfx once
         killCivilianAudio.Play();
+
+        shootCivilianAudio.clip = flyingCivilianSFX;
+        shootCivilianAudio.loop = false; //play the flying civilian sfx once
+        shootCivilianAudio.Play();
         yield return new WaitForSeconds(killCivilianSFX.length);
+        yield return new WaitForSeconds(killCivilianSFX.length);
+
+
         if (!CheckVisibility())
         {
             killCivilianAudio.clip = exitSFX;
