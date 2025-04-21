@@ -711,11 +711,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8a722742103724f9ca7a9c38bd8e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootSpeed: 5000
-  rotationForce: 200
+  shootSpeed: 2000
+  rotationForce: 50
   invertDirection: 0
   isPoliceOfficer: 1
-  killCivilianSFX: {fileID: 8300000, guid: 67bd51e4ae1ca234092e5cc568e6f683, type: 3}
+  killCivilianSFX: {fileID: 8300000, guid: 36caf76498769dc40a121fc89e9c7018, type: 3}
+  flyingCivilianSFX: {fileID: 0}
   exitSFX: {fileID: 0}
 --- !u!114 &1741670968680207466
 MonoBehaviour:
