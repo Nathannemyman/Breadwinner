@@ -1,67 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.InputSystem.UI.VirtualMouseInput;
 
 public class DeathShop : MonoBehaviour
 {
-    public GameObject Cursor;
-    public Button[] spots;
-    public Transform[] ItemsSpots;
-    public List<BuyableItems> Items = new List<BuyableItems>();
-    public List<BuyableItems> ItemsOut = new List<BuyableItems>();
-    public List<GameObject> addedObject = new List<GameObject>();
-    private int pick;
-    private bool pressing;
-    public Vector3 Offset;
-    public float bankAccount;
-    public Text Money;
-    public Text[] ItemsCost;
-    public Text Description;
-    public Sprite Regular;
-    public Sprite Hover;
+    [Header("Cursor Settings")]
+    [SerializeField] private Texture2D cursorTexture;
 
-    private Vector3 mouse;
-    public float moveSpeed = 0.1f;
+    [Header("Menu Objects")]
+    [SerializeField] private TextMeshProUGUI moneyTextBox;
+    [SerializeField] private DeathShopButton[] buttons;
 
-    private PowerUp Up;
+    [Header("Collectables")]
+    [SerializeField] private CollectableSO[] collectables;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        Up = FindObjectOfType<PowerUp>();
-        try
+        List<CollectableSO> collectList = collectables.ToList();
+        for (int i = 0; i < buttons.Length; i++)
         {
-            for (int i = 0; i < Items.Count + 2; i++)
-            {
-                int rnd = Random.Range(0, Items.Count);
-                BuyableItems thisItem = Instantiate(Items[rnd], ItemsSpots[i].transform.position, transform.rotation);
-                addedObject.Add(thisItem.gameObject);
-                ItemsOut.Add(thisItem);
-                Items.RemoveAt(rnd);
-
-                ItemsCost[i].text = ItemsOut[i].cost.ToString();
-            }
-        } catch { }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Money.text = Up.money.ToString();
-        Cursor.transform.position = Vector2.Lerp(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), moveSpeed);
-        UnityEngine.Cursor.visible = false;
-
-        
-        if (pick > ItemsOut.Count - 1)
-        {
-            pick = 0;
-        } else if(pick < 0)
-        {
-            pick = ItemsOut.Count - 1;
+            CollectableSO chosenCollectible = collectList[Random.Range(0, collectList.Count)];
+            buttons[i].Initiate(chosenCollectible);
+            collectList.Remove(chosenCollectible);
+            buttons[i].BuyButton.onClick.AddListener(() => SetMoneyText());
         }
 
-       // Cursor.transform.position = spots[pick].position + Offset;
+        buttons[0].BuyButton.onClick.AddListener(() => buttons[0].Buy());
+        buttons[1].BuyButton.onClick.AddListener(() => buttons[1].Buy());
+        buttons[2].BuyButton.onClick.AddListener(() => buttons[2].Buy());
 
+        if (GameData.Instance != null) GameData.Instance.SendMoneyToBank();
+        SetMoneyText();
+
+        //Cursor.SetCursor(cursorTexture, Vector2.zero, UnityEngine.CursorMode.Auto);
+    }
+
+    private void SetMoneyText()
+    {
+        if (GameData.Instance != null)
+        {
+            moneyTextBox.text = GameData.Instance.BankAccountMoney.ToString();
+        }
+    }
+
+    public void Continue()
+    {
+        Cursor.SetCursor(null, Vector2.zero, UnityEngine.CursorMode.Auto);
     }
 }
