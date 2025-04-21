@@ -19,6 +19,12 @@ public class Timer : MonoBehaviour {
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
+        if (GameData.Instance != null) {
+            if (GameData.Instance.HasItem(CollectableType.TrafficLightRemote)) {
+                timerDuration += 180;
+            }
+        }
+        
         timeRemaining = timerDuration;
     }
 
@@ -48,7 +54,7 @@ public class Timer : MonoBehaviour {
             if (!eventEvoked) {
                 OnTimerComplete?.Invoke();
                 eventEvoked = true;
-                SceneManager.LoadScene(3); // Loads loss screen
+                SceneManager.LoadScene(4); // Loads loss screen
             }
         }
     }

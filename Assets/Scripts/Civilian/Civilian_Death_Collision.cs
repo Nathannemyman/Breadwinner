@@ -188,7 +188,18 @@ public class DeathCollision : MonoBehaviour
             civilianAnimator.speed = 0; // pause animation
         }
 
-        GameManager.Instance.Money += 10;
+        int moneyToAdd = 10;
+        if (GameData.Instance != null)
+        {
+            if (GameData.Instance.HasItem(CollectableType.LethalFaceCard))
+            {
+                GameData.Instance.AddMoney(moneyToAdd * 2);
+                GameManager.Instance.Money += moneyToAdd * 2;
+            }
+            else GameData.Instance.AddMoney(moneyToAdd);
+            GameManager.Instance.Money += moneyToAdd;
+        }
+        else GameManager.Instance.Money += moneyToAdd;
         GameManager.Instance.policeSpawning = true;
     }
 

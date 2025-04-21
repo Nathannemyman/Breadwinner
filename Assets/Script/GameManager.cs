@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -90,5 +91,12 @@ public class GameManager : MonoBehaviour
         CallAfterDelay.Create(1.0f, () => {
             PlayeSceneObjects.SetActive(true);
         });
+    }
+
+    public UnityAction onPlayerDamage;
+    public void DamagePlayer()
+    {
+        playerHearts--;
+        onPlayerDamage.Invoke();
     }
 }
