@@ -1,0 +1,75 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+
+public class GameData : MonoBehaviour
+{
+    public static GameData Instance {  get; private set; }
+
+    public int Money { get; private set; }
+    public int BankAccountMoney { get; private set; }
+
+    private List<CollectableSO> collectables;
+
+
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            collectables = new();
+        }
+    }
+
+    public void AddMoney(int value)
+    {
+        Money += value;
+    }
+
+    public void SendMoneyToBank()
+    {
+        BankAccountMoney += Money;
+        Money = 0;
+    }
+
+    public void AddBankMoney(int value)
+    {
+        BankAccountMoney += value;
+    }
+
+    public void SpendMoney(int value)
+    {
+        Money = Mathf.Max(Money - value, 0);
+    }
+
+    public void SpendBankMoney(int value)
+    {
+        BankAccountMoney = Mathf.Max(BankAccountMoney - value, 0);
+    }
+
+    public void AddCollectable(CollectableSO collectable)
+    {
+        collectables.Add(collectable);
+    }
+
+    public void ResetGameData()
+    {
+        Money = 0;
+        BankAccountMoney = 0;
+        collectables.Clear();
+    }
+
+    public bool HasItem(CollectableType type)
+    {
+        return collectables.Any(c => c.Type == type);
+    }
+}
