@@ -763,7 +763,7 @@ public class PogoStickMovement : MonoBehaviour
 
         isCrashing = false;
 
-        GameManager.Instance.playerHearts--;
+        GameManager.Instance.DamagePlayer();
 
         // Start invincibility period
         isInvincible = true;

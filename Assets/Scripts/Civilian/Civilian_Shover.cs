@@ -104,6 +104,13 @@ public class Civilian_Shover : MonoBehaviour
         {
             Debug.LogError("Player components missing, aborting shove");
             activeCoroutine = null;
+
+            // Reset stunned state if interrupted
+            if (playerPogoMovement != null)
+            {
+                playerPogoMovement.stunned = false;
+            }
+
             yield break;
         }
 
@@ -136,6 +143,12 @@ public class Civilian_Shover : MonoBehaviour
         // Check player validity
         if (player == null || playerRb == null || !playerInTrigger)
         {
+            // Reset stunned state if interrupted
+            if (playerPogoMovement != null)
+            {
+                playerPogoMovement.stunned = false;
+            }
+
             ResetState();
             StartCoroutine(CooldownRoutine());
             yield break;
@@ -168,6 +181,12 @@ public class Civilian_Shover : MonoBehaviour
         {
             Debug.Log("Player no longer valid before shake");
 
+            // Reset stunned state if interrupted
+            if (playerPogoMovement != null)
+            {
+                playerPogoMovement.stunned = false;
+            }
+
             // Ensure animation completes before resetting
             float timeElapsed = Time.time - animationStartTime;
             if (timeElapsed < minimumAnimationDuration)
@@ -198,6 +217,13 @@ public class Civilian_Shover : MonoBehaviour
             if (player == null || playerTransform == null)
             {
                 Debug.LogError("Player lost during shake phase");
+
+                // Reset stunned state if interrupted
+                if (playerPogoMovement != null)
+                {
+                    playerPogoMovement.stunned = false;
+                }
+
                 break;
             }
 
@@ -229,6 +255,13 @@ public class Civilian_Shover : MonoBehaviour
         if (player == null || playerRb == null)
         {
             Debug.LogError("Player lost before push phase");
+
+            // Reset stunned state if interrupted
+            if (playerPogoMovement != null)
+            {
+                playerPogoMovement.stunned = false;
+            }
+
             // We'll do physics restoration in the cleanup phase
             goto CleanupPhase;
         }
@@ -321,7 +354,6 @@ public class Civilian_Shover : MonoBehaviour
         // Start cooldown
         StartCoroutine(CooldownRoutine());
     }
-
     // New coroutine to reset the layer after 1 second
     private IEnumerator ResetLayerAfterDelay(GameObject player)
     {

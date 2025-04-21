@@ -119,9 +119,12 @@ public class EnemySpawner : MonoBehaviour
         float cameraHeight = 2f * targetCamera.orthographicSize;
         float cameraWidth = cameraHeight * targetCamera.aspect;
 
-        if (GameManager.Instance != null && GameManager.Instance.HasBread)
+        // Randomly choose left or right side
+        bool spawnOnLeft = Random.value < 0.5f;
+
+        if (spawnOnLeft)
         {
-            // Spawn on left side when HasBread is true
+            // Spawn on left side
             float leftEdgeX = targetCamera.transform.position.x - (cameraWidth / 2f);
             return new Vector3(
                 leftEdgeX - offscreenOffset,
@@ -131,7 +134,7 @@ public class EnemySpawner : MonoBehaviour
         }
         else
         {
-            // Original spawn on right side
+            // Spawn on right side
             float rightEdgeX = targetCamera.transform.position.x + (cameraWidth / 2f);
             return new Vector3(
                 rightEdgeX + offscreenOffset,

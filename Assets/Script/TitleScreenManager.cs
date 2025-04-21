@@ -6,13 +6,13 @@ public class TitleScreenManager : MonoBehaviour
     public void NewGame()
     {
         // Replace "GameScene" with your actual game scene name
+        if (GameData.Instance != null) GameData.Instance.ResetGameData();
         SceneManager.LoadScene(1);
     }
 
     public void ContinueGame()
     {
-        Debug.Log("Continue Game clicked (add load system here)");
-        // Load saved game data
+        SceneManager.LoadScene(1);
     }
 
     public void OpenSettings()

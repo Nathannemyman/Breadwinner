@@ -1,60 +1,51 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System;
 
 public class Hearts : MonoBehaviour
 {
-    public GameObject Heart_1;
-    public GameObject Heart_2;
-    public GameObject Heart_3;
+    [SerializeField] private Sprite fullHeartSprite;
+    [SerializeField] private Sprite emptyHeartSprite;
+    [SerializeField] private Image heartPrefab;
+    [SerializeField] private Transform heartParent;
+
+    private int startingHealth;
+    private List<Image> heartImages;
 
     void Start()
     {
-        GameManager.Instance.playerHearts = 3;
-        UpdateHeartDisplay();
-    }
-
-    void Update()
-    {
-        // Update hearts constnatly
-        UpdateHeartDisplay();
-    }
-
-    void UpdateHeartDisplay()
-    {
-        GameManager.Instance.playerHearts = Mathf.Clamp(GameManager.Instance.playerHearts, 0, 3);
-
-        switch (GameManager.Instance.playerHearts)
+        if (GameData.Instance != null)
         {
-            case 0:
-                {
-                    Heart_1.gameObject.SetActive(false);
-                    Heart_2.gameObject.SetActive(false);
-                    Heart_3.gameObject.SetActive(false);
-                    SceneManager.LoadScene(4);
-                    break;
-                }
-            case 1:
-                {
-                    Heart_1.gameObject.SetActive(true);
-                    Heart_2.gameObject.SetActive(false);
-                    Heart_3.gameObject.SetActive(false);
-                    break;
-                }
-            case 2:
-                {
-                    Heart_1.gameObject.SetActive(true);
-                    Heart_2.gameObject.SetActive(true);
-                    Heart_3.gameObject.SetActive(false);
-                    break;
-                }
-            case 3:
-                {
-                    Heart_1.gameObject.SetActive(true);
-                    Heart_2.gameObject.SetActive(true);
-                    Heart_3.gameObject.SetActive(true);
-                    break;
-                }
+            startingHealth = GameData.Instance.HasItem(CollectableType.GrandmasCookies) ? 6 : 3;
         }
+        else startingHealth = 3;
+
+        GameManager.Instance.playerHearts = startingHealth;
+
+        heartImages = new();
+        for (int i = 0; i < startingHealth; i++)
+        {
+            Image heart = Instantiate(heartPrefab, heartParent);
+            heartImages.Add(heart);
+        }
+    }
+
+    private void OnEnable()
+    {
+        GameManager.Instance.onPlayerDamage += Damage;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.onPlayerDamage -= Damage;
+    }
+
+    private void Damage()
+    {
+        heartImages[GameManager.Instance.playerHearts].sprite = emptyHeartSprite;
+
+        if (GameManager.Instance.playerHearts <= 0) SceneManager.LoadScene(4);
     }
 }

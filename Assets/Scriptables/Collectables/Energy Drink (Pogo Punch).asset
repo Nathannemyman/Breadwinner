@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 722bdd6386d554e4093c2b38a38799e9, type: 3}
+  m_Name: Energy Drink (Pogo Punch)
+  m_EditorClassIdentifier: 
+  title: Energy Drink
+  sprite: {fileID: 7010517541535832528, guid: b37cab500d39b724d962961a38c7a6c5, type: 3}
+  cost: 50
+  description: 'Energy Drink (Pogo Punch)- Increase speed of El Pogo by 50% '
+  type: 2
