@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 722bdd6386d554e4093c2b38a38799e9, type: 3}
+  m_Name: Goopiter Battery Charge
+  m_EditorClassIdentifier: 
+  title: Goopiter Battery
+  sprite: {fileID: 797343066402451576, guid: 7a8839f693cd599429ba4573d34d845e, type: 3}
+  cost: 50
+  description: Goopiter Battery Charge-Speed of Charge (Increased acceleration)
+  type: 3
