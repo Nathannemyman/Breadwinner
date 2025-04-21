@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject civilianPrefab;
     public GameObject policeOfficerPrefab;
-    public GameObject deathBlastPrefab; // New field for Death_Blast prefab
+    public GameObject deathBlastPrefab;
     public Camera targetCamera;
     public float ySpawnLevel = 0f;
     public float offscreenOffset = 2f;
@@ -96,7 +96,7 @@ public class EnemySpawner : MonoBehaviour
         // Clean up entities that have moved off-screen
         CleanupOffscreenEntities();
 
-        // Check for entities that have fallen below y=-7
+        // Check for entities that have fallen below y=-10
         CheckForFallenEntities();
     }
 
@@ -169,7 +169,7 @@ public class EnemySpawner : MonoBehaviour
 
     void CheckForFallenEntities()
     {
-        // Check each entity to see if it has fallen below y=-7
+        // Check each entity to see if it has fallen below y=-10
         for (int i = spawnedEntities.Count - 1; i >= 0; i--)
         {
             GameObject entity = spawnedEntities[i];
@@ -181,8 +181,8 @@ public class EnemySpawner : MonoBehaviour
                 continue;
             }
 
-            // Check if entity has fallen below y=-7
-            if (entity.transform.position.y < -7f)
+            // Check if entity has fallen below y=-10
+            if (entity.transform.position.y < -10f)
             {
                 // Get the entity's x position
                 float xPosition = entity.transform.position.x;
@@ -207,7 +207,6 @@ public class EnemySpawner : MonoBehaviour
                 SpawnDeathBlast(xPosition, velocityDirection);
 
                 // Remove the entity
-                Destroy(entity);
                 spawnedEntities.RemoveAt(i);
             }
         }
@@ -225,8 +224,8 @@ public class EnemySpawner : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f;
         Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
-        // Create the Death_Blast at the x position and y=-7
-        Vector3 spawnPosition = new Vector3(xPosition, -7f, 0f);
+        // Create the Death_Blast at the x position and y=-10
+        Vector3 spawnPosition = new Vector3(xPosition, -10f, 0f);
         GameObject deathBlast = Instantiate(deathBlastPrefab, spawnPosition, rotation);
 
         // Start coroutine to despawn after 2 seconds

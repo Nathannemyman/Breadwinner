@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/TitleScreen.unity
+    guid: 4360b4e0d2fa1434dbf41224fe6ece23
+  - enabled: 1
     path: Assets/Scenes/JohnMilestoneTestScene.unity
-    guid: 508638467eb176d478abebe99900a02b
+    guid: 751f9c81b93150d428f183c02fd6d5e5
   - enabled: 1
     path: Assets/Scenes/WinScene.unity
     guid: 7bc9040b870ea504b825b7fbaf999bb5
@@ -17,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Loss_Screen.unity
     guid: 33dcca12ae77269418749e7f79375440
+  - enabled: 1
+    path: Assets/DeathTransfer/Transfer scene.unity
+    guid: 2505b835bb82c4c1d84d9f12ed7906ff
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f58f923c045c3fd47af15d20e7ee81aa, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 78eca2888baccd44784197793d3c16d5, type: 3}
