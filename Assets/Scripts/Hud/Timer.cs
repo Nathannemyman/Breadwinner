@@ -66,4 +66,8 @@ public class Timer : MonoBehaviour {
     public void ChangeTextColor(Color color) {
         textObject.color = color;
     }
+
+    public void SetTimeOnGameWin() {
+            if (GameData.Instance != null) GameData.Instance.SetTime(timeRemaining);
+    }
 }

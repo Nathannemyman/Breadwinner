@@ -46,6 +46,10 @@ public class Hearts : MonoBehaviour
     {
         heartImages[GameManager.Instance.playerHearts].sprite = emptyHeartSprite;
 
-        if (GameManager.Instance.playerHearts <= 0) SceneManager.LoadScene(4);
+        if (GameManager.Instance.playerHearts <= 0)
+        {
+            if (GameData.Instance != null)
+            SceneManager.LoadScene(4);
+        }
     }
 }

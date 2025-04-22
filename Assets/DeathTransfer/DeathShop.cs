@@ -22,6 +22,11 @@ public class DeathShop : MonoBehaviour
     void Start()
     {
         List<CollectableSO> collectList = collectables.ToList();
+
+        buttons[0].BuyButton.onClick.AddListener(() => buttons[0].Buy());
+        buttons[1].BuyButton.onClick.AddListener(() => buttons[1].Buy());
+        buttons[2].BuyButton.onClick.AddListener(() => buttons[2].Buy());
+
         for (int i = 0; i < buttons.Length; i++)
         {
             CollectableSO chosenCollectible = collectList[Random.Range(0, collectList.Count)];
@@ -29,10 +34,6 @@ public class DeathShop : MonoBehaviour
             collectList.Remove(chosenCollectible);
             buttons[i].BuyButton.onClick.AddListener(() => SetMoneyText());
         }
-
-        buttons[0].BuyButton.onClick.AddListener(() => buttons[0].Buy());
-        buttons[1].BuyButton.onClick.AddListener(() => buttons[1].Buy());
-        buttons[2].BuyButton.onClick.AddListener(() => buttons[2].Buy());
 
         if (GameData.Instance != null) GameData.Instance.SendMoneyToBank();
         SetMoneyText();
