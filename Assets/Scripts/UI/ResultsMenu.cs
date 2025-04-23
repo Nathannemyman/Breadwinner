@@ -10,8 +10,9 @@ public class ResultsMenu : MonoBehaviour
     [SerializeField] private GameObject menu;
 
     [Header("Time Stats")]
+    [SerializeField] private float timeToStart = 2;
     [SerializeField] private float timeToDisplayLine = 1;
-    [SerializeField] private float timeToDisplayScore = 1;
+    [SerializeField] private float timeToDisplayScore = 2;
 
     [Header("Audio")]
     [SerializeField] private AudioClip sectionAppearSFX;
@@ -40,14 +41,18 @@ public class ResultsMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI heartsHeaderTextBox;
     [SerializeField] private TextMeshProUGUI heartsPointsTextBox;
 
-    [Header("Money Values")]
+    [Header("Police Values")]
     [SerializeField] private RectTransform policeRect;
     [SerializeField] private TextMeshProUGUI policeHeaderTextBox;
     [SerializeField] private TextMeshProUGUI policePointsTextBox;
 
-    [Header("Money Values")]
+    [Header("Total Score Values")]
     [SerializeField] private RectTransform totalScoreRect;
     [SerializeField] private TextMeshProUGUI totalPointsTextBox;
+
+    [Header("Bank Account Values")]
+    [SerializeField] private RectTransform bankAllowanceRect;
+    [SerializeField] private TextMeshProUGUI bankAllowanceTextBox;
 
     [Header("Ranking Stuff")]
     [SerializeField] private RectTransform rankingRect;
@@ -64,12 +69,15 @@ public class ResultsMenu : MonoBehaviour
     [SerializeField] private Button continueButton;
 
     private bool menuOpen = false;
+    private bool canSkip = false;
+    private bool resultsEnded = false;
     private Coroutine resultsShowCoroutine;
     private Animator anim;
     private AudioSource audioSource;
 
     private int cashAtEndOfRun;
     private float timeItTookToFinish;
+    private float remainingTime;
     private int heartsAtEndOfRun;
     private int startingHealth;
     private int policeKillsAtEndOfRun;
@@ -80,31 +88,68 @@ public class ResultsMenu : MonoBehaviour
         TryGetComponent(out audioSource);
 
         timeItTookToFinish = GameData.Instance.TimeItTookToFinish;
+        if (timeItTookToFinish != 0) remainingTime = GameData.Instance.StartingTime - timeItTookToFinish;
+        else remainingTime = 0;
         cashAtEndOfRun = GameData.Instance.Money;
         heartsAtEndOfRun = GameData.Instance.Hearts;
         startingHealth = GameData.Instance.StartingHealth;
         policeKillsAtEndOfRun = GameData.Instance.PoliceKilled;
 
-        headerRect.GetComponent<CanvasGroup>().alpha = 0;
-        timeRect.GetComponent<CanvasGroup>().alpha = 0;
-        timeHeaderTextBox.GetComponent<CanvasGroup>().alpha = 0;
-        timeTakenTextBox.GetComponent<CanvasGroup>().alpha = 0;
-        timePointsTextBox.GetComponent<CanvasGroup>().alpha = 0;
-        moneyRect.GetComponent<CanvasGroup>().alpha = 0;
-        moneyHeaderTextBox.GetComponent<CanvasGroup>().alpha = 0;
-        moneyPointsTextBox.GetComponent<CanvasGroup>().alpha = 0;
-        heartsRect.GetComponent<CanvasGroup>().alpha = 0;
-        heartsHeaderTextBox.GetComponent<CanvasGroup>().alpha = 0;
-        heartsPointsTextBox.GetComponent<CanvasGroup>().alpha = 0;
-        policeRect.GetComponent<CanvasGroup>().alpha = 0;
-        policeHeaderTextBox.GetComponent<CanvasGroup>().alpha = 0;
-        policePointsTextBox.GetComponent<CanvasGroup>().alpha = 0;
-        totalScoreRect.GetComponent<CanvasGroup>().alpha = 0;
-        totalPointsTextBox.GetComponent<CanvasGroup>().alpha = 0;
-        rankingRect.GetComponent<CanvasGroup>().alpha = 0;
-        rankingImage.gameObject.SetActive(false);
-        continueRect.GetComponent<CanvasGroup>().alpha = 0;
-        continueButton.gameObject.SetActive(false);
+        ToggleElements(false);
+    }
+
+    private void ToggleElements(bool toggleValue)
+    {
+        if (toggleValue)
+        {
+            headerRect.GetComponent<CanvasGroup>().alpha = 1;
+            timeRect.GetComponent<CanvasGroup>().alpha = 1;
+            timeHeaderTextBox.GetComponent<CanvasGroup>().alpha = 1;
+            timeTakenTextBox.GetComponent<CanvasGroup>().alpha = 1;
+            timePointsTextBox.GetComponent<CanvasGroup>().alpha = 1;
+            moneyRect.GetComponent<CanvasGroup>().alpha = 1;
+            moneyHeaderTextBox.GetComponent<CanvasGroup>().alpha = 1;
+            moneyPointsTextBox.GetComponent<CanvasGroup>().alpha = 1;
+            heartsRect.GetComponent<CanvasGroup>().alpha = 1;
+            heartsHeaderTextBox.GetComponent<CanvasGroup>().alpha = 1;
+            heartsPointsTextBox.GetComponent<CanvasGroup>().alpha = 1;
+            policeRect.GetComponent<CanvasGroup>().alpha = 1;
+            policeHeaderTextBox.GetComponent<CanvasGroup>().alpha = 1;
+            policePointsTextBox.GetComponent<CanvasGroup>().alpha = 1;
+            totalScoreRect.GetComponent<CanvasGroup>().alpha = 1;
+            totalPointsTextBox.GetComponent<CanvasGroup>().alpha = 1;
+            bankAllowanceRect.GetComponent<CanvasGroup>().alpha = 1;
+            bankAllowanceTextBox.GetComponent<CanvasGroup>().alpha = 1;
+            rankingRect.GetComponent<CanvasGroup>().alpha = 1;
+            rankingImage.gameObject.SetActive(true);
+            continueRect.GetComponent<CanvasGroup>().alpha = 1;
+            continueButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            headerRect.GetComponent<CanvasGroup>().alpha = 0;
+            timeRect.GetComponent<CanvasGroup>().alpha = 0;
+            timeHeaderTextBox.GetComponent<CanvasGroup>().alpha = 0;
+            timeTakenTextBox.GetComponent<CanvasGroup>().alpha = 0;
+            timePointsTextBox.GetComponent<CanvasGroup>().alpha = 0;
+            moneyRect.GetComponent<CanvasGroup>().alpha = 0;
+            moneyHeaderTextBox.GetComponent<CanvasGroup>().alpha = 0;
+            moneyPointsTextBox.GetComponent<CanvasGroup>().alpha = 0;
+            heartsRect.GetComponent<CanvasGroup>().alpha = 0;
+            heartsHeaderTextBox.GetComponent<CanvasGroup>().alpha = 0;
+            heartsPointsTextBox.GetComponent<CanvasGroup>().alpha = 0;
+            policeRect.GetComponent<CanvasGroup>().alpha = 0;
+            policeHeaderTextBox.GetComponent<CanvasGroup>().alpha = 0;
+            policePointsTextBox.GetComponent<CanvasGroup>().alpha = 0;
+            totalScoreRect.GetComponent<CanvasGroup>().alpha = 0;
+            totalPointsTextBox.GetComponent<CanvasGroup>().alpha = 0;
+            bankAllowanceRect.GetComponent<CanvasGroup>().alpha = 0;
+            bankAllowanceTextBox.GetComponent<CanvasGroup>().alpha = 0;
+            rankingRect.GetComponent<CanvasGroup>().alpha = 0;
+            rankingImage.gameObject.SetActive(false);
+            continueRect.GetComponent<CanvasGroup>().alpha = 0;
+            continueButton.gameObject.SetActive(false);
+        }
     }
 
     private void Update()
@@ -112,6 +157,11 @@ public class ResultsMenu : MonoBehaviour
         if (Input.GetMouseButton(0) && !menuOpen)
         {
             PauseGame();
+        }
+
+        if (menuOpen && Input.GetMouseButton(0) && canSkip && !resultsEnded)
+        {
+            SkipResults();
         }
     }
 
@@ -123,11 +173,63 @@ public class ResultsMenu : MonoBehaviour
         ShowResults();
     }
 
+    private void SkipResults()
+    {
+        float finalContentSize =
+            headerRect.sizeDelta.y +
+            scrollContentRect.sizeDelta.y +
+            moneyRect.sizeDelta.y +
+            heartsRect.sizeDelta.y +
+            policeRect.sizeDelta.y +
+            totalScoreRect.sizeDelta.y +
+            rankingRect.sizeDelta.y +
+            continueRect.sizeDelta.y;
+
+        Vector2 tempAnchorPos = scrollContentRect.anchoredPosition;
+        tempAnchorPos.y = Mathf.Max(0, finalContentSize - phoneViewportHeight);
+        scrollContentRect.anchoredPosition = tempAnchorPos;
+
+        int minutes = Mathf.FloorToInt(timeItTookToFinish / 60f);
+        int seconds = Mathf.FloorToInt(timeItTookToFinish % 60f);
+        if (timeItTookToFinish != 0) timeTakenTextBox.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        else timeTakenTextBox.text = "<color=red>FAIL<color=red>";
+
+        if (timeItTookToFinish != 0) timePointsTextBox.text = $"{Mathf.Round(remainingTime)} secs remaining = <color=green>{Mathf.Round(remainingTime)}p</color>";
+        else timePointsTextBox.text = $"{Mathf.Round(remainingTime)} secs remaining = {Mathf.Round(remainingTime)}p";
+
+        if (cashAtEndOfRun != 0) moneyPointsTextBox.text = $"${cashAtEndOfRun} = <color=green>{cashAtEndOfRun}p</color>";
+        else moneyPointsTextBox.text = $"${cashAtEndOfRun} = {cashAtEndOfRun}p";
+
+        heartsPointsTextBox.text = $"({startingHealth - heartsAtEndOfRun})x30 = <color=red>{0 - ((startingHealth - heartsAtEndOfRun) * 30)}p</color>";
+
+        policePointsTextBox.text = $"({policeKillsAtEndOfRun})x50 = <color=red>{0 - (policeKillsAtEndOfRun * 50)}p</color>";
+
+        int totalScore = Mathf.FloorToInt((timeItTookToFinish % 60f) + cashAtEndOfRun - (policeKillsAtEndOfRun * 50));
+        totalPointsTextBox.text = $"Point Total: {totalScore}p";
+
+        int bankMoneyAdded;
+        if (totalScore < 0) bankMoneyAdded = 10;
+        else if (totalScore < 50) bankMoneyAdded = 20;
+        else if (totalScore < 150) bankMoneyAdded = 50;
+        else if (totalScore < 350) bankMoneyAdded = 150;
+        else if (totalScore < 500) bankMoneyAdded = 500;
+        else if (totalScore < 750) bankMoneyAdded = 1000;
+        else bankMoneyAdded = 1000;
+        bankAllowanceTextBox.text = $"Allowance Added: ${bankMoneyAdded}";
+        GameData.Instance.AddBankMoney(bankMoneyAdded);
+
+        ToggleElements(true);
+        StopCoroutine(resultsShowCoroutine);
+        resultsEnded = true;
+        scrollRect.vertical = true;
+    }
+
     private void ShowResults()
     {
         if (resultsShowCoroutine != null) StopCoroutine(resultsShowCoroutine);
         resultsShowCoroutine = StartCoroutine(ShowTheResults());
     }
+
 
     private IEnumerator ShowTheResults()
     {
@@ -135,8 +237,10 @@ public class ResultsMenu : MonoBehaviour
         float totalContentSize = 0;
         scrollRect.vertical = false;
 
-        while (timer < 2) { timer += Time.fixedDeltaTime; yield return null; }
+        while (timer < timeToStart) { timer += Time.fixedDeltaTime; yield return null; }
         timer = 0;
+
+        canSkip = true;
 
         if (headerRect != null)
         {
@@ -180,12 +284,12 @@ public class ResultsMenu : MonoBehaviour
                 while (timer < timeToDisplayScore)
                 {
                     timer += Time.fixedDeltaTime;
-                    timePointsTextBox.text = $"{Mathf.Round(timeItTookToFinish)} seconds = <color=green>{Mathf.Round(timeItTookToFinish * (timer / timeToDisplayScore))}p</color>";
+                    timePointsTextBox.text = $"{Mathf.Round(remainingTime)} secs remaining = <color=green>{Mathf.Round(remainingTime * (timer / timeToDisplayScore))}p</color>";
                     yield return null;
                 }
-                timePointsTextBox.text = $"{Mathf.Round(timeItTookToFinish)} seconds = <color=green>{Mathf.Round(timeItTookToFinish)}p</color>";
+                timePointsTextBox.text = $"{Mathf.Round(remainingTime)} secs remaining = <color=green>{Mathf.Round(remainingTime)}p</color>";
             }
-            else timePointsTextBox.text = $"{Mathf.Round(timeItTookToFinish)} seconds = {Mathf.Round(timeItTookToFinish)}p";
+            else timePointsTextBox.text = $"{Mathf.Round(remainingTime)} secs remaining = {Mathf.Round(remainingTime)}p";
             timer = 0;
 
             while (timer < timeToDisplayLine) { timer += Time.fixedDeltaTime; yield return null; }
@@ -311,6 +415,39 @@ public class ResultsMenu : MonoBehaviour
             timer = 0;
         }
 
+        int bankMoneyAdded;
+        if (totalScore < 0) bankMoneyAdded = 10;
+        else if (totalScore < 50) bankMoneyAdded = 20;
+        else if (totalScore < 150) bankMoneyAdded = 50;
+        else if (totalScore < 350) bankMoneyAdded = 150;
+        else if (totalScore < 500) bankMoneyAdded = 500;
+        else if (totalScore < 750) bankMoneyAdded = 1000;
+        else bankMoneyAdded = 1000;
+        if (bankAllowanceRect != null)
+        {
+            totalContentSize += bankAllowanceRect.sizeDelta.y;
+            Vector2 tempAnchorPos = scrollContentRect.anchoredPosition;
+            tempAnchorPos.y = Mathf.Max(0, totalContentSize - phoneViewportHeight);
+            scrollContentRect.anchoredPosition = tempAnchorPos;
+            bankAllowanceRect.GetComponent<CanvasGroup>().alpha = 1;
+
+            bankAllowanceTextBox.GetComponent<CanvasGroup>().alpha = 1;
+            audioSource.PlayOneShot(sectionAppearSFX);
+
+            while (timer < timeToDisplayScore)
+            {
+                timer += Time.fixedDeltaTime;
+                bankAllowanceTextBox.text = $"Allowance Added: ${Mathf.Round(bankMoneyAdded * (timer / timeToDisplayScore))}";
+                yield return null;
+            }
+            timer = 0;
+            bankAllowanceTextBox.text = $"Allowance Added: ${bankMoneyAdded}";
+            GameData.Instance.AddBankMoney(bankMoneyAdded);
+
+            while (timer < timeToDisplayLine) { timer += Time.fixedDeltaTime; yield return null; }
+            timer = 0;
+        }
+
         if (rankingRect != null)
         {
             totalContentSize += rankingRect.sizeDelta.y;
@@ -345,12 +482,7 @@ public class ResultsMenu : MonoBehaviour
         }
 
         scrollRect.vertical = true;
-        if (totalScore < 0) GameData.Instance.AddBankMoney(10);
-        else if (totalScore < 50) GameData.Instance.AddBankMoney(20);
-        else if (totalScore < 150) GameData.Instance.AddBankMoney(50);
-        else if (totalScore < 350) GameData.Instance.AddBankMoney(150);
-        else if (totalScore < 500) GameData.Instance.AddBankMoney(500);
-        else if (totalScore < 750) GameData.Instance.AddBankMoney(1000);
+        resultsEnded = true;
         yield break;
     }
 }
