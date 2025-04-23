@@ -107,7 +107,7 @@ public class DeathCollision : MonoBehaviour
         yield return new WaitForSeconds(killCivilianSFX.length);
 
 
-        if (!CheckVisibility())
+        if (!CheckVisibility() && hasRunDeathFunction)
         {
             killCivilianAudio.clip = exitSFX;
             killCivilianAudio.loop = false; //play the exit sfx(the explosion) once
@@ -165,7 +165,7 @@ public class DeathCollision : MonoBehaviour
 
         if (playerBody != null)
         {
-            Vector2 recoilForce = -force * (1f / 400f); // 1/400th of the force recoiled back
+            Vector2 recoilForce = -force * (1f / 200f); // 1/200th of the force recoiled back
 
             // Check if player's velocity is already above 10
             float currentVelocityMagnitude = playerBody.linearVelocity.magnitude;

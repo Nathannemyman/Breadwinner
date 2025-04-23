@@ -42,9 +42,9 @@ public class Timer : MonoBehaviour {
             milisecObject.text = string.Format(":<size=25>{0:00}</size>", milisecond);
             // milisecObject.text = string.Format(":{0:000}", milisecond);
 
-            if (timeRemaining < 120) {
+            if (timeRemaining < 60) {
                 ChangeTextColor(Color.red);
-            } else if (timeRemaining < 180) {
+            } else if (timeRemaining < 120) {
                 ChangeTextColor(Color.yellow);
             } else {
                 ChangeTextColor(Color.white);

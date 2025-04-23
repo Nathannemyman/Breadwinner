@@ -152,9 +152,9 @@ MonoBehaviour:
   rotationAngle: 40
   windupTime: 0.5
   cooldownTime: 0.5
-  civilianAnimOffset: 0.15
+  civilianAnimOffset: 0.3
   shakeDuration: 0.3
-  shakeIntensity: 0.3
+  shakeIntensity: 0.7
   shakeVibrato: 20
 --- !u!1 &3869435998034926941
 GameObject:
