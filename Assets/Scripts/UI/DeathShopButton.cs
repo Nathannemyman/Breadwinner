@@ -51,8 +51,8 @@ public class DeathShopButton : MonoBehaviour
         else if (Data.Type == CollectableType.ToddsMysteryCheck)
         {
             int choice = Random.Range(0, 2);
-            if (choice == 0) GameData.Instance.AddBankMoney(GameData.Instance.Money);
-            else GameData.Instance.SpendBankMoney(GameData.Instance.Money);
+            if (choice == 0) GameData.Instance.AddBankMoney(GameData.Instance.BankAccountMoney);
+            else GameData.Instance.SpendBankMoney(GameData.Instance.BankAccountMoney);
         }
         else
         {
