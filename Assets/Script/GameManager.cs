@@ -36,12 +36,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private int _Money;
     public int Money
     {
-        get => Money;
+        get
+        {
+            return _Money;
+        }
         set
         {
-            Money = value;
+            _Money = value;
             UpdateMoneyCount();
         }
     }
@@ -60,6 +64,11 @@ public class GameManager : MonoBehaviour
         {
             textBox.text = $"{Money}";
         }
+    }
+
+    private void Start()
+    {
+        Money = 0;
     }
 
     public void OpenShop()

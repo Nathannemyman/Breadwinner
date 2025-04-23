@@ -23,6 +23,7 @@ public class Hearts : MonoBehaviour
         else startingHealth = 3;
 
         GameManager.Instance.playerHearts = startingHealth;
+        GameData.Instance.SetStartingHealth(startingHealth);
 
         heartImages = new();
         for (int i = 0; i < startingHealth; i++)
@@ -45,6 +46,7 @@ public class Hearts : MonoBehaviour
     private void Damage()
     {
         heartImages[GameManager.Instance.playerHearts].sprite = emptyHeartSprite;
+        if (GameData.Instance != null) GameData.Instance.SetHearts(GameManager.Instance.playerHearts);
 
         if (GameManager.Instance.playerHearts <= 0)
         {

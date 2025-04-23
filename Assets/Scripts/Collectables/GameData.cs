@@ -12,7 +12,10 @@ public class GameData : MonoBehaviour
     public int Money { get; private set; }
     public int BankAccountMoney { get; private set; }
     public int PoliceKilled { get; private set; }
-    public float Time {  get; private set; }
+    public float TimeItTookToFinish {  get; private set; }
+    public float StartingTime {  get; private set; }
+    public int Hearts {  get; private set; }
+    public int StartingHealth { get; private set; }
 
     private List<CollectableSO> collectables;
 
@@ -63,18 +66,35 @@ public class GameData : MonoBehaviour
         collectables.Add(collectable);
     }
 
-    public void SetTime(float value)
+    public void SetTimeItTookToWin(float value)
     {
-        Time = value;
+        TimeItTookToFinish = value;
     }
+
+    public void SetStartingTime(float value)
+    {
+        StartingTime = value;
+    }
+
     public void PoliceOfficerKilled()
     {
         PoliceKilled++;
     }
 
+    public void SetHearts(int value)
+    {
+        Hearts = value;
+    }
+
+    public void SetStartingHealth(int value)
+    {
+        StartingHealth = value;
+        Hearts = StartingHealth;
+    }
+
     public void ResetRuntimeData()
     {
-        Time = 0;
+        TimeItTookToFinish = 0;
         PoliceKilled = 0;
     }
 
