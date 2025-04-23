@@ -36,45 +36,39 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private List<TextMeshProUGUI> _MoneyTexts = new List<TextMeshProUGUI>();
-    public List<TextMeshProUGUI> MoneyTexts
+    private int _Money;
+    public int Money
     {
         get
         {
-            if (_MoneyTexts.Count == 0)
-            {
-                GameObject[] moneyObjects = GameObject.FindObjectsOfType<GameObject>()
-                    .Where(obj => obj.name == "MoneyVal")
-                    .ToArray();
-
-                foreach (GameObject obj in moneyObjects)
-                {
-                    TextMeshProUGUI textComponent = obj.GetComponent<TextMeshProUGUI>();
-                    if (textComponent != null)
-                    {
-                        _MoneyTexts.Add(textComponent);
-                    }
-                }
-            }
-            return _MoneyTexts;
+            return _Money;
+        }
+        set
+        {
+            _Money = value;
+            UpdateMoneyCount();
         }
     }
-
-    public int Money { get; set; }
     public int playerHearts = 3;
     public bool HasBread { get; set; }
     public bool ShopOpen { get; set; }
     public bool policeSpawning { get; set; } // Determines whether police should spawn or not
 
-    void Update()
+    public void UpdateMoneyCount()
     {
-        foreach (TextMeshProUGUI moneyText in MoneyTexts)
+        List<TextMeshProUGUI> moneyTexts = FindObjectsByType<TextMeshProUGUI>(FindObjectsSortMode.None)
+                    .Where(obj => obj.name == "MoneyVal")
+                    .ToList();
+
+        foreach (TextMeshProUGUI textBox in moneyTexts)
         {
-            if (moneyText != null)
-            {
-                moneyText.text = $"{Money}";
-            }
+            textBox.text = $"{Money}";
         }
+    }
+
+    private void Start()
+    {
+        Money = 0;
     }
 
     public void OpenShop()
@@ -98,5 +92,10 @@ public class GameManager : MonoBehaviour
     {
         playerHearts--;
         onPlayerDamage.Invoke();
+    }
+
+    public void DestroyThis()
+    {
+        Destroy(gameObject);
     }
 }

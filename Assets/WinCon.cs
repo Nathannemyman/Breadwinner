@@ -15,6 +15,8 @@ public class WinCon : MonoBehaviour
         {
             if (GameManager.Instance.HasBread)
             {
+                Timer gameTimer = GameObject.FindAnyObjectByType<Timer>();
+                if (gameTimer != null) gameTimer.SetTimeOnGameWin();
                 onGameWin?.Invoke();
             }
         }

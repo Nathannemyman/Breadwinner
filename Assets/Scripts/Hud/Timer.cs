@@ -23,9 +23,13 @@ public class Timer : MonoBehaviour {
             if (GameData.Instance.HasItem(CollectableType.TrafficLightRemote)) {
                 timerDuration += 180;
             }
+
+            GameData.Instance.SetStartingTime(timerDuration);
         }
         
         timeRemaining = timerDuration;
+
+
     }
 
     // Update is called once per frame
@@ -65,5 +69,9 @@ public class Timer : MonoBehaviour {
 
     public void ChangeTextColor(Color color) {
         textObject.color = color;
+    }
+
+    public void SetTimeOnGameWin() {
+            if (GameData.Instance != null) GameData.Instance.SetTimeItTookToWin(timerDuration - timeRemaining);
     }
 }

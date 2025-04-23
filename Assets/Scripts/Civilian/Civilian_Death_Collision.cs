@@ -198,6 +198,7 @@ public class DeathCollision : MonoBehaviour
             }
             else GameData.Instance.AddMoney(moneyToAdd);
             GameManager.Instance.Money += moneyToAdd;
+            if (isPoliceOfficer) GameData.Instance.PoliceOfficerKilled();
         }
         else GameManager.Instance.Money += moneyToAdd;
         GameManager.Instance.policeSpawning = true;

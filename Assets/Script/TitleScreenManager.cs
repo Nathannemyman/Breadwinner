@@ -7,11 +7,13 @@ public class TitleScreenManager : MonoBehaviour
     {
         // Replace "GameScene" with your actual game scene name
         if (GameData.Instance != null) GameData.Instance.ResetGameData();
+        if (GameManager.Instance != null) GameManager.Instance.DestroyThis();
         SceneManager.LoadScene(1);
     }
 
     public void ContinueGame()
     {
+        if (GameManager.Instance != null) GameManager.Instance.DestroyThis();
         SceneManager.LoadScene(1);
     }
 
