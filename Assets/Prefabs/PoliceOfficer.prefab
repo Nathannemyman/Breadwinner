@@ -303,10 +303,10 @@ MonoBehaviour:
   rotationAngle: 40
   windupTime: 0.3
   cooldownTime: 0.5
-  civilianAnimOffset: 0.2
-  shakeDuration: 0.1
-  shakeIntensity: 0.3
-  shakeVibrato: 20
+  civilianAnimOffset: 0.3
+  shakeDuration: 0.3
+  shakeIntensity: 1
+  shakeVibrato: 30
 --- !u!1 &7158991356753566004
 GameObject:
   m_ObjectHideFlags: 0

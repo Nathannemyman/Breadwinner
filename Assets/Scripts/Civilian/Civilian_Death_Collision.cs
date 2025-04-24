@@ -25,6 +25,7 @@ public class DeathCollision : MonoBehaviour
     [SerializeField] private AudioClip exitSFX;
     private AudioSource killCivilianAudio;
     private AudioSource shootCivilianAudio;
+    private int styleBonus = 1;
 
     void Start()
     {
@@ -107,8 +108,10 @@ public class DeathCollision : MonoBehaviour
         yield return new WaitForSeconds(killCivilianSFX.length);
 
 
-        if (!CheckVisibility())
+        if (!CheckVisibility() && hasRunDeathFunction)
         {
+            Debug.Log("Exploding Civilian!!");
+            // need to assign exit SFX !!!!!!
             killCivilianAudio.clip = exitSFX;
             killCivilianAudio.loop = false; //play the exit sfx(the explosion) once
             killCivilianAudio.Play();
@@ -119,10 +122,13 @@ public class DeathCollision : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Pogo_Bottom_Hitbox" &&
-            collision.GetComponent<BoxCollider2D>() != null)
+        if (collision.gameObject.name == "Pogo_Bottom_Hitbox" && collision.GetComponent<BoxCollider2D>() != null)
         {
             isCollidingWithPogo = true;
+            if(pogoStickMovement.frontFlipped)
+            {
+                styleBonus = 3;
+            }
             //StartCoroutine(PlayKillSFX());
             //AudioSource.PlayClipAtPoint(killCivilianSFX, transform.position);
         }
@@ -144,6 +150,7 @@ public class DeathCollision : MonoBehaviour
 
     private void RunDeathFunction()
     {
+        Debug.Log("RUNNING DEATH FUNC");
         if (parentRb == null) return;
 
         Collider2D[] currentColliders = transform.parent.GetComponentsInChildren<Collider2D>();
@@ -165,7 +172,7 @@ public class DeathCollision : MonoBehaviour
 
         if (playerBody != null)
         {
-            Vector2 recoilForce = -force * (1f / 400f); // 1/400th of the force recoiled back
+            Vector2 recoilForce = -force * (1f / 200f); // 1/200th of the force recoiled back
 
             // Check if player's velocity is already above 10
             float currentVelocityMagnitude = playerBody.linearVelocity.magnitude;
@@ -187,20 +194,32 @@ public class DeathCollision : MonoBehaviour
         {
             civilianAnimator.speed = 0; // pause animation
         }
-
-        int moneyToAdd = 10;
+        int moneyToAdd = 10 * styleBonus;
+        Debug.Log("GOT " + moneyToAdd);
         if (GameData.Instance != null)
         {
             if (GameData.Instance.HasItem(CollectableType.LethalFaceCard))
             {
-                GameData.Instance.AddMoney(moneyToAdd * 2);
-                GameManager.Instance.Money += moneyToAdd * 2;
+                if (!isPoliceOfficer)
+                {
+                    GameData.Instance.AddMoney(moneyToAdd * 2);
+                    GameManager.Instance.Money += moneyToAdd * 2;
+                }
             }
             else GameData.Instance.AddMoney(moneyToAdd);
-            GameManager.Instance.Money += moneyToAdd;
+            if (!isPoliceOfficer)
+            {
+                GameManager.Instance.Money += moneyToAdd;
+            }
             if (isPoliceOfficer) GameData.Instance.PoliceOfficerKilled();
         }
-        else GameManager.Instance.Money += moneyToAdd;
+        else
+        {
+            if (!isPoliceOfficer)
+            {
+                GameManager.Instance.Money += moneyToAdd;
+            }
+        }
         GameManager.Instance.policeSpawning = true;
     }
 

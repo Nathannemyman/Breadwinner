@@ -20,7 +20,6 @@ public class GameData : MonoBehaviour
     private List<CollectableSO> collectables;
 
 
-
     private void Awake()
     {
         if (Instance != null)

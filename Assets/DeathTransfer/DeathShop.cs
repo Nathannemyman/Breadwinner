@@ -41,6 +41,8 @@ public class DeathShop : MonoBehaviour
         //Cursor.SetCursor(cursorTexture, Vector2.zero, UnityEngine.CursorMode.Auto);
     }
 
+    
+
     private void SetMoneyText()
     {
         if (GameData.Instance != null)
