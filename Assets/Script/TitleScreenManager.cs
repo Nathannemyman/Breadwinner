@@ -3,9 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreenManager : MonoBehaviour
 {
+    public GameObject creditsPanel;   // Assign the Credits Panel in the inspector
+    public GameObject titleCard;      // Assign the Title Card (Logo or Title UI)
+
     public void NewGame()
     {
-        // Replace "GameScene" with your actual game scene name
         if (GameData.Instance != null)
         {
             GameData.Instance.ResetGameData();
@@ -30,7 +32,28 @@ public class TitleScreenManager : MonoBehaviour
 
     public void OpenCredits()
     {
-        Debug.Log("Credits clicked (show credits UI here)");
-        // Show your credits panel
+        Debug.Log("Credits clicked (show credits UI)");
+        if (creditsPanel != null)
+            creditsPanel.SetActive(true);
+
+        if (titleCard != null)
+            titleCard.SetActive(false);
+    }
+
+    public void CloseCredits()
+    {
+        Debug.Log("Closing Credits Panel");
+
+        if (creditsPanel != null)
+            creditsPanel.SetActive(false);
+
+        if (titleCard != null)
+            titleCard.SetActive(true);
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quitting the game...");
+        Application.Quit();
     }
 }
