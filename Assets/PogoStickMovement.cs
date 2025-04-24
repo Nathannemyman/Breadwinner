@@ -47,6 +47,14 @@ public class PogoStickMovement : MonoBehaviour
     [SerializeField] private float crashDuration = 1f;
     [SerializeField] private float respawnHeight = 2f;
     [SerializeField] private ParticleSystem crashParticles;
+    [SerializeField] private float invincibilityBounceForce = 10f; // Force to apply when hitting ground while invincible
+
+
+    [Header("Bounce Settings")]
+    [SerializeField] private float bounceWindowDuration = 0.1f;
+    [SerializeField] private float bounceFactor = 0.7f;       
+    private float bounceWindowTimer = 0f;           
+    private float lastJumpCharge = 0f;
 
     private bool isCrashing = false;
     private float crashTimer;
@@ -339,16 +347,21 @@ public class PogoStickMovement : MonoBehaviour
         //currentLeanAngle = Mathf.Clamp(currentLeanAngle, -maxLeanAngle, maxLeanAngle);
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        // Decrement bounce window timer if active
+        if (bounceWindowTimer > 0)
+        {
+            bounceWindowTimer -= Time.fixedDeltaTime;
+        }
         HandleLeaning();
         HandleBread();
         HandleCharge();
         ResetMomentumOnLanding();
         HandleCrash();
         HandleStunnedState();
-
     }
+
     IEnumerator ChargingSFX()
     {
         audioSource.clip = chargeStartSFX;
@@ -379,14 +392,32 @@ public class PogoStickMovement : MonoBehaviour
     void OnChargeRelease(InputAction.CallbackContext context)
     {
         rb.constraints = RigidbodyConstraints2D.None;
+
+        if (IsGrounded() && bounceWindowTimer > 0)
+        {
+            // Perform the bounce using a fraction of the last jump's charge
+            BounceJump(lastJumpCharge * bounceFactor);
+
+            bounceWindowTimer = 0f;
+            isCharging = false;
+            charge = 0f;
+
+            audioSource.Stop();
+            audioSource.clip = chargeReleaseSFX;
+            audioSource.loop = false;
+            audioSource.Play();
+
+            return;
+        }
+
         if (isCharging)
         {
             isCharging = false;
-            audioSource.Stop(); //stops the loop
-            audioSource.clip = chargeReleaseSFX; //all pogo stick SFX can be played under audioSource
+
+            audioSource.Stop();
+            audioSource.clip = chargeReleaseSFX;
             audioSource.loop = false;
             audioSource.Play();
-            //AudioSource.PlayClipAtPoint(chargeReleaseSFX, transform.position);
 
             Jump();
         }
@@ -507,43 +538,60 @@ public class PogoStickMovement : MonoBehaviour
 
     void Jump()
     {
-        //body.transform.position = MoveTowardsVector3(body.transform.position, origionalBody.position, compressReturnSpeed * Time.deltaTime);
-
-
         if (!IsGrounded()) return;
 
+        rb.constraints = RigidbodyConstraints2D.None;
+
         // Calculate jump direction based on lean angle
-        //float leanDirection = currentLeanAngle / maxLeanAngle; // Normalize to [-1, 1]
         float leanDirection = (transform.rotation.z % 360f) / 180f;
-        //Debug.Log(transform.rotation.eulerAngles.z);
-        Debug.Log(transform.rotation.z);
-        Debug.Log(currentLeanAngle);
         Vector2 jumpDirection = (Vector2)(pivot.up + pivot.right * leanDirection).normalized;
 
         rb.AddForce(jumpDirection * charge * jumpForce, ForceMode2D.Impulse);
-        charge = 0f;
+
+        // Store the charge used for this jump for later
+        lastJumpCharge = charge;
+
+        charge = 0f; // Reset charge after jump
+    }
+
+    void BounceJump(float bounceChargeUsed)
+    {
+        rb.constraints = RigidbodyConstraints2D.None;
+
+        // Calculate jump direction (same logic as regular jump)
+        float leanDirection = (transform.rotation.z % 360f) / 180f;
+        Vector2 jumpDirection = (Vector2)(pivot.up + pivot.right * leanDirection).normalized;
+
+        // Apply the bounce force (using the stored last jump's charge * factor)
+        rb.AddForce(jumpDirection * bounceChargeUsed * jumpForce, ForceMode2D.Impulse);
+    }
+
+    void ApplyInvincibilityBounce()
+    {
+        if (rb.linearVelocity.y < 0)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+        }
+
+        // Apply an immediate upward force impulse
+        rb.AddForce(Vector2.up * invincibilityBounceForce, ForceMode2D.Impulse);
     }
 
     // --- Ground Handling ---
     void ResetMomentumOnLanding()
     {
-        // Reset velocity when landing
-        if (IsGrounded() && !wasGrounded)
+        bool currentlyGrounded = IsGrounded(); // Check once per frame
+
+        // Reset velocity and start bounce window when landing
+        if (currentlyGrounded && !wasGrounded)
         {
             Vector2 currentVelocity = rb.linearVelocity;
             // 30% speed decrease should make floor less splippery
             rb.linearVelocity = currentVelocity * 0.7f;
-            //rb.linearVelocity = Vector2.zero;
-            //rb.constraints = RigidbodyConstraints2D.FreezePosition;
-        }
 
-        wasGrounded = IsGrounded();
-
-        if (!isCrashing && IsGrounded() && !wasGrounded)
-        {
-            rb.linearVelocity = Vector2.zero;
-            rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            bounceWindowTimer = bounceWindowDuration;
         }
+        wasGrounded = currentlyGrounded;
     }
 
 
@@ -562,10 +610,21 @@ public class PogoStickMovement : MonoBehaviour
 
     void HandleCrash()
     {
-        // Only check collisions using body's collider
-        if (!isCrashing && !isInvincible && BodColl.IsTouchingLayers(groundLayer))
+        bool touchingGround = BodColl.IsTouchingLayers(groundLayer);
+
+        if (!isCrashing)
         {
-            StartCrash();
+            if (touchingGround)
+            {
+                if (isInvincible)
+                {
+                    ApplyInvincibilityBounce(); // Push player back up from ground if invincibile to prevent clipping
+                }
+                else
+                {
+                    StartCrash();
+                }
+            }
         }
 
         if (isCrashing)
@@ -605,6 +664,8 @@ public class PogoStickMovement : MonoBehaviour
         isCrashing = true;
         crashTimer = 0f;
         crashPosition = transform.position;
+
+        GameManager.Instance.DamagePlayer();
 
         // Store player velocity at time of crash
         Vector2 crashVelocity = rb.linearVelocity;
@@ -702,7 +763,7 @@ public class PogoStickMovement : MonoBehaviour
         }
 
         // Freeze movement
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
         playerControls.Disable();
 
         // Visual feedback
@@ -762,8 +823,6 @@ public class PogoStickMovement : MonoBehaviour
         }
 
         isCrashing = false;
-
-        GameManager.Instance.DamagePlayer();
 
         // Start invincibility period
         isInvincible = true;

@@ -125,7 +125,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 1}
+  m_Offset: {x: 0, y: 0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -135,7 +135,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.4, y: 1.89}
+  m_Size: {x: 0.78, y: 0.59}
   m_EdgeRadius: 0
 --- !u!70 &6160847705206822677
 CapsuleCollider2D:
@@ -296,7 +296,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.23, y: 0}
   m_Size: {x: 0.72, y: 1.45}
   m_Direction: 0
 --- !u!1 &2944561756679999710
@@ -634,6 +634,9 @@ MonoBehaviour:
   crashDuration: 1.5
   respawnHeight: 2
   crashParticles: {fileID: 0}
+  invincibilityBounceForce: 0.5
+  bounceWindowDuration: 0.1
+  bounceFactor: 0.7
   wasGrounded: 0
   initialLocalPos: {x: 0, y: 0, z: 0}
   spriteUp: {fileID: -2924935733860114488, guid: 6dfa7183368152f4c9573b9c3145bf65, type: 3}

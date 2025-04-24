@@ -107,8 +107,9 @@ public class DeathCollision : MonoBehaviour
         yield return new WaitForSeconds(killCivilianSFX.length);
 
 
-        if (!CheckVisibility())
+        if (!CheckVisibility() && hasRunDeathFunction)
         {
+            Debug.Log("Exploding Civilian!!");
             killCivilianAudio.clip = exitSFX;
             killCivilianAudio.loop = false; //play the exit sfx(the explosion) once
             killCivilianAudio.Play();
@@ -144,6 +145,7 @@ public class DeathCollision : MonoBehaviour
 
     private void RunDeathFunction()
     {
+        Debug.Log("RUNNING DEATH FUNC");
         if (parentRb == null) return;
 
         Collider2D[] currentColliders = transform.parent.GetComponentsInChildren<Collider2D>();
@@ -165,7 +167,7 @@ public class DeathCollision : MonoBehaviour
 
         if (playerBody != null)
         {
-            Vector2 recoilForce = -force * (1f / 400f); // 1/400th of the force recoiled back
+            Vector2 recoilForce = -force * (1f / 200f); // 1/200th of the force recoiled back
 
             // Check if player's velocity is already above 10
             float currentVelocityMagnitude = playerBody.linearVelocity.magnitude;
