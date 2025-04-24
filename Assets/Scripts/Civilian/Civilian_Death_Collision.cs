@@ -197,14 +197,26 @@ public class DeathCollision : MonoBehaviour
         {
             if (GameData.Instance.HasItem(CollectableType.LethalFaceCard))
             {
-                GameData.Instance.AddMoney(moneyToAdd * 2);
-                GameManager.Instance.Money += moneyToAdd * 2;
+                if (!isPoliceOfficer)
+                {
+                    GameData.Instance.AddMoney(moneyToAdd * 2);
+                    GameManager.Instance.Money += moneyToAdd * 2;
+                }
             }
             else GameData.Instance.AddMoney(moneyToAdd);
-            GameManager.Instance.Money += moneyToAdd;
+            if (!isPoliceOfficer)
+            {
+                GameManager.Instance.Money += moneyToAdd;
+            }
             if (isPoliceOfficer) GameData.Instance.PoliceOfficerKilled();
         }
-        else GameManager.Instance.Money += moneyToAdd;
+        else
+        {
+            if (!isPoliceOfficer)
+            {
+                GameManager.Instance.Money += moneyToAdd;
+            }
+        }
         GameManager.Instance.policeSpawning = true;
     }
 
