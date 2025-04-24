@@ -72,22 +72,6 @@ public class GameManager : MonoBehaviour
         Money = 0;
     }
 
-    public void OpenShop()
-    {
-        ShopOpen = true;
-        PlayeSceneObjects.SetActive(false);
-        SceneHelper.LoadScene("BreadBuyingMenu", true);
-    }
-
-    public void CloseShop()
-    {
-        ShopOpen = false;
-        SceneHelper.UnloadScene("BreadBuyingMenu");
-        CallAfterDelay.Create(1.0f, () => {
-            PlayeSceneObjects.SetActive(true);
-        });
-    }
-
     public UnityAction onPlayerDamage;
     public void DamagePlayer()
     {

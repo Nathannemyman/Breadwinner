@@ -911,13 +911,4 @@ public class PogoStickMovement : MonoBehaviour
             HobsBody.GetComponent<SpriteRenderer>().flipX = false;
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("bread") && !GameManager.Instance.ShopOpen)
-        {
-            GameManager.Instance.OpenShop();
-            collision.GetComponent<BoxCollider2D>().enabled = false;
-        }
-    }
 }

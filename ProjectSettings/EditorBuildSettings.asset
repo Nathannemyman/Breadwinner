@@ -6,19 +6,19 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TitleScreen.unity
+    path: Assets/Scenes/MainGamplayScenes/TitleScreen.unity
     guid: eb164dea0c29dc945b00d2433a0edcd4
   - enabled: 1
     path: Assets/Scenes/JohnMilestoneTestScene.unity
     guid: 751f9c81b93150d428f183c02fd6d5e5
   - enabled: 1
-    path: Assets/Scenes/WinScene.unity
+    path: Assets/Scenes/MainGamplayScenes/WinScene.unity
     guid: 7bc9040b870ea504b825b7fbaf999bb5
   - enabled: 1
-    path: Assets/Scenes/BreadBuyingMenu.unity
+    path: Assets/Scenes/TestScenes/BreadBuyingMenu.unity
     guid: 3a0e36589928d4a23bd3b4f96303741c
   - enabled: 1
-    path: Assets/Scenes/Loss_Screen.unity
+    path: Assets/Scenes/MainGamplayScenes/Loss_Screen.unity
     guid: 33dcca12ae77269418749e7f79375440
   - enabled: 1
     path: Assets/DeathTransfer/Transfer scene.unity
