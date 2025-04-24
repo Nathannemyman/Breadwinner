@@ -716,8 +716,6 @@ MonoBehaviour:
   invertDirection: 0
   isPoliceOfficer: 1
   killCivilianSFX: {fileID: 8300000, guid: 36caf76498769dc40a121fc89e9c7018, type: 3}
-  flyingCivilianSFX: {fileID: 0}
-  exitSFX: {fileID: 0}
 --- !u!114 &1741670968680207466
 MonoBehaviour:
   m_ObjectHideFlags: 0
