@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PowerUp : MonoBehaviour
 {
+    private PogoStickMovement PogoStick;
     public List<string> Items = new List<string>();
     public string theItem;
     private static bool Thisexists;
@@ -16,7 +17,7 @@ public class PowerUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      //  Pogo = FindObjectOfType<PogoStickMovement>();
+        PogoStick = FindObjectOfType<PogoStickMovement>();
 
         if (!Thisexists)
         {
@@ -47,11 +48,13 @@ public class PowerUp : MonoBehaviour
                         break;
 
                     case "Energy Drink":
-
+                        Debug.Log("Energy Drink have");
+                        
                         break;
 
                     case "Goopiter Battery":
-
+                        Debug.Log("Battery have");
+                        
                         break;
 
                     case "Lethal Face Card":
@@ -63,7 +66,8 @@ public class PowerUp : MonoBehaviour
                         break;
 
                     case "Rocket Boosters":
-
+                        Debug.Log("Rockets have");
+                        
                         break;
                 }
             }
