@@ -1592,9 +1592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5163b61988ef4364b1c98a5c2272e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Items:
-  - Cookies
-  - Infinite
+  Items: []
   theItem: 
   sceneToLoad: Home
   money: 200
