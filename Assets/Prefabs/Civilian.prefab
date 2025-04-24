@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 8612848430888542531}
   m_Layer: 7
   m_Name: Civilian
-  m_TagString: Civilian
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -790,7 +790,7 @@ GameObject:
   - component: {fileID: 1985424589925927864}
   m_Layer: 7
   m_Name: Cringe_Speaker_Range
-  m_TagString: Civilian
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -925,5 +925,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blastForce: 2000
   rotationForce: 40
-  debugMode: 1
-  blastedLayerName: Ignore Raycast
