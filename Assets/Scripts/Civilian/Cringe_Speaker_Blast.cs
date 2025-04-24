@@ -21,6 +21,9 @@ public class Cringe_Speaker_Blast : MonoBehaviour
     [SerializeField] private string blastedLayerName = "Ignore Raycast"; // Default Unity layer that ignores physics
     private int blastedLayer;
 
+    // Flag to track if this civilian has already been blasted (to prevent multiple money rewards)
+    private bool hasBeenBlasted = false;
+
     private void Start()
     {
         // Find EnemySpawner script in the scene
@@ -38,9 +41,14 @@ public class Cringe_Speaker_Blast : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Check conditions
+        // Check if the Cringe Speaker is enabled locally
         if (!cringeSpeakerEnabled) return;
+
+        // Check if the EnemySpawner exists and has the cringeSpeakerActive flag set to true
         if (enemySpawner == null || !enemySpawner.cringeSpeakerActive) return;
+
+        // Check if the player has the CringeSpeaker collectable
+        if (GameData.Instance == null || !GameData.Instance.HasItem(CollectableType.CringeSpeaker)) return;
 
         // Check if colliding object has the "Player" tag
         if (collision.CompareTag("Player"))
@@ -53,6 +61,10 @@ public class Cringe_Speaker_Blast : MonoBehaviour
     private void BlastParentAway(Vector2 playerPosition, Rigidbody2D playerRb)
     {
         if (parentRb == null || transform.parent == null) return;
+        if (hasBeenBlasted) return; // Prevent multiple rewards for the same civilian
+
+        // Mark as blasted to prevent multiple rewards
+        hasBeenBlasted = true;
 
         // Get all colliders from the parent and children
         DisableAllInteractions(transform.parent);
@@ -84,6 +96,56 @@ public class Cringe_Speaker_Blast : MonoBehaviour
 
         // Tag the object as blasted
         transform.parent.gameObject.tag = "Untagged";
+
+        // Award money for blasting civilians
+        int moneyToAdd = 10;
+        Debug.Log("GOT " + moneyToAdd);
+
+        if (GameData.Instance != null)
+        {
+            // Double the money if player has LethalFaceCard
+            if (GameData.Instance.HasItem(CollectableType.LethalFaceCard))
+            {
+                GameData.Instance.AddMoney(moneyToAdd * 2);
+
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.Money += moneyToAdd * 2;
+                }
+
+                Debug.Log("Awarded $" + (moneyToAdd * 2) + " (LethalFaceCard bonus)");
+            }
+            else
+            {
+                GameData.Instance.AddMoney(moneyToAdd);
+
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.Money += moneyToAdd;
+                }
+
+                Debug.Log("Awarded $" + moneyToAdd);
+            }
+        }
+        else if (GameManager.Instance != null)
+        {
+            if (GameData.Instance != null && GameData.Instance.HasItem(CollectableType.LethalFaceCard))
+            {
+                GameManager.Instance.Money += moneyToAdd * 2;
+                Debug.Log("Awarded $" + (moneyToAdd * 2) + " (LethalFaceCard bonus)");
+            }
+            else
+            {
+                GameManager.Instance.Money += moneyToAdd;
+                Debug.Log("Awarded $" + moneyToAdd);
+            }
+        }
+
+        // Flag police to start spawning
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.policeSpawning = true;
+        }
 
         // Destroy all scripts except those needed for visuals
         DestroyAllScriptsExceptVisuals(transform.parent);
