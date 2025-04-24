@@ -3,33 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class PowerUp : MonoBehaviour
 {
-    private static PowerUp _Instance;
-    public static PowerUp Instance
+
+    private PogoStickMovement PogoStick;
+    public List<string> Items = new List<string>();
+    public string theItem;
+    private static bool Thisexists;
+    public string sceneToLoad;
+    public float money;
+    public bool hasCringeSpeaker = false;
+    //   public PogoStickMovement Pogo;
+
+    private void Awake()
     {
-        get
+        if (Instance == null)
         {
-            if (!_Instance)
-            {
-                _Instance = new GameObject().AddComponent<PowerUp>();
-                _Instance.name = _Instance.GetType().ToString();
-                DontDestroyOnLoad(_Instance.gameObject);
-            }
-            return _Instance;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
-    public List<string> Items = new List<string>();
-    public string theItem;
-    public string sceneToLoad;
-    public float money;
-    public static bool hasCringeSpeaker = false;
-    //   public PogoStickMovement Pogo;
-
-    private void Start()
+        // Start is called before the first frame update
+        void Start()
     {
-        //  Pogo = FindObjectOfType<PogoStickMovement>();
+        PogoStick = FindObjectOfType<PogoStickMovement>();
+
+        if (!Thisexists)
+        {
+            Thisexists = true;
+            DontDestroyOnLoad(transform.gameObject);
+        }
+        else
+        {
+           // 	DestroyObject(gameObject);
+        }
+
         try
         {
             for (int i = 0; i < Items.Count; i++)
@@ -37,7 +47,7 @@ public class PowerUp : MonoBehaviour
                 switch (Items[i])
                 {
                     case "Cookies":
-
+                        
                         break;
 
                     case "Infinite":
@@ -47,15 +57,16 @@ public class PowerUp : MonoBehaviour
                     case "Cringe Speaker":
 
                         hasCringeSpeaker = true;
-                        Debug.Log("CRINGE SPEAKER BOUGHT!: " + hasCringeSpeaker + " !!!!!");
                         break;
 
                     case "Energy Drink":
-
+                        Debug.Log("Energy Drink have");
+                        
                         break;
 
                     case "Goopiter Battery":
-
+                        Debug.Log("Battery have");
+                        
                         break;
 
                     case "Lethal Face Card":
@@ -67,17 +78,19 @@ public class PowerUp : MonoBehaviour
                         break;
 
                     case "Rocket Boosters":
-
+                        Debug.Log("Rockets have");
+                        
                         break;
                 }
             }
-        }
-        catch { }
+        } catch {  }
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
-        if (money < 0)
+
+        if(money < 0)
         {
             money = 0;
         }
