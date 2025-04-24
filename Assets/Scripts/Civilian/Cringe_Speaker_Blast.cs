@@ -9,7 +9,7 @@ public class Cringe_Speaker_Blast : MonoBehaviour
     [SerializeField] private float rotationForce = 30f;
 
     [Header("Status")]
-    [SerializeField] private bool cringeSpeakerEnabled = true; // Set this in the inspector
+    [SerializeField] private bool cringeSpeakerEnabled = false; // Set this in the inspector
 
     // Reference to EnemySpawner script
     private EnemySpawner enemySpawner;
@@ -34,13 +34,16 @@ public class Cringe_Speaker_Blast : MonoBehaviour
 
         // Get the layer to use for blasted objects
         blastedLayer = LayerMask.NameToLayer(blastedLayerName);
+
+        // Debug log for Cringe Speaker status in GameData
+        Debug.Log("!!!!!!!!!!!Cringe Speaker status: " + GameData.Instance.HasItem(CollectableType.CringeSpeaker) + " !!!!!!!!!!!!!!!");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Check conditions
         if (!cringeSpeakerEnabled) return;
-        if (enemySpawner == null || !enemySpawner.cringeSpeakerActive) return;
+        if (enemySpawner == null || !enemySpawner.cringeSpeakerActive || !GameData.Instance.HasItem(CollectableType.CringeSpeaker)) return;
 
         // Check if colliding object has the "Player" tag
         if (collision.CompareTag("Player"))

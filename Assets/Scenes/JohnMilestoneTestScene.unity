@@ -581,7 +581,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.17337036, y: -1.6669674}
+  m_Offset: {x: 0.17337036, y: -18.1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -591,7 +591,7 @@ BoxCollider2D:
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 600.2341, y: 1.9610538}
+  m_Size: {x: 1236, y: 34.9}
   m_EdgeRadius: 0
 --- !u!50 &68360930
 Rigidbody2D:
@@ -5773,6 +5773,7 @@ MonoBehaviour:
   offscreenOffset: 10
   timer: {fileID: 118324063}
   despawnDistance: 40
+  cringeSpeakerActive: 1
   startCivilianInterval: 0.7
   endCivilianInterval: 10
   startPoliceInterval: 10

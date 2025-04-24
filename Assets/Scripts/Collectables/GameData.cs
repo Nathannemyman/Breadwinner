@@ -16,7 +16,7 @@ public class GameData : MonoBehaviour
     public float StartingTime {  get; private set; }
     public int Hearts {  get; private set; }
     public int StartingHealth { get; private set; }
-
+    
     private List<CollectableSO> collectables;
 
 
@@ -29,6 +29,7 @@ public class GameData : MonoBehaviour
         }
         else
         {
+            Money = 999999;
             Instance = this;
             DontDestroyOnLoad(gameObject);
             collectables = new();
@@ -63,6 +64,7 @@ public class GameData : MonoBehaviour
 
     public void AddCollectable(CollectableSO collectable)
     {
+        Debug.Log("BOUGHT COLLECTABLE: " + collectable);
         collectables.Add(collectable);
     }
 

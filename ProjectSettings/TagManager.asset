@@ -9,6 +9,7 @@ TagManager:
   - Civ
   - Shover
   - Player_Body
+  - Civilian
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,6 @@ TagManager:
   - Everything_But_Ground
   - Wall
   - Background
-  - 
   - 
   - 
   - 
