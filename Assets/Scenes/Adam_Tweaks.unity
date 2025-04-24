@@ -5793,7 +5793,7 @@ MonoBehaviour:
   offscreenOffset: 10
   timer: {fileID: 118324063}
   despawnDistance: 40
-  startCivilianInterval: 0.7
+  startCivilianInterval: 0.5
   endCivilianInterval: 10
   startPoliceInterval: 10
   endPoliceInterval: 1

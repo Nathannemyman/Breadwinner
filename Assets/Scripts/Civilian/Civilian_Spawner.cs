@@ -13,6 +13,9 @@ public class EnemySpawner : MonoBehaviour
     public Timer timer;
     public float despawnDistance = 40f; // How far to the left of the camera before the enemies despawn
 
+    // Cringe speaker flag that turns off after 15 seconds
+    public bool cringeSpeakerActive = true;
+
     // Spawn intervals
     public float startCivilianInterval = 0.05f;
     public float endCivilianInterval = 10f;
@@ -36,12 +39,25 @@ public class EnemySpawner : MonoBehaviour
         // Initialize with default value
         totalGameTime = 300f;
 
+        // Initialize cringeSpeakerActive to true and start the coroutine to turn it off
+        cringeSpeakerActive = true;
+        StartCoroutine(DisableCringeSpeakerAfterDelay(15f));
+
         // Try to get time from timer if available
         if (timer != null)
         {
             // Wait one frame to ensure timer has initialized
             StartCoroutine(InitializeAfterTimer());
         }
+    }
+
+    private IEnumerator DisableCringeSpeakerAfterDelay(float delay)
+    {
+        // Wait for specified delay (15 seconds)
+        yield return new WaitForSeconds(delay);
+
+        // Turn off the cringe speaker
+        cringeSpeakerActive = false;
     }
 
     private IEnumerator InitializeAfterTimer()
@@ -119,9 +135,12 @@ public class EnemySpawner : MonoBehaviour
         float cameraHeight = 2f * targetCamera.orthographicSize;
         float cameraWidth = cameraHeight * targetCamera.aspect;
 
-        if (GameManager.Instance != null && GameManager.Instance.HasBread)
+        // Randomly choose left or right side
+        bool spawnOnLeft = Random.value < 0.5f;
+
+        if (spawnOnLeft)
         {
-            // Spawn on left side when HasBread is true
+            // Spawn on left side
             float leftEdgeX = targetCamera.transform.position.x - (cameraWidth / 2f);
             return new Vector3(
                 leftEdgeX - offscreenOffset,
@@ -131,7 +150,7 @@ public class EnemySpawner : MonoBehaviour
         }
         else
         {
-            // Original spawn on right side
+            // Spawn on right side
             float rightEdgeX = targetCamera.transform.position.x + (cameraWidth / 2f);
             return new Vector3(
                 rightEdgeX + offscreenOffset,

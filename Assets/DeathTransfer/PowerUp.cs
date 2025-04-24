@@ -6,15 +6,27 @@ using UnityEngine.SceneManagement;
 
 public class PowerUp : MonoBehaviour
 {
+    public static PowerUp Instance { get; private set; }
+
     public List<string> Items = new List<string>();
     public string theItem;
     private static bool Thisexists;
     public string sceneToLoad;
     public float money;
- //   public PogoStickMovement Pogo;
+    public bool hasCringeSpeaker = false;
+    //   public PogoStickMovement Pogo;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
+        // Start is called before the first frame update
+        void Start()
     {
       //  Pogo = FindObjectOfType<PogoStickMovement>();
 
@@ -44,6 +56,7 @@ public class PowerUp : MonoBehaviour
 
                     case "Cringe Speaker":
 
+                        hasCringeSpeaker = true;
                         break;
 
                     case "Energy Drink":

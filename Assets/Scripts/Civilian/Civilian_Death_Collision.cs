@@ -109,6 +109,7 @@ public class DeathCollision : MonoBehaviour
 
         if (!CheckVisibility() && hasRunDeathFunction)
         {
+            Debug.Log("Exploding Civilian!!");
             killCivilianAudio.clip = exitSFX;
             killCivilianAudio.loop = false; //play the exit sfx(the explosion) once
             killCivilianAudio.Play();
@@ -144,6 +145,7 @@ public class DeathCollision : MonoBehaviour
 
     private void RunDeathFunction()
     {
+        Debug.Log("RUNNING DEATH FUNC");
         if (parentRb == null) return;
 
         Collider2D[] currentColliders = transform.parent.GetComponentsInChildren<Collider2D>();
