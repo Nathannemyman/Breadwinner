@@ -110,6 +110,7 @@ public class DeathCollision : MonoBehaviour
         if (!CheckVisibility() && hasRunDeathFunction)
         {
             Debug.Log("Exploding Civilian!!");
+            // need to assign exit SFX !!!!!!
             killCivilianAudio.clip = exitSFX;
             killCivilianAudio.loop = false; //play the exit sfx(the explosion) once
             killCivilianAudio.Play();
