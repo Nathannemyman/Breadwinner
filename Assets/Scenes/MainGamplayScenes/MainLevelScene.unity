@@ -3398,14 +3398,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2932117559550739725, guid: 3258bef50c9ebc74e978b9bca6756ad5, type: 3}
-      propertyPath: onFirstTimeLoad.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2932117559550739725, guid: 3258bef50c9ebc74e978b9bca6756ad5, type: 3}
-      propertyPath: onFirstTimeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2932117559550739725, guid: 3258bef50c9ebc74e978b9bca6756ad5, type: 3}
       propertyPath: onFirstTimeLoad.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1343950600258387719}
@@ -3413,26 +3405,6 @@ PrefabInstance:
       propertyPath: onFirstTimeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 185046773}
-    - target: {fileID: 2932117559550739725, guid: 3258bef50c9ebc74e978b9bca6756ad5, type: 3}
-      propertyPath: onFirstTimeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2932117559550739725, guid: 3258bef50c9ebc74e978b9bca6756ad5, type: 3}
-      propertyPath: onFirstTimeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: FreezeForRead
-      objectReference: {fileID: 0}
-    - target: {fileID: 2932117559550739725, guid: 3258bef50c9ebc74e978b9bca6756ad5, type: 3}
-      propertyPath: onFirstTimeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: PageViewer, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2932117559550739725, guid: 3258bef50c9ebc74e978b9bca6756ad5, type: 3}
-      propertyPath: onFirstTimeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: Open
-      objectReference: {fileID: 0}
-    - target: {fileID: 2932117559550739725, guid: 3258bef50c9ebc74e978b9bca6756ad5, type: 3}
-      propertyPath: onFirstTimeLoad.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 3640741097206006933, guid: 3258bef50c9ebc74e978b9bca6756ad5, type: 3}
       propertyPath: m_Name
       value: GameData
