@@ -39,7 +39,7 @@ public class DeathShop : MonoBehaviour
 
         }
 
-        List<CollectableSO> availableCollectables = collectables.Where(x => !GameData.Instance.HasItem(x.Type) || x.Type = CollectableType.ToddsMysteryCheck).ToList();
+        List<CollectableSO> availableCollectables = collectables.Where(x => !GameData.Instance.HasItem(x.Type) || x.Type == CollectableType.ToddsMysteryCheck).ToList();
         if (availableCollectables.Count <= 0) return;
 
         for (int i = 0; i < buttons.Length; i++)
