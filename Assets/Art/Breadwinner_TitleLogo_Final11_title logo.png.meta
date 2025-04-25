@@ -209,7 +209,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Breadwinner_TitleLogo_Final11_title logo_0: -1377611894644834777
+      Breadwinner_TitleLogo_Final11_title logo_1: -5137012723145414249
+      Breadwinner_TitleLogo_Final11_title logo_2: 2518891179788668813
+      Breadwinner_TitleLogo_Final11_title logo_3: -4344572373102906505
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

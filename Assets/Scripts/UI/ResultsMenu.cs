@@ -95,6 +95,8 @@ public class ResultsMenu : MonoBehaviour
         startingHealth = GameData.Instance.StartingHealth;
         policeKillsAtEndOfRun = GameData.Instance.PoliceKilled;
 
+        if (GameManager.Instance != null) GameManager.Instance.DestroyThis();
+
         ToggleElements(false);
     }
 
@@ -204,7 +206,7 @@ public class ResultsMenu : MonoBehaviour
 
         policePointsTextBox.text = $"({policeKillsAtEndOfRun})x50 = <color=red>{0 - (policeKillsAtEndOfRun * 50)}p</color>";
 
-        int totalScore = Mathf.FloorToInt((timeItTookToFinish % 60f) + cashAtEndOfRun - (policeKillsAtEndOfRun * 50));
+        int totalScore = Mathf.FloorToInt((timeItTookToFinish % 60f) + cashAtEndOfRun - ((startingHealth - heartsAtEndOfRun) * 30) - (policeKillsAtEndOfRun * 50));
         totalPointsTextBox.text = $"Point Total: {totalScore}p";
 
         int bankMoneyAdded;
@@ -390,7 +392,7 @@ public class ResultsMenu : MonoBehaviour
             timer = 0;
         }
 
-        int totalScore = Mathf.FloorToInt((timeItTookToFinish % 60f) + cashAtEndOfRun - (policeKillsAtEndOfRun * 50));
+        int totalScore = Mathf.FloorToInt((timeItTookToFinish % 60f) + cashAtEndOfRun - ((startingHealth - heartsAtEndOfRun) * 30) - (policeKillsAtEndOfRun * 50));
         if (totalScoreRect != null)
         {
             totalContentSize += totalScoreRect.sizeDelta.y;
@@ -417,11 +419,11 @@ public class ResultsMenu : MonoBehaviour
 
         int bankMoneyAdded;
         if (totalScore < 0) bankMoneyAdded = 10;
-        else if (totalScore < 50) bankMoneyAdded = 20;
-        else if (totalScore < 150) bankMoneyAdded = 50;
-        else if (totalScore < 350) bankMoneyAdded = 150;
-        else if (totalScore < 500) bankMoneyAdded = 500;
-        else if (totalScore < 750) bankMoneyAdded = 1000;
+        else if (totalScore >= 0) bankMoneyAdded = 20;
+        else if (totalScore >= 150) bankMoneyAdded = 50;
+        else if (totalScore >= 350) bankMoneyAdded = 150;
+        else if (totalScore >= 500) bankMoneyAdded = 500;
+        else if (totalScore >= 750) bankMoneyAdded = 1000;
         else bankMoneyAdded = 1000;
         if (bankAllowanceRect != null)
         {
@@ -457,12 +459,12 @@ public class ResultsMenu : MonoBehaviour
             rankingRect.GetComponent<CanvasGroup>().alpha = 1;
             audioSource.PlayOneShot(sectionAppearSFX);
 
-            if (totalScore < 0) rankingImage.sprite = fRankImage;
-            else if (totalScore < 50) rankingImage.sprite = dRankImage;
-            else if (totalScore < 150) rankingImage.sprite = cRankImage;
-            else if (totalScore < 350) rankingImage.sprite = bRankImage;
-            else if (totalScore < 500) rankingImage.sprite = aRankImage;
-            else if (totalScore < 750) rankingImage.sprite = sRankImage;
+            if (totalScore < 50) rankingImage.sprite = fRankImage;
+            else if (totalScore >= 50) rankingImage.sprite = dRankImage;
+            else if (totalScore >= 150) rankingImage.sprite = cRankImage;
+            else if (totalScore >= 350) rankingImage.sprite = bRankImage;
+            else if (totalScore >= 500) rankingImage.sprite = aRankImage;
+            else if (totalScore >= 750) rankingImage.sprite = sRankImage;
             else rankingImage.sprite = sRankImage;
             rankingImage.gameObject.SetActive(true);
 

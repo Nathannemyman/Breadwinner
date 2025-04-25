@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BreadMenuButton_Cancel@3x_0: 8188496283636841988
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BreadMenuButton_Confirm@3x_0: -4286948439836265905
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
