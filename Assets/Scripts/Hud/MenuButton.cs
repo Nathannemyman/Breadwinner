@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
 
     public void Awake()
     {
-        Time.timeScale = 1f; // Normal time 
+        //Time.timeScale = 1f; // Normal time 
     }
 
     public void BuyBread()
@@ -26,6 +26,8 @@ public class MainMenu : MonoBehaviour
         {
             GameManager.Instance.Money -= 100;
             GameManager.Instance.HasBread = true;
+
+            if (GameData.Instance != null) GameData.Instance.SpendMoney(100);
 
             // Set the global bread bought flag
             BoxCollider2DDetector.breadEverBought = true;

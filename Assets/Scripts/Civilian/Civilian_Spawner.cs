@@ -112,7 +112,7 @@ public class EnemySpawner : MonoBehaviour
         // Clean up entities that have moved off-screen
         CleanupOffscreenEntities();
 
-        // Check for entities that have fallen below y=-10
+        // Check for entities that have fallen below y=-7
         CheckForFallenEntities();
     }
 
@@ -188,7 +188,7 @@ public class EnemySpawner : MonoBehaviour
 
     void CheckForFallenEntities()
     {
-        // Check each entity to see if it has fallen below y=-10
+        // Check each entity to see if it has fallen below y=-7
         for (int i = spawnedEntities.Count - 1; i >= 0; i--)
         {
             GameObject entity = spawnedEntities[i];
@@ -200,8 +200,8 @@ public class EnemySpawner : MonoBehaviour
                 continue;
             }
 
-            // Check if entity has fallen below y=-10
-            if (entity.transform.position.y < -10f)
+            // Check if entity has fallen below y=-7
+            if (entity.transform.position.y < -7f)
             {
                 // Get the entity's x position
                 float xPosition = entity.transform.position.x;
@@ -243,8 +243,8 @@ public class EnemySpawner : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f;
         Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
-        // Create the Death_Blast at the x position and y=-10
-        Vector3 spawnPosition = new Vector3(xPosition, -10f, 0f);
+        // Create the Death_Blast at the x position and y=-7
+        Vector3 spawnPosition = new Vector3(xPosition, -7f, 0f);
         GameObject deathBlast = Instantiate(deathBlastPrefab, spawnPosition, rotation);
 
         // Start coroutine to despawn after 2 seconds

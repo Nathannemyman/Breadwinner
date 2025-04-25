@@ -35,7 +35,7 @@ public class PageViewer : MonoBehaviour
 
     public void GoRight()
     {
-        if (!loopAround && currentPageIndex == pages.Length)
+        if (!loopAround && currentPageIndex + 1 == pages.Length)
         {
             onFinishViewing?.Invoke();
             return;
@@ -55,5 +55,10 @@ public class PageViewer : MonoBehaviour
         }
         pages[currentPageIndex].SetActive(true);
         if (pageNumberText != null) pageNumberText.text = (currentPageIndex + 1).ToString();
+    }
+
+    public void FreezeForRead(bool value)
+    {
+        Time.timeScale = value ? 0 : 1;
     }
 }

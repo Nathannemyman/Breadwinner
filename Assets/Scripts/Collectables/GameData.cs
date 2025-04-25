@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 
 public class GameData : MonoBehaviour
 {
+
+    [SerializeField] private UnityEvent onFirstTimeLoad;
+
     public static GameData Instance { get; private set; }
 
     public int Money { get; private set; }
@@ -19,7 +23,6 @@ public class GameData : MonoBehaviour
 
     public List<CollectableSO> Collectables { get; private set; }
 
-
     private void Awake()
     {
         if (Instance != null)
@@ -31,6 +34,8 @@ public class GameData : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             Collectables = new();
+
+            onFirstTimeLoad?.Invoke();
         }
     }
 
