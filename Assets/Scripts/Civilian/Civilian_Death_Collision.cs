@@ -132,6 +132,8 @@ public class DeathCollision : MonoBehaviour
             if (pogoStickMovement.frontFlipped)
             {
                 styleBonus = 3;
+            } else {
+                styleBonus = 1;
             }
             pogoStickMovement.frontFlipped = false;
             //

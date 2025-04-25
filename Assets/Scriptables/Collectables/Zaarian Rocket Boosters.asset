@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Rocket Booster
   sprite: {fileID: 21300000, guid: 196d0a04e5bc8488fa390039002d515c, type: 3}
-  cost: 100
+  cost: 150
   description: Zaarian Rocket Boosters - Allows you to pogo in the air one time
   type: 0

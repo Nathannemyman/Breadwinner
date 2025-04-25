@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Fishing Rod
   sprite: {fileID: 3032855284440637491, guid: 58d4b410885d6d8478221ab636ede98f, type: 3}
-  cost: 50
+  cost: 120
   description: Krey's Fishing Rod - After doing a flip in the air, double the money
     of the next civilian you rob. The flip is reminiscent of Krey's fishing technique
   type: 8
