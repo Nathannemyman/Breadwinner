@@ -31,7 +31,7 @@ public class DeathShop : MonoBehaviour
 
             for (int i = 0; i < buttons.Length; i++)
             {
-                if(GameData.Instance.collectables.Contains(collectables[i])) {
+                if(GameData.Instance.Collectables.Contains(collectables[i])) {
                     Debug.Log("Has This " + collectables[i].ToString());
                 }
     
