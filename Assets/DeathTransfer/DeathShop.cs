@@ -70,4 +70,10 @@ public class DeathShop : MonoBehaviour
     {
         Cursor.SetCursor(null, Vector2.zero, UnityEngine.CursorMode.Auto);
     }
+
+    public void Reset()
+    {
+        if (GameData.Instance != null) GameData.Instance.ResetRuntimeData();
+        if (GameManager.Instance != null) GameManager.Instance.DestroyThis();
+    }
 }
