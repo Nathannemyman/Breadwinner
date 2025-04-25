@@ -17,7 +17,7 @@ public class GameData : MonoBehaviour
     public int Hearts { get; private set; }
     public int StartingHealth { get; private set; }
 
-    private List<CollectableSO> collectables;
+    public List<CollectableSO> Collectables { get; private set; }
 
 
     private void Awake()
@@ -30,7 +30,7 @@ public class GameData : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            collectables = new();
+            Collectables = new();
         }
     }
 
@@ -62,7 +62,7 @@ public class GameData : MonoBehaviour
 
     public void AddCollectable(CollectableSO collectable)
     {
-        collectables.Add(collectable);
+        Collectables.Add(collectable);
     }
 
     public void SetTimeItTookToWin(float value)
@@ -101,11 +101,11 @@ public class GameData : MonoBehaviour
     {
         Money = 0;
         BankAccountMoney = 0;
-        collectables.Clear();
+        Collectables.Clear();
     }
 
     public bool HasItem(CollectableType type)
     {
-        return collectables.Any(c => c.Type == type);
+        return Collectables.Any(c => c.Type == type);
     }
 }
