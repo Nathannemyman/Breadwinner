@@ -7,14 +7,14 @@ using UnityEngine.SceneManagement;
 
 public class GameData : MonoBehaviour
 {
-    public static GameData Instance {  get; private set; }
+    public static GameData Instance { get; private set; }
 
     public int Money { get; private set; }
     public int BankAccountMoney { get; private set; }
     public int PoliceKilled { get; private set; }
-    public float TimeItTookToFinish {  get; private set; }
-    public float StartingTime {  get; private set; }
-    public int Hearts {  get; private set; }
+    public float TimeItTookToFinish { get; private set; }
+    public float StartingTime { get; private set; }
+    public int Hearts { get; private set; }
     public int StartingHealth { get; private set; }
 
     private List<CollectableSO> collectables;

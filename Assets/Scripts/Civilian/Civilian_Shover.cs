@@ -163,8 +163,8 @@ public class Civilian_Shover : MonoBehaviour
             // Make sure animator is running at normal speed
             animator.speed = 1;
 
-            // Set the animation parameter
-            animator.SetBool("IsPunching", true);
+            // Set the animation trigger instead of bool
+            animator.SetTrigger("IsPunching");
 
             Debug.Log("Starting punch animation immediately after windup");
         }
@@ -425,7 +425,8 @@ public class Civilian_Shover : MonoBehaviour
                 // If in windup phase, we wait to set the punch animation
                 if (animator != null && !isWindupPhase)
                 {
-                    animator.SetBool("IsPunching", true);
+                    // Use trigger instead of bool
+                    animator.SetTrigger("IsPunching");
                     animator.speed = 1;
                 }
             }
@@ -504,7 +505,7 @@ public class Civilian_Shover : MonoBehaviour
         // Ensure animation is properly reset before resuming movement
         if (animator != null)
         {
-            animator.SetBool("IsPunching", false);
+            // No need to set the trigger to false as it resets automatically
             animator.speed = 1;  // Make sure animation speed is normal
 
             // Force a small frame update to ensure animation transitions correctly
