@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Cringe Speaker
   m_EditorClassIdentifier: 
   title: Cringe Speaker
+  sprite: {fileID: -2410733069243754256, guid: 920dea00378314b4a9dcc695929a9ab5, type: 3}
   cost: 300
   description: Cringe Speaker- Blast Civilians through contact
   type: 4

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Todd's Mystery Check
   m_EditorClassIdentifier: 
   title: Mystery Check
-  cost: 300
+  sprite: {fileID: 1008952098633604890, guid: a619464857cbc2949b046fc5d0cf5005, type: 3}
+  cost: 69
   description: Todd's Mystery Check - Doubles Amount of money in bank account or
     lose half
   type: 5

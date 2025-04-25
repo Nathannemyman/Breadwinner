@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Traffic Light Remote
   m_EditorClassIdentifier: 
   title: Traffic Light
+  sprite: {fileID: -332233981676622189, guid: ca70af0b93a76fe4f908d2c955ff021e, type: 3}
   cost: 20
   description: Traffic Light Remote-Extend Timer by 1 minute -
   type: 7
