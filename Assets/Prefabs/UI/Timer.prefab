@@ -205,7 +205,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5:00:00
+  m_text: 3:00:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c34448fbd0ba42a48b436e364b326c1b, type: 2}
   m_sharedMaterial: {fileID: -7817292068650798635, guid: c34448fbd0ba42a48b436e364b326c1b, type: 2}
@@ -288,6 +288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0197cafcab98ee64889e9351e6841bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerDuration: 300
+  timerDuration: 180
   textObject: {fileID: 4596869499186534718}
   milisecObject: {fileID: 9181886741104967238}

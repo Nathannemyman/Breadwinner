@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager _Instance;
