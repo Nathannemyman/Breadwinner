@@ -15,5 +15,6 @@ MonoBehaviour:
   title: Rocket Booster
   sprite: {fileID: 21300000, guid: 196d0a04e5bc8488fa390039002d515c, type: 3}
   cost: 150
-  description: Zaarian Rocket Boosters - Allows you to pogo in the air one time
+  description: 'Zaarian Rocket Boosters: Allows you to pogo in the air one time using
+    the power of Zaarian technology! (Lab Smackdown reference item)'
   type: 0

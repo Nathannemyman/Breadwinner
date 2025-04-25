@@ -15,5 +15,7 @@ MonoBehaviour:
   title: Traffic Light
   sprite: {fileID: -332233981676622189, guid: ca70af0b93a76fe4f908d2c955ff021e, type: 3}
   cost: 100
-  description: Traffic Light Remote-Extend Timer by 1 minute -
+  description: Traffic Light Remote - This nifty little device let's you control
+    traffic lights! Doubles the amount of time on the timer by keeping Vanessa in
+    traffic!
   type: 7

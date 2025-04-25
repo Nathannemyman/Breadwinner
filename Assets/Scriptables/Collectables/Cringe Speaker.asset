@@ -15,5 +15,8 @@ MonoBehaviour:
   title: Cringe Speaker
   sprite: {fileID: -2410733069243754256, guid: 920dea00378314b4a9dcc695929a9ab5, type: 3}
   cost: 500
-  description: Cringe Speaker- Blast Civilians through contact
+  description: 'Cringe Speaker: Blasts Civilians through contact at the beginning
+    of a run because of the sheer power of brainrot
+
+'
   type: 4

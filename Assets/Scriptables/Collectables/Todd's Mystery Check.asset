@@ -15,6 +15,7 @@ MonoBehaviour:
   title: Mystery Check
   sprite: {fileID: 1008952098633604890, guid: a619464857cbc2949b046fc5d0cf5005, type: 3}
   cost: 69
-  description: Todd's Mystery Check - Doubles Amount of money in bank account or
-    lose half
+  description: 'Todd''s Mystery Check: Can be bought more than once. Doubles Amount
+    of money in bank account or lose half. I won''t tell the IRS if you don''t! (Loads
+    of Money reference item)'
   type: 5

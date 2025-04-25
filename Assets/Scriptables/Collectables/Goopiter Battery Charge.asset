@@ -15,5 +15,7 @@ MonoBehaviour:
   title: Goopiter Battery
   sprite: {fileID: 797343066402451576, guid: 7a8839f693cd599429ba4573d34d845e, type: 3}
   cost: 100
-  description: Goopiter Battery Charge-Speed of Charge (Increased acceleration)
+  description: 'Goopiter Battery Charge: Reduces the amount of time it takes to fully
+    charge El Pogo through state of the art Goopiter batteries! (Goo Grinder reference
+    item)'
   type: 3

@@ -15,5 +15,6 @@ MonoBehaviour:
   title: Energy Drink
   sprite: {fileID: 7010517541535832528, guid: b37cab500d39b724d962961a38c7a6c5, type: 3}
   cost: 100
-  description: 'Energy Drink (Pogo Punch)- Increase speed of El Pogo by 50% '
+  description: ' Energy Drink (Pogo Punch): Increases the speed of El Pogo! The pogo
+    courses through you!'
   type: 2
