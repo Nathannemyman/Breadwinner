@@ -90,6 +90,7 @@ public class PogoStickMovement : MonoBehaviour
     public bool stunned = false;
 
     public bool canDoubleJump;
+    public bool canFlip = false;
     public bool doubleJump = true;
     public bool frontFlipped = false;
     public float energyValue;
@@ -148,6 +149,12 @@ public class PogoStickMovement : MonoBehaviour
             {
                 canDoubleJump = true;
                 Debug.Log("ROCKET BOOTS IN HAND");
+            }
+
+            if (GameData.Instance.HasItem(CollectableType.KreysFishingRod))
+            {
+                canFlip = true;
+                Debug.Log("FISHING ROD IN HAND");
             }
         }
 
@@ -513,7 +520,7 @@ public class PogoStickMovement : MonoBehaviour
                 currentLeanAngle = Mathf.MoveTowards(currentLeanAngle, 0f, leanReturnSpeed * Time.deltaTime);
             }
         }
-        if (currentLeanAngle >= 360 || currentLeanAngle <= -360)
+        if (currentLeanAngle >= 360 && canFlip || currentLeanAngle <= -360 && canFlip)
         {
             Debug.Log("READY!");
             frontFlipped = true;
