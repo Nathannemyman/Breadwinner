@@ -10,6 +10,7 @@ public class CinemachineZoomOnJump : MonoBehaviour
     [SerializeField] private float zoomSpeed;
     [SerializeField] private Rigidbody2D playerRb;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private float minimumOrthoSize = 3f;
     private CinemachineConfiner2D confiner;
 
     private bool isJumping = false;
@@ -119,7 +120,7 @@ public class CinemachineZoomOnJump : MonoBehaviour
         // Get the most constraining factor with a small margin
         float maxPossibleOrthoSize = Mathf.Min(maxWidthBasedOrthoSize, maxHeightBasedOrthoSize) * 0.95f;
 
-        // Return the smallest of the desired and maximum possible sizes
-        return Mathf.Min(desiredSize, maxPossibleOrthoSize);
+        // Return the smallest of the desired and maximum possible sizes, but never smaller than minimum
+        return Mathf.Max(minimumOrthoSize, Mathf.Min(desiredSize, maxPossibleOrthoSize));
     }
 }
