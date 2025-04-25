@@ -54,7 +54,7 @@ public class DeathShopButton : MonoBehaviour
             else GameData.Instance.SpendBankMoney(GameData.Instance.BankAccountMoney / 2);
 
             if (!GameData.Instance.HasItem(CollectableType.ToddsMysteryCheck)) GameData.Instance.AddCollectable(Data);
-            GameData.Instance.SpendBankMoney(Data.Cost);
+            //GameData.Instance.SpendBankMoney(Data.Cost);
             Erase();
             bought = true;
         }
