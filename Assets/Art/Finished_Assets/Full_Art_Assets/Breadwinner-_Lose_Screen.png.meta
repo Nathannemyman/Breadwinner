@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Breadwinner-_Lose_Screen_0: 5506912096705928196
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
