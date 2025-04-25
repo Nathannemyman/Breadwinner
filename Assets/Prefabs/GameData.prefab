@@ -44,3 +44,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2a838b5654c604891691227aa14ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onFirstTimeLoad:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AnimatorBoolSetter, Assembly-CSharp
+        m_MethodName: SetBoolTrue
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Open
+          m_BoolArgument: 0
+        m_CallState: 2
