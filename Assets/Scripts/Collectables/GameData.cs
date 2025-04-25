@@ -7,18 +7,17 @@ using UnityEngine.SceneManagement;
 
 public class GameData : MonoBehaviour
 {
-    public static GameData Instance {  get; private set; }
+    public static GameData Instance { get; private set; }
 
     public int Money { get; private set; }
     public int BankAccountMoney { get; private set; }
     public int PoliceKilled { get; private set; }
-    public float TimeItTookToFinish {  get; private set; }
-    public float StartingTime {  get; private set; }
-    public int Hearts {  get; private set; }
+    public float TimeItTookToFinish { get; private set; }
+    public float StartingTime { get; private set; }
+    public int Hearts { get; private set; }
     public int StartingHealth { get; private set; }
-    
-    private List<CollectableSO> collectables;
 
+    private List<CollectableSO> collectables;
 
 
     private void Awake()
@@ -29,7 +28,6 @@ public class GameData : MonoBehaviour
         }
         else
         {
-            Money = 999999;
             Instance = this;
             DontDestroyOnLoad(gameObject);
             collectables = new();
@@ -64,7 +62,6 @@ public class GameData : MonoBehaviour
 
     public void AddCollectable(CollectableSO collectable)
     {
-        Debug.Log("BOUGHT COLLECTABLE: " + collectable);
         collectables.Add(collectable);
     }
 

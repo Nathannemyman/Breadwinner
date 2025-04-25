@@ -21,10 +21,9 @@ public class DeathCollision : MonoBehaviour
     private Rigidbody2D playerBody;
     private Animator civilianAnimator;
     [SerializeField] private AudioClip killCivilianSFX;
-    [SerializeField] private AudioClip flyingCivilianSFX;
-    [SerializeField] private AudioClip exitSFX;
     private AudioSource killCivilianAudio;
     private AudioSource shootCivilianAudio;
+    private int styleBonus = 1;
 
     void Start()
     {
@@ -74,7 +73,6 @@ public class DeathCollision : MonoBehaviour
         {
             string parentTag = transform.parent.tag;
 
-
             foreach (Collider2D col in allColliders)
             {
                 col.enabled = true;
@@ -92,40 +90,49 @@ public class DeathCollision : MonoBehaviour
             RunDeathFunction();
             hasRunDeathFunction = true;
         }
-
     }
+
     IEnumerator PlayKillSFX()
     {
-        killCivilianAudio.clip = killCivilianSFX;
-        killCivilianAudio.loop = false; //play the kill civilian sfx once
-        killCivilianAudio.Play();
+        Debug.Log("Playing Kill SFX----------");
 
-        shootCivilianAudio.clip = flyingCivilianSFX;
-        shootCivilianAudio.loop = false; //play the flying civilian sfx once
-        shootCivilianAudio.Play();
-        yield return new WaitForSeconds(killCivilianSFX.length);
-        yield return new WaitForSeconds(killCivilianSFX.length);
-
-
-        if (!CheckVisibility() && hasRunDeathFunction)
+        // Only play audio if both the AudioSource and AudioClip exist
+        if (killCivilianAudio != null && killCivilianSFX != null)
         {
-            Debug.Log("Exploding Civilian!!");
-            killCivilianAudio.clip = exitSFX;
-            killCivilianAudio.loop = false; //play the exit sfx(the explosion) once
+            killCivilianAudio.clip = killCivilianSFX;
+            killCivilianAudio.loop = false; // Play the kill civilian sfx once
             killCivilianAudio.Play();
-            yield return new WaitForSeconds(exitSFX.length);
-            killCivilianAudio.Stop();
+
+            // Wait for the sound to finish
+            yield return new WaitForSeconds(killCivilianSFX.length);
+
+            if (!CheckVisibility() && hasRunDeathFunction)
+            {
+                Debug.Log("Exploding Civilian!!");
+                yield return new WaitForSeconds(0.5f);
+            }
+
+            if (killCivilianAudio != null)
+            {
+                killCivilianAudio.Stop();
+            }
         }
-        killCivilianAudio.Stop();
+        else
+        {
+            // If no audio components, just wait a moment
+            yield return new WaitForSeconds(1.0f);
+        }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Pogo_Bottom_Hitbox" &&
-            collision.GetComponent<BoxCollider2D>() != null)
+        if (collision.gameObject.name == "Pogo_Bottom_Hitbox" && collision.GetComponent<BoxCollider2D>() != null)
         {
             isCollidingWithPogo = true;
-            //StartCoroutine(PlayKillSFX());
-            //AudioSource.PlayClipAtPoint(killCivilianSFX, transform.position);
+            if (pogoStickMovement.frontFlipped)
+            {
+                styleBonus = 3;
+            }
         }
     }
 
@@ -137,9 +144,13 @@ public class DeathCollision : MonoBehaviour
             isCollidingWithPogo = false;
         }
     }
+
     private bool CheckVisibility()
     {
-        Vector3 viewportPoint = Camera.main.WorldToViewportPoint(transform.position); //checks if the civilian is on the screen
+        if (Camera.main == null)
+            return false;
+
+        Vector3 viewportPoint = Camera.main.WorldToViewportPoint(transform.position); // Checks if the civilian is on the screen
         return viewportPoint.x >= 0 && viewportPoint.x <= 1 && viewportPoint.y >= 0 && viewportPoint.y <= 1 && viewportPoint.z > 0;
     }
 
@@ -160,7 +171,8 @@ public class DeathCollision : MonoBehaviour
 
         Vector2 shootDirection = GetShootDirection();
         Vector2 force = shootDirection.normalized * shootSpeed;
-        StartCoroutine(PlayKillSFX()); // taco bell bong plays when civilian dies, not when pogo collides with player
+        StartCoroutine(PlayKillSFX()); // Play kill sound for both civilians and police officers
+
         // Apply force to civilian
         parentRb.AddForce(force, ForceMode2D.Impulse);
         parentRb.AddTorque(rotationForce * (invertDirection ? -1 : 1), ForceMode2D.Impulse);
@@ -189,20 +201,32 @@ public class DeathCollision : MonoBehaviour
         {
             civilianAnimator.speed = 0; // pause animation
         }
-
-        int moneyToAdd = 10;
+        int moneyToAdd = 10 * styleBonus;
+        Debug.Log("GOT " + moneyToAdd);
         if (GameData.Instance != null)
         {
             if (GameData.Instance.HasItem(CollectableType.LethalFaceCard))
             {
-                GameData.Instance.AddMoney(moneyToAdd * 2);
-                GameManager.Instance.Money += moneyToAdd * 2;
+                if (!isPoliceOfficer)
+                {
+                    GameData.Instance.AddMoney(moneyToAdd * 2);
+                    GameManager.Instance.Money += moneyToAdd * 2;
+                }
             }
             else GameData.Instance.AddMoney(moneyToAdd);
-            GameManager.Instance.Money += moneyToAdd;
+            if (!isPoliceOfficer)
+            {
+                GameManager.Instance.Money += moneyToAdd;
+            }
             if (isPoliceOfficer) GameData.Instance.PoliceOfficerKilled();
         }
-        else GameManager.Instance.Money += moneyToAdd;
+        else
+        {
+            if (!isPoliceOfficer)
+            {
+                GameManager.Instance.Money += moneyToAdd;
+            }
+        }
         GameManager.Instance.policeSpawning = true;
     }
 

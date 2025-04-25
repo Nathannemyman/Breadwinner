@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-
 public class GameManager : MonoBehaviour
 {
     private static GameManager _Instance;
@@ -70,22 +69,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Money = 0;
-    }
-
-    public void OpenShop()
-    {
-        ShopOpen = true;
-        PlayeSceneObjects.SetActive(false);
-        SceneHelper.LoadScene("BreadBuyingMenu", true);
-    }
-
-    public void CloseShop()
-    {
-        ShopOpen = false;
-        SceneHelper.UnloadScene("BreadBuyingMenu");
-        CallAfterDelay.Create(1.0f, () => {
-            PlayeSceneObjects.SetActive(true);
-        });
     }
 
     public UnityAction onPlayerDamage;

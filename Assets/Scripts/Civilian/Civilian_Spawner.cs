@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
     public float startPoliceInterval = 10f;
     public float endPoliceInterval = 1f;
 
-    private float totalGameTime = 300f;
+    private float totalGameTime = 180f;
     private float currentCivilianInterval;
     private float currentPoliceInterval;
     private float timeSinceLastCivilianSpawn = 0f;
