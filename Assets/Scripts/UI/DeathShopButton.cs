@@ -52,7 +52,7 @@ public class DeathShopButton : MonoBehaviour
         {
             int choice = Random.Range(0, 2);
             if (choice == 0) GameData.Instance.AddBankMoney(GameData.Instance.BankAccountMoney);
-            else GameData.Instance.SpendBankMoney(GameData.Instance.BankAccountMoney);
+            else GameData.Instance.SpendBankMoney(GameData.Instance.BankAccountMoney/2);
         }
         else
         {
