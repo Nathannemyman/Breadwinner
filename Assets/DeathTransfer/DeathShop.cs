@@ -31,20 +31,22 @@ public class DeathShop : MonoBehaviour
 
             for (int i = 0; i < buttons.Length; i++)
             {
-                if(GameData.Instance.collectables.Contains(collectList[i])) {
+                if(GameData.Instance.Collectables.Contains(collectables[i])) {
                     Debug.Log("Has This " + collectables[i].ToString());
-//                    collectList.Remove(collectList[i]));
                 }
     
             }
 
         }
 
+        List<CollectableSO> availableCollectables = collectables.Where(x => GameData.Instance.HasItem(x.Type)).ToList();
+        if (availableCollectables.Count <= 0) return;
+
         for (int i = 0; i < buttons.Length; i++)
         {
-            CollectableSO chosenCollectible = collectList[Random.Range(0, collectList.Count)];
+            CollectableSO chosenCollectible = availableCollectables[Random.Range(0, availableCollectables.Count)];
             buttons[i].Initiate(chosenCollectible);
-            collectList.Remove(chosenCollectible);
+            availableCollectables.Remove(chosenCollectible);
             buttons[i].BuyButton.onClick.AddListener(() => SetMoneyText());
         }
 
