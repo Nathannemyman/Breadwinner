@@ -129,6 +129,7 @@ public class DeathCollision : MonoBehaviour
             {
                 styleBonus = 3;
             }
+            pogoStickMovement.frontFlipped = false;
             //StartCoroutine(PlayKillSFX());
             //AudioSource.PlayClipAtPoint(killCivilianSFX, transform.position);
         }
