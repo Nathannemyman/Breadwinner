@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: b6f9f932a35d84fe7b37b945b6803411
+guid: 907a48b9d69b3714f9c280048b0d00ef
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1377611894644834777
-    second: Breadwinner_TitleLogo_Final11_title logo_0
-  - first:
-      213: -5137012723145414249
-    second: Breadwinner_TitleLogo_Final11_title logo_1
-  - first:
-      213: 2518891179788668813
-    second: Breadwinner_TitleLogo_Final11_title logo_2
-  - first:
-      213: -4344572373102906505
-    second: Breadwinner_TitleLogo_Final11_title logo_3
+      213: 6896414498593361116
+    second: tile018_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -55,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 112
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -84,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -135,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Breadwinner_TitleLogo_Final11_title logo_0
+      name: tile018_0
       rect:
         serializedVersion: 2
-        x: 30
-        y: 40
-        width: 2563
-        height: 608
+        x: 0
+        y: 0
+        width: 83
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,74 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 72e775dd74db1ece0800000000000000
-      internalID: -1377611894644834777
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Breadwinner_TitleLogo_Final11_title logo_1
-      rect:
-        serializedVersion: 2
-        x: 2599
-        y: 43
-        width: 287
-        height: 376
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7996146352aa5b8b0800000000000000
-      internalID: -5137012723145414249
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Breadwinner_TitleLogo_Final11_title logo_2
-      rect:
-        serializedVersion: 2
-        x: 2892
-        y: 43
-        width: 241
-        height: 376
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d8f0b2fae26e4f220800000000000000
-      internalID: 2518891179788668813
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Breadwinner_TitleLogo_Final11_title logo_3
-      rect:
-        serializedVersion: 2
-        x: 3139
-        y: 43
-        width: 264
-        height: 376
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 773b938f17af4b3c0800000000000000
-      internalID: -4344572373102906505
+      spriteID: cdcc28c927cf4bf50800000000000000
+      internalID: 6896414498593361116
       vertices: []
       indices: 
       edges: []
@@ -226,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -236,10 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Breadwinner_TitleLogo_Final11_title logo_0: -1377611894644834777
-      Breadwinner_TitleLogo_Final11_title logo_1: -5137012723145414249
-      Breadwinner_TitleLogo_Final11_title logo_2: 2518891179788668813
-      Breadwinner_TitleLogo_Final11_title logo_3: -4344572373102906505
+      tile018_0: 6896414498593361116
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
