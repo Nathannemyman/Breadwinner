@@ -27,6 +27,18 @@ public class DeathShop : MonoBehaviour
         buttons[1].BuyButton.onClick.AddListener(() => buttons[1].Buy());
         buttons[2].BuyButton.onClick.AddListener(() => buttons[2].Buy());
 
+        if (GameData.Instance != null) {
+
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if(GameData.Instance.collectables.Contains(collectables[i])) {
+                    Debug.Log("Has This " + collectables[i].ToString());
+                }
+    
+            }
+
+        }
+
         for (int i = 0; i < buttons.Length; i++)
         {
             CollectableSO chosenCollectible = collectList[Random.Range(0, collectList.Count)];

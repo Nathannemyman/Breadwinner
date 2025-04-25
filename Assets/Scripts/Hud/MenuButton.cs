@@ -7,6 +7,11 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject buttonToDisable;
 
+    // Optional serialized audio references in case you want to assign them directly in this script
+    [SerializeField] private AudioSource gameplayTheme;
+    [SerializeField] private AudioSource bakeryTheme;
+    [SerializeField] private AudioSource gameplayBreadTheme;
+
     public void Awake()
     {
         Time.timeScale = 1f; // Normal time 
@@ -22,6 +27,9 @@ public class MainMenu : MonoBehaviour
             GameManager.Instance.Money -= 100;
             GameManager.Instance.HasBread = true;
 
+            // Set the global bread bought flag
+            BoxCollider2DDetector.breadEverBought = true;
+
             // Disable the referenced GameObject if money was over 100
             if (buttonToDisable != null)
             {
@@ -34,15 +42,49 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void OpenShop()
-    {
-        Time.timeScale = 0f; // Freeze time (Jojo's reference?!?!)
-        Debug.Log("Shop opened, time frozen");
-    }
-
     public void CloseShop()
     {
         Time.timeScale = 1f; // Resume time
+
+        // Stop the bakery theme
+        if (BoxCollider2DDetector.bakeryTheme != null)
+        {
+            BoxCollider2DDetector.bakeryTheme.Stop();
+        }
+        else if (bakeryTheme != null) // Fallback to local reference
+        {
+            bakeryTheme.Stop();
+        }
+
+        // Play the appropriate gameplay theme based on bread status
+        if (BoxCollider2DDetector.breadEverBought || GameManager.Instance.HasBread)
+        {
+            // Play bread gameplay theme
+            if (BoxCollider2DDetector.gameplayBreadTheme != null)
+            {
+                BoxCollider2DDetector.gameplayBreadTheme.Play();
+            }
+            else if (gameplayBreadTheme != null) // Fallback to local reference
+            {
+                gameplayBreadTheme.Play();
+            }
+        }
+        else
+        {
+            // Play normal gameplay theme
+            if (BoxCollider2DDetector.gameplayTheme != null)
+            {
+                BoxCollider2DDetector.gameplayTheme.Play();
+            }
+            else if (gameplayTheme != null) // Fallback to local reference
+            {
+                gameplayTheme.Play();
+            }
+        }
+
+        // Reset ShopOpen flag
+        GameManager.Instance.ShopOpen = false;
+
         Debug.Log("Shop closed, time resumed");
     }
 }
