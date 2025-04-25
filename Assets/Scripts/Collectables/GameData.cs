@@ -17,7 +17,7 @@ public class GameData : MonoBehaviour
     public int Hearts { get; private set; }
     public int StartingHealth { get; private set; }
 
-    private List<CollectableSO> collectables;
+    public List<CollectableSO> collectables;
 
 
     private void Awake()
