@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 1730413747995635894}
   - component: {fileID: 188686796497980061}
   m_Layer: 5
-  m_Name: FullScreenPageViewer
+  m_Name: ControlsPageViewer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
