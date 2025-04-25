@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Money = 0;
+        UpdateMoneyCount();
     }
 
     public UnityAction onPlayerDamage;

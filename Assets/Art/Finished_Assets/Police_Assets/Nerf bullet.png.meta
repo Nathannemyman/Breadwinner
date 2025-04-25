@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Nerf bullet_0: -5886075617195905809
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
