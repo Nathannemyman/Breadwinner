@@ -39,19 +39,19 @@ public class DeathShop : MonoBehaviour
 
         }
 
-        List<CollectableSO> availableCollectables = collectables.Where(x => !GameData.Instance.HasItem(x.Type) || x.Type = CollectableType.ToddsMysteryCheck).ToList();
-        if (availableCollectables.Count <= 0) return;
+        if (GameData.Instance != null) GameData.Instance.SendMoneyToBank();
+        SetMoneyText();
+
+        List<CollectableSO> availableCollectables = collectables.Where(x => !GameData.Instance.HasItem(x.Type) || x.Type == CollectableType.ToddsMysteryCheck).ToList();
 
         for (int i = 0; i < buttons.Length; i++)
         {
+            if (availableCollectables.Count <= 0) return;
             CollectableSO chosenCollectible = availableCollectables[Random.Range(0, availableCollectables.Count)];
             buttons[i].Initiate(chosenCollectible);
             availableCollectables.Remove(chosenCollectible);
             buttons[i].BuyButton.onClick.AddListener(() => SetMoneyText());
         }
-
-        if (GameData.Instance != null) GameData.Instance.SendMoneyToBank();
-        SetMoneyText();
 
         //Cursor.SetCursor(cursorTexture, Vector2.zero, UnityEngine.CursorMode.Auto);
     }
@@ -69,5 +69,11 @@ public class DeathShop : MonoBehaviour
     public void Continue()
     {
         Cursor.SetCursor(null, Vector2.zero, UnityEngine.CursorMode.Auto);
+    }
+
+    public void Reset()
+    {
+        if (GameData.Instance != null) GameData.Instance.ResetRuntimeData();
+        if (GameManager.Instance != null) GameManager.Instance.DestroyThis();
     }
 }

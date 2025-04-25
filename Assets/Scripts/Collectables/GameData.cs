@@ -100,6 +100,7 @@ public class GameData : MonoBehaviour
     {
         TimeItTookToFinish = 0;
         PoliceKilled = 0;
+        Money = 0;
     }
 
     public void ResetGameData()
