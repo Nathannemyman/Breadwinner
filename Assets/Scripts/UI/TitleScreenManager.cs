@@ -6,6 +6,10 @@ public class TitleScreenManager : MonoBehaviour
     public GameObject creditsPanel;   // Assign the Credits Panel in the inspector
     public GameObject titleCard;      // Assign the Title Card (Logo or Title UI)
 
+    private void Awake()
+    {
+        Screen.SetResolution(1920, 1080, true);
+    }
     public void NewGame()
     {
         if (GameData.Instance != null)

@@ -7718,10 +7718,10 @@ MonoBehaviour:
   timer: {fileID: 0}
   despawnDistance: 40
   cringeSpeakerActive: 1
-  startCivilianInterval: 0.3
+  startCivilianInterval: 0.5
   endCivilianInterval: 6
-  startPoliceInterval: 7
-  endPoliceInterval: 0.6
+  startPoliceInterval: 8
+  endPoliceInterval: 0.8
 --- !u!1 &1244218828
 GameObject:
   m_ObjectHideFlags: 0
@@ -11231,7 +11231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d785718286b645d42935bb7ebea1a5f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeToEnable: {fileID: 0}
+  nodeToEnable: {fileID: 1400218944}
   _gameplayTheme: {fileID: 2056772736}
   _bakeryTheme: {fileID: 1032167468}
   _gameplayBreadTheme: {fileID: 2099952659}
